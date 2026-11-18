@@ -9,6 +9,7 @@ Each page explains what the module does, how to use it step by step, its real me
 | [Installation and First Run](installation.md) | `installation` | [Español](../es/installation.md) |
 | [Chat, Artifacts, and History Search](chat.md) | `chat` | [Español](../es/chat.md) |
 | [Specialists, Router, and Multi-Mind Mode](specialists.md) | `specialists` | [Español](../es/specialists.md) |
+| [Build Your First Custom Specialist](first-specialist.md) | `first-specialist` | [Español](../es/first-specialist.md) |
 | [Projects and Workspace](projects.md) | `projects` | [Español](../es/projects.md) |
 | [Neural Memory, Indexed Folders, Glossary, Tutor, and Graph](memory.md) | `memory` | [Español](../es/memory.md) |
 | [Spike Forge and Parallel Prototypes](forge.md) | `forge` | [Español](../es/forge.md) |
@@ -22,6 +23,7 @@ Each page explains what the module does, how to use it step by step, its real me
 | [Spike Finance in Simulated Mode (Paper Trading and Backtesting)](finance.md) | `finance` | [Español](../es/finance.md) |
 | [MCP Connectors, Assisted Browser, and Desktop Actions](connectors.md) | `connectors` | [Español](../es/connectors.md) |
 | [Privacy, Sandbox, Permissions, Trust, and Spend Control](privacy-and-spend.md) | `privacy-and-spend` | [Español](../es/privacy-and-spend.md) |
+| [Backups, Data Wipe, Command Palette, Task Space, and GitHub Skill Inspector](workspace-governance.md) | `workspace-governance` | [Español](../es/workspace-governance.md) |
 | [FAQ & Troubleshooting](faq.md) | `faq` | [Español](../es/faq.md) |
 
 Command line: every `spike` command and option is in [cli.md](cli.md), generated from the code.
