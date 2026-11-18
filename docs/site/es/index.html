@@ -1,0 +1,210 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; style-src 'self'; script-src 'self'; connect-src 'none'; frame-src 'none'; base-uri 'self'; form-action 'none'">
+  <title>SPIKE · Espacio Local de Especialistas 4B con Pruebas Medidas</title>
+  <meta name="description" content="13 especialistas de dominio sobre un modelo base Qwen3.5-4B y un enrutador léxico sin coste en un equipo de 16 GB. Apache-2.0, sin rastreadores y con recibos verificables.">
+  <link rel="icon" type="image/png" href="../assets/favicon-32.png">
+  <link rel="apple-touch-icon" href="../assets/apple-touch-icon.png">
+  <link rel="stylesheet" href="../assets/pages.css">
+  <link rel="alternate" hreflang="en" href="../index.html">
+  <link rel="alternate" hreflang="es" href="index.html">
+</head>
+<body>
+  <a class="skip-link" href="#main-content">Saltar al contenido principal</a>
+
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="brand-link" href="index.html">
+        <img src="../assets/spike-wordmark-white.png" width="122" height="31" alt="SPIKE">
+        <span class="brand-pill">v0.1 · Apache-2.0</span>
+      </a>
+      <nav class="site-nav" aria-label="Navegación principal">
+        <ul>
+          <li><a href="#demo">Demo simulada</a></li>
+          <li><a href="#receipts">Cifras medidas</a></li>
+          <li><a href="#install">Instalar (&le; 3 órdenes)</a></li>
+          <li><a href="#limits">Límites reales</a></li>
+          <li><a href="https://github.com/oddlyprovenai/spike">GitHub</a></li>
+          <li><a href="../index.html" hreflang="en" lang="en">English</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main-content">
+    <div class="hero">
+      <div class="container hero-grid">
+        <div>
+          <span class="eyebrow">Oddly Proven Lab &middot; IA Local Medida</span>
+          <h1>13 especialistas sobre un solo modelo de 4B, pensados para un ordenador normal de 16&nbsp;GB.</h1>
+          <p class="hero-lead">
+            SPIKE combina <code>Qwen3.5-4B</code> (<code>Q4_K_M</code>, <code>llama.cpp</code>) con un enrutador léxico de ~1&nbsp;ms, herramientas aisladas con permisos, Memoria neuronal, MCP Apps y proveedores externos tras una guarda estricta de privacidad y gasto.
+          </p>
+          <div class="honesty-banner">
+            <strong>Estado actual:</strong> 13 especialistas comparten un modelo base; <strong>1 adaptador (Medicina) ha superado su puerta de aceptación hasta hoy</strong> (aún no publicado en Hugging Face). Finanzas fue rechazado en rondas 1 y 2 por olvido general; 12 especialistas operan hoy como perfiles marcados <strong>&beta;</strong>.
+          </div>
+          <div class="cta-row">
+            <a class="btn-primary" href="#install">Instalar en 3 comandos</a>
+            <a class="btn-secondary" href="https://github.com/oddlyprovenai/spike/blob/main/docs/STATUS.md">Leer docs/STATUS.md</a>
+          </div>
+        </div>
+        <img class="hero-mascot" src="../assets/spike-mark-512.png" width="512" height="512" alt="Mascota cactus verde de SPIKE">
+      </div>
+    </div>
+
+    <section id="demo" aria-labelledby="demo-heading">
+      <div class="container">
+        <h2 id="demo-heading">Terminal y Enrutador Interactivos (Simulación)</h2>
+        <p class="section-sub">
+          Simulación offline construida directamente con las cifras registradas en el repositorio. La captura en vídeo real con pesos cargados corresponde a la tarea de lanzamiento <code>L1</code>.
+        </p>
+
+        <div class="replay-shell" id="spike-replay">
+          <div class="replay-topbar">
+            <div class="window-dots" aria-hidden="true">
+              <span class="dot dot-red"></span>
+              <span class="dot dot-orange"></span>
+              <span class="dot dot-green"></span>
+              <span>lab@mac-studio ~ %</span>
+            </div>
+            <span class="sim-badge">SIMULACIÓN OFFLINE &middot; CERO RED</span>
+          </div>
+
+          <div class="replay-tabs" role="tablist" aria-label="Escenarios simulados de terminal">
+            <button class="replay-tab" role="tab" id="tab-install" aria-controls="replay-panel" aria-selected="true" type="button">01 &middot; Instalación</button>
+            <button class="replay-tab" role="tab" id="tab-router" aria-controls="replay-panel" aria-selected="false" tabindex="-1" type="button">02 &middot; Router ~1 ms</button>
+            <button class="replay-tab" role="tab" id="tab-gates" aria-controls="replay-panel" aria-selected="false" tabindex="-1" type="button">03 &middot; Veredictos</button>
+            <button class="replay-tab" role="tab" id="tab-hw" aria-controls="replay-panel" aria-selected="false" tabindex="-1" type="button">04 &middot; Velocidad 16 GB</button>
+          </div>
+
+          <div class="replay-controls">
+            <span id="replay-caption">Simulación 1/4: Instalación limpia en 3 comandos y verificación SHA-256</span>
+            <button class="replay-btn" id="replay-restart" type="button">Repetir pasos</button>
+          </div>
+
+          <div id="replay-panel" role="tabpanel" aria-labelledby="tab-install">
+            <pre class="terminal-screen" id="replay-screen" aria-live="polite" tabindex="0"><span class="term-prompt">lab@mac-studio ~ %</span> ./scripts/install.sh --yes
+[ok] Qwen3.5-4B-Q4_K_M.gguf · SHA-256 verificado · holdout ciego del router 116/130 = 0.89</pre>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="receipts" aria-labelledby="receipts-heading">
+      <div class="container">
+        <h2 id="receipts-heading">Cifras Reales con su Registro</h2>
+        <p class="section-sub">
+          Cada dato procede de los registros JSON versionados en <a href="https://github.com/oddlyprovenai/spike/blob/main/docs/results/specialists.json">docs/results/specialists.json</a> y <a href="https://github.com/oddlyprovenai/spike/blob/main/docs/STATUS.md">docs/STATUS.md</a>.
+        </p>
+
+        <div class="cards-grid">
+          <article class="card">
+            <span class="badge-ok">MEDIDO</span>
+            <h3>Router Léxico: 116/130 (0.89)</h3>
+            <p>Evaluado una sola vez en un conjunto ciego de 130 consultas ES/EN redactadas sin ver las palabras clave (IC Wilson 95% <code>0.83&ndash;0.93</code>; ~1&nbsp;ms en CPU).</p>
+          </article>
+          <article class="card">
+            <span class="badge-ok">ACEPTADO POR SU PUERTA</span>
+            <h3>Medicina Ronda 2 (v1 Rechazada)</h3>
+            <p>La ronda 1 se rechazó (<code>-7.62</code> en general). La ronda 2 con 30% self-replay y escala <code>0.5</code> superó los criterios (<code>31.9% &rarr; 67.0%</code> en <code>2,318</code> preguntas; general <code>-0.62</code> frente al límite <code>-1.50</code>).</p>
+          </article>
+          <article class="card">
+            <span class="badge-warn">RECHAZADO HASTA HOY</span>
+            <h3>Finanzas Rondas 1 y 2</h3>
+            <p>Ambas superaron la mejora de dominio en selección (<code>+5.17</code> y <code>+7.00</code> pts), pero perdieron <code>-3.00</code> y <code>-2.75</code> puntos generales. Finanzas sigue en <strong>&beta;</strong>.</p>
+          </article>
+        </div>
+
+        <div class="caveat-box" role="note">
+          <strong>Advertencia sobre la puntuación base de Medicina Ronda 2:</strong> con el extractor inicial, el modelo base dejó <code>409</code> de <code>1,000</code> respuestas sin parsear en MedMCQA y <code>241</code> de <code>818</code> en MMLU-Pro health (contadas como fallos, frente a <code>26</code> y <code>16</code> con el adaptador), lo que infla la diferencia bruta hasta que se publique el re-scoring en <code>main</code>. Solo sobre respuestas legibles, MedMCQA pasa de <code>0.467 &rarr; 0.660</code>; en PubMedQA (<code>0</code> respuestas base sin parsear) sube de <code>0.422 &rarr; 0.804</code> (<code>+38.20</code> pts).
+        </div>
+
+        <div class="table-scroll" role="region" aria-label="Velocidad y memoria medidas en hardware real" tabindex="0">
+          <table>
+            <caption>Qwen3.5-4B Q4_K_M &middot; llama.cpp &middot; caché KV q8_0 &middot; 128 tokens generados (mediana de 3 pasadas)</caption>
+            <thead>
+              <tr>
+                <th scope="col">Equipo</th>
+                <th scope="col">Contexto</th>
+                <th scope="col">Primera palabra</th>
+                <th scope="col">Generación</th>
+                <th scope="col">Memoria</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th scope="row">16 GB x86, 4 núcleos, solo CPU</th>
+                <td class="num">1K tokens</td>
+                <td class="num">52 s</td>
+                <td class="num">6.2 tok/s</td>
+                <td class="num">3.6 GiB anón. / 6.1 GiB RSS</td>
+              </tr>
+              <tr>
+                <th scope="row">16 GB x86, 4 núcleos, solo CPU</th>
+                <td class="num">8K tokens</td>
+                <td class="num">13 min</td>
+                <td class="num">5.1 tok/s</td>
+                <td class="num">3.6 GiB anón. / 6.1 GiB RSS</td>
+              </tr>
+              <tr>
+                <th scope="row">Apple M4 Max (36 GB), Metal</th>
+                <td class="num">1K tokens</td>
+                <td class="num">0.9 s</td>
+                <td class="num">82 tok/s</td>
+                <td class="num">3.6 GiB RSS</td>
+              </tr>
+              <tr>
+                <th scope="row">Apple M4 Max (36 GB), Metal</th>
+                <td class="num">8K tokens</td>
+                <td class="num">7.2 s</td>
+                <td class="num">80 tok/s</td>
+                <td class="num">3.6 GiB RSS</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <section id="install" aria-labelledby="install-heading">
+      <div class="container">
+        <h2 id="install-heading">Instalación en 3 Comandos</h2>
+        <p class="section-sub">
+          Escucha únicamente en <code>127.0.0.1</code>. Añade <code>--no-model</code> para omitir los 2,74&nbsp;GB del modelo o <code>--dry-run</code> para previsualizar cada orden sin modificar tu equipo.
+        </p>
+        <pre class="code-box"><code>lab@mac-studio ~ % git clone https://github.com/oddlyprovenai/spike.git &amp;&amp; cd spike
+lab@mac-studio spike % ./scripts/install.sh --yes
+lab@mac-studio spike % spike serve --open</code></pre>
+        <p>
+          Windows PowerShell 5.1 / 7: <code>powershell -ExecutionPolicy Bypass -File scripts\install.ps1 -Yes</code>. Documentación completa: <a href="https://github.com/oddlyprovenai/spike/blob/main/docs/guide/es/README.md">Guía de usuario (ES)</a> &middot; <a href="https://github.com/oddlyprovenai/spike/blob/main/docs/api/es/README.md">Referencia HTTP API</a>.
+        </p>
+      </div>
+    </section>
+
+    <section id="limits" aria-labelledby="limits-heading">
+      <div class="container">
+        <h2 id="limits-heading">Qué NO Afirma SPIKE</h2>
+        <ul>
+          <li><strong>12 de los 13 especialistas aún no tienen adaptador aceptado:</strong> responden como perfiles <strong>&beta;</strong> sobre <code>Qwen3.5-4B</code> hasta superar su propia puerta estadística.</li>
+          <li><strong>Sin afirmaciones de superioridad frente a terceros:</strong> no hemos medido velocidad ni calidad frente a Ollama, LM Studio, Open WebUI ni Jan; consulta la tabla comparativa con fuentes en <a href="https://github.com/oddlyprovenai/spike/blob/main/README.md">README.md</a>.</li>
+          <li><strong>No es asesoramiento profesional ni producto sanitario:</strong> Medicina, Finanzas, Derecho y Seguridad ofrecen únicamente información técnica general.</li>
+          <li><strong>Cero telemetría y CSP estricta en esta web:</strong> la cabecera HTML aplica <code>connect-src 'none'</code> — sin cookies, sin analítica y sin peticiones a terceros.</li>
+        </ul>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <p>
+        <strong>SPIKE</strong> por Oddly Proven Lab &middot; Código bajo <a href="https://github.com/oddlyprovenai/spike/blob/main/LICENSE">Apache-2.0</a> &middot; Avisos de terceros en <a href="https://github.com/oddlyprovenai/spike/blob/main/THIRD_PARTY.md">THIRD_PARTY.md</a> &middot; <a href="../index.html" hreflang="en" lang="en">Read in English</a>.
+      </p>
+    </div>
+  </footer>
+
+  <script src="../assets/replay.js" defer></script>
+</body>
+</html>
