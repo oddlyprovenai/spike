@@ -32,10 +32,14 @@ export function ErrorLog() {
     }
   };
   const clear = async () => {
-    await api.del("/api/errors");
-    setManual("");
-    setNote(E.cleared);
-    await load();
+    try {
+      await api.del("/api/errors");
+      setManual("");
+      setNote(E.cleared);
+      await load();
+    } catch {
+      setNote(E.loadError);
+    }
   };
 
   return (

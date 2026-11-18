@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { api } from "../api";
 import { lang, t } from "../i18n";
 import { useRestoreFocus } from "../useRestoreFocus";
@@ -22,10 +22,33 @@ export function SampleProjects({ onClose, onImported }: { onClose: () => void; o
   const [samples, setSamples] = useState<SampleInfo[] | null>(null);
   const [busy, setBusy] = useState("");
   const [error, setError] = useState("");
+  const dialogRef = useRef<HTMLDivElement>(null);
+  const closeRef = useRef<HTMLButtonElement>(null);
   useRestoreFocus();
 
   useEffect(() => {
-    const onKey = (e: KeyboardEvent) => e.key === "Escape" && onClose();
+    closeRef.current?.focus();
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") {
+        onClose();
+        return;
+      }
+      if (e.key === "Tab" && dialogRef.current) {
+        const focusable = [...dialogRef.current.querySelectorAll<HTMLElement>(
+          'button:not(:disabled), [href], input:not(:disabled), select:not(:disabled), textarea:not(:disabled), [tabindex]:not([tabindex="-1"])',
+        )];
+        if (!focusable.length) return;
+        const first = focusable[0];
+        const last = focusable[focusable.length - 1];
+        if (e.shiftKey && (document.activeElement === first || !dialogRef.current.contains(document.activeElement))) {
+          e.preventDefault();
+          last.focus();
+        } else if (!e.shiftKey && (document.activeElement === last || !dialogRef.current.contains(document.activeElement))) {
+          e.preventDefault();
+          first.focus();
+        }
+      }
+    };
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
   }, [onClose]);
@@ -51,14 +74,14 @@ export function SampleProjects({ onClose, onImported }: { onClose: () => void; o
 
   return (
     <div className="modal-backdrop" onMouseDown={(e) => e.target === e.currentTarget && onClose()}>
-      <div className="modal small" role="dialog" aria-modal="true" aria-busy={!!busy} aria-label={SPL.samples}>
+      <div ref={dialogRef} className="modal small" role="dialog" aria-modal="true" aria-busy={!!busy} aria-label={SPL.samples}>
         <div className="modal-head">
           <h2>{SPL.samples}</h2>
-          <button type="button" className="icon-btn" onClick={onClose} aria-label={t.close}><IconClose /></button>
+          <button ref={closeRef} type="button" className="icon-btn" onClick={onClose} aria-label={t.close}><IconClose /></button>
         </div>
         <div className="form padded" style={{ overflowY: "auto" }}>
           <p className="hint">{SPL.hint}</p>
-          {!samples && !error && <p className="hint">{SPL.loading}</p>}
+          {!samples && !error && <p className="hint" role="status">{SPL.loading}</p>}
           {(samples ?? []).map((s) => (
             <div key={s.id} data-testid={`sample-${s.id}`} className="row"
               style={{ gap: 12, alignItems: "center", padding: "10px 0", borderTop: "1px solid var(--border)" }}>

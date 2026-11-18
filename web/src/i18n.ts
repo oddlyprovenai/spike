@@ -1971,6 +1971,38 @@ export const projectErrors: Record<string, { es: string; en: string }> = {
     es: "La tarea en segundo plano ya terminó o no existe. Actualiza la cola de tareas.",
     en: "The background job already finished or does not exist. Refresh the job queue.",
   },
+  "network_unreachable": {
+    es: "No se pudo conectar con el servidor local de SPIKE (127.0.0.1). Comprueba que `spike serve` sigue en ejecución.",
+    en: "Could not reach the local SPIKE server (127.0.0.1). Check that `spike serve` is still running.",
+  },
+  "validation_failed": {
+    es: "Los datos enviados no cumplen el formato esperado. Revisa los campos del formulario e inténtalo de nuevo.",
+    en: "The submitted data does not match the expected format. Check the form fields and try again.",
+  },
+  "your data can only be exported or deleted on the computer SPIKE runs on": {
+    es: "Tus datos solo se pueden exportar o borrar desde el propio ordenador donde se ejecuta SPIKE.",
+    en: "Your data can only be exported or deleted directly on the computer where SPIKE is running.",
+  },
+  "the backup is too large": {
+    es: "El archivo de copia de seguridad supera el tamaño máximo permitido.",
+    en: "The backup archive exceeds the maximum allowed size.",
+  },
+  "unsupported content type": {
+    es: "El formato del archivo enviado no es compatible con esta operación.",
+    en: "The uploaded file content type is not supported by this action.",
+  },
+  "not a SPIKE pack (format/version)": {
+    es: "El archivo no es un paquete válido de SPIKE (`pack.json` formato o versión incompatible).",
+    en: "The archive is not a valid SPIKE pack (`pack.json` format or version mismatch).",
+  },
+  "the archive has no valid pack.json": {
+    es: "El archivo ZIP no contiene un `pack.json` válido en su raíz.",
+    en: "The ZIP archive does not contain a valid `pack.json` at its root.",
+  },
+  "no skill found in the archive (expected <name>/SKILL.md)": {
+    es: "No se encontró ninguna skill en el archivo ZIP (se esperaba `<nombre>/SKILL.md`).",
+    en: "No skill was found in the ZIP archive (expected `<name>/SKILL.md`).",
+  },
 };
 
 const DYNAMIC_ERROR_PATTERNS: Array<[RegExp, (m: RegExpMatchArray) => { es: string; en: string }]> = [
@@ -2037,6 +2069,18 @@ const DYNAMIC_ERROR_PATTERNS: Array<[RegExp, (m: RegExpMatchArray) => { es: stri
   [/^model file not found: (.+)$/, (m) => ({
     es: `No se encontró el archivo del modelo (${m[1]}). Descárgalo con spike models pull o revisa Ajustes.`,
     en: `Model file not found (${m[1]}). Download it with spike models pull or check Settings.`,
+  })],
+  [/^validation_field:(.+)$/, (m) => ({
+    es: `El campo «${m[1]}» falta o no tiene un formato válido. Revísalo e inténtalo de nuevo.`,
+    en: `The '${m[1]}' field is missing or invalid. Check it and try again.`,
+  })],
+  [/^invalid specialist in pack: (.+)$/, (m) => ({
+    es: `Especialista no válido dentro del paquete (${m[1]}). Revisa pack.json e inténtalo de nuevo.`,
+    en: `Invalid specialist entry inside the pack (${m[1]}). Check pack.json and try again.`,
+  })],
+  [/^unexpected entry '(.+)'$/, (m) => ({
+    es: `El paquete contiene un archivo no permitido («${m[1]}»). Solo se admiten pack.json y skills/.`,
+    en: `The pack contains an unexpected file ('${m[1]}'). Only pack.json and skills/ entries are allowed.`,
   })],
 ];
 
