@@ -18,7 +18,7 @@ SPIKE provides 13 domain specialists (`Core`, `Code`, `Finance`, `Medicine`, `La
 ## Real limits
 
 - A LoRA adapter is accepted only after passing its statistical acceptance gate without general-knowledge forgetting (max allowed drop: 1.5 points on MMLU-Pro general).
-- Today **Medicine** has passed its acceptance gate (**+35.07 points** across 2,318 questions on MedMCQA, PubMedQA, and MMLU-Pro health; **−0.62 points** on general knowledge; SHA-256 `21caa0a0…`, awaiting publication). **Finance** (round 1 at 768 tokens rejected for a −3.00-point drop in general knowledge; round 2 at 1536 tokens rejected: its best checkpoint gained +7.00 on finance but lost −2.75 on general; round 3 raises the general replay share from 30% to 45%) and the remaining specialists currently run as **instruction profiles (β)** on the base model; see [../../SPECIALISTS.md](../../SPECIALISTS.md) and [../../STATUS.md](../../STATUS.md).
+- Today **Medicine** has passed its acceptance gate (**+35.07 points** across 2,318 questions on MedMCQA, PubMedQA, and MMLU-Pro health, +34.56 when the same answers are re-read with the newer answer reader, part of it because the base model often names no option; **−0.62 points** on general knowledge; SHA-256 `21caa0a0…`, awaiting publication). **Finance** (round 1 at 768 tokens rejected for a −3.00-point drop in general knowledge; round 2 at 1536 tokens rejected: its best checkpoint gained +7.00 on finance but lost −2.75 on general; round 3 raises the general replay share from 30% to 45%) and the remaining specialists currently run as **instruction profiles (β)** on the base model; see [../../SPECIALISTS.md](../../SPECIALISTS.md) and [../../STATUS.md](../../STATUS.md).
 
 ## How to verify
 

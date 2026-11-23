@@ -220,7 +220,7 @@ Every server error code or message is translated in the UI with a clear explanat
 No. By default everything runs on `127.0.0.1` via `spike-local` and local SQLite under `~/.spike/`. Zero external connections are made unless you explicitly download a model, approve a `web_fetch` tool call, or configure and enable a remote provider. Verified by `tests/test_no_network_g29.py`.
 
 ### Why is a specialist marked `β` (instruction profile)?
-Because no specialist is claimed to beat the base model until its trained LoRA adapter passes its statistical acceptance gate without general-knowledge forgetting (at most 1.5 points drop on MMLU-Pro general). Today **Medicine** has passed its gate (+35.07 points on medicine, −0.62 on general); the remaining specialists run as instruction profiles on the base model.
+Because no specialist is claimed to beat the base model until its trained LoRA adapter passes its statistical acceptance gate without general-knowledge forgetting (at most 1.5 points drop on MMLU-Pro general). Today **Medicine** has passed its gate (+35.07 points on medicine, +34.56 when the same answers are re-read with the newer answer reader; −0.62 on general); the remaining specialists run as instruction profiles on the base model.
 
 ### What should I do if a model download is interrupted?
 Re-run `spike models pull qwen3.5-4b` or click retry in the first-run setup wizard: SPIKE resumes from the `.part` file using HTTP `Range` requests and verifies the full SHA-256 digest before installation.

@@ -220,7 +220,7 @@ Cada código o mensaje devuelto por el servidor se traduce en la interfaz indica
 No. Por defecto todo ocurre en `127.0.0.1` usando `spike-local` y SQLite en `~/.spike/`. Ninguna ruta hace llamadas externas salvo cuando tú pides explícitamente descargar un modelo, usar `web_fetch` (bajo permiso) o conectar un proveedor remoto. Comprobado automáticamente en `tests/test_no_network_g29.py`.
 
 ### ¿Por qué un especialista aparece con la etiqueta `β` (perfil de instrucciones)?
-Porque ningún especialista se anuncia como superior al modelo base hasta que su adaptador LoRA supera su puerta de aceptación estadística sin perder conocimiento general (caída máxima de 1,5 puntos en MMLU-Pro general). Hoy **Medicina** ha superado su criterio (+35,07 puntos en medicina, −0,62 en general); los demás responden como perfiles de instrucciones sobre el modelo base.
+Porque ningún especialista se anuncia como superior al modelo base hasta que su adaptador LoRA supera su puerta de aceptación estadística sin perder conocimiento general (caída máxima de 1,5 puntos en MMLU-Pro general). Hoy **Medicina** ha superado su criterio (+35,07 puntos en medicina, +34,56 al releer las mismas respuestas con el lector de respuestas más reciente; −0,62 en general); los demás responden como perfiles de instrucciones sobre el modelo base.
 
 ### ¿Qué hago si una descarga de modelo se corta a mitad?
 Vuelve a ejecutar `spike models pull qwen3.5-4b` o pulsa reintentar en el asistente de primer arranque: SPIKE reanuda la descarga desde el archivo parcial `.part` usando cabeceras HTTP `Range` y verifica el hash SHA-256 completo al terminar.
