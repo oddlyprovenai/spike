@@ -46,11 +46,11 @@
     "web/src/",
     "docs/"
    ],
-   "spec": "Your own earlier work (\"Studio\": projects, skills, MCP, OpenAI-compatible API, docs/STUDIO.md) sits uncommitted in joan's folder /Users/jpima/Downloads/Spike. Only READ it there (never write, reset, checkout or clean that folder). main already has projects (spike/projects.py), skills (spike/skills/), MCP client and catalog (spike/connectors/), /v1 API (spike/server/openai_api.py). Compare feature by feature, then port onto this branch only what main lacks or does better, adapted to main's code and tests (no second implementation of the same thing). Put the comparison table (feature | Studio | main | ported?) in your report. Tests first; every new behaviour has a test that fails without it. No network in tests, no new dependencies. Strings the user sees in es and en (web/src/i18n.ts). New HTTP routes in their own module with an APIRouter, registered with one line in spike/server/app.py; new UI in new component files, so merges stay small.",
+   "spec": "Your own earlier work (\"Studio\": projects, skills, MCP, OpenAI-compatible API, docs/STUDIO.md) sits uncommitted in joan's folder ~/Downloads/Spike. Only READ it there (never write, reset, checkout or clean that folder). main already has projects (spike/projects.py), skills (spike/skills/), MCP client and catalog (spike/connectors/), /v1 API (spike/server/openai_api.py). Compare feature by feature, then port onto this branch only what main lacks or does better, adapted to main's code and tests (no second implementation of the same thing). Put the comparison table (feature | Studio | main | ported?) in your report. Tests first; every new behaviour has a test that fails without it. No network in tests, no new dependencies. Strings the user sees in es and en (web/src/i18n.ts). New HTTP routes in their own module with an APIRouter, registered with one line in spike/server/app.py; new UI in new component files, so merges stay small.",
    "accept": [
     "comparison table in the report covers every item of Studio's docs/STUDIO.md",
     "each ported feature has tests; full suite and ruff pass",
-    "nothing written in /Users/jpima/Downloads/Spike"
+    "nothing written in ~/Downloads/Spike"
    ]
   },
   {
@@ -887,7 +887,7 @@
   {
    "id": "U0",
    "owner": "mac",
-   "status": "todo",
+   "status": "done",
    "phase": "app",
    "title": "Subir a GitHub las ramas de Gemini Ultra (gemini/U1 a gemini/U9)",
    "depends": [],
@@ -896,7 +896,7 @@
    "accept": [
     "the ten branches visible on GitHub"
    ],
-   "note": ""
+   "note": "2026-11-23: the nine branches and gemini/U-report are on GitHub (pushed by the Mac). Reviewed and integrated by Claude: see U10."
   },
   {
    "id": "G18",
@@ -1477,6 +1477,54 @@
    "accept": [
     "tested"
    ]
+  },
+  {
+   "id": "U10",
+   "owner": "claude",
+   "status": "done",
+   "phase": "app",
+   "title": "Revisar e integrar las ramas de Gemini Ultra (U1 a U9)",
+   "depends": [
+    "U0"
+   ],
+   "paths": [
+    "README.md",
+    "docs/",
+    "scripts/install.sh",
+    "scripts/install.ps1",
+    "web/src/",
+    "tests/"
+   ],
+   "spec": "Review each gemini/U* branch against the code and the evidence, fix what is wrong, integrate what passes, record the verdict per branch.",
+   "accept": [
+    "verdict per branch in docs/team/reports/ULTRA.md",
+    "ruff, pytest, web tests and build green"
+   ],
+   "note": "2026-11-23: U1-U4, U6, U8, U9 integrated with fixes; U5 (second site) and U7 (hand-written HF card) not integrated, reasons in docs/team/reports/ULTRA.md."
+  },
+  {
+   "id": "O6",
+   "owner": "claude",
+   "status": "todo",
+   "phase": "app",
+   "title": "Quitar datos personales de los archivos públicos del repositorio (OPSEC)",
+   "depends": [],
+   "paths": [
+    "AGENTS.md",
+    "docs/",
+    "evals/results/",
+    "training/",
+    "web/e2e/",
+    "scripts/team/",
+    "tests/"
+   ],
+   "spec": "The repository is public under oddlyprovenai. Replace the owner's old GitHub handle and home-folder paths in tracked files (docs, team reports and prompts, evidence records' model paths, logs, e2e fixtures, the team worker identity) with the new repository URL, '~' or neutral names, without changing any measured value; keep receipts' hashes valid. Git history and the commit author identity are the owner's decision (rewriting history needs a force push).",
+   "accept": [
+    "git grep finds no old handle or /Users/ path outside archive/fase0",
+    "pytest green",
+    "acceptance receipts still verify"
+   ],
+   "note": "2026-11-23: found by the U1 audit."
   }
  ]
 }

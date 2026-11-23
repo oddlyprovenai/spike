@@ -3,6 +3,8 @@ import type { ChatEvent, MindsSpec } from "./types";
 
 export class ApiError extends Error {
   constructor(public status: number, message: string) {
+    // Known codes (synthetic ones and server error codes) are translated here, once, at the source;
+    // unknown server messages pass through projectError unchanged.
     super(projectError(message));
   }
 }

@@ -4,8 +4,8 @@
 </picture>
 
 <p align="center">
-  <b>13 domain specialists sharing one 4B base model and a zero-cost router, built to run on an ordinary 16&nbsp;GB computer.</b><br>
-  Local-first · Apache-2.0 · OpenAI-compatible <code>/v1</code> &amp; MCP · Optional external API providers behind a strict privacy &amp; spend guard
+  <b>A family of small specialist models with an orchestrator, built to run on an ordinary 16&nbsp;GB computer.</b><br>
+  Local first · Apache-2.0 · OpenAI-compatible <code>/v1</code> and MCP · optional external API providers behind a privacy and spend guard
 </p>
 
 <p align="center">
@@ -21,12 +21,9 @@
 ---
 
 > [!IMPORTANT]
-> **Project status: early, measured, and radically honest.** The web workspace, orchestrator, provider guard, `llama.cpp` runtime, and LoRA training/evaluation pipeline are built and verified in CI across Linux, macOS, and Windows. **13 specialists share one Qwen3.5-4B base; 1 specialist adapter (Medicine) has been accepted by its gate so far** (not published on Hugging Face yet). Finance rounds 1 and 2 were rejected for general-knowledge forgetting (`not accepted yet`). Until a specialist's adapter passes its pre-registered gate and is installed, it runs as a prompt profile on the base model and the UI marks it **β**. Every figure below links to the record and command that produced it: [docs/STATUS.md](docs/STATUS.md).
+> **Project status: early and measured.** The web workspace, orchestrator, provider guard, `llama.cpp` runtime, and LoRA training/evaluation pipeline are built and verified in CI across Linux, macOS, and Windows. **13 specialists share one Qwen3.5-4B base; 1 specialist adapter (Medicine) has been accepted by its gate so far** (not published on Hugging Face yet). Finance rounds 1 and 2 were rejected for general-knowledge forgetting (`not accepted yet`). Until a specialist's adapter passes its pre-registered gate and is installed, it runs as a prompt profile on the base model and the UI marks it **β**. Evidence and the command behind every figure: [docs/STATUS.md](docs/STATUS.md).
 
-<!-- CLAUDE_DEMO_PLACEHOLDER_START: replace this block with the real-time 30-60s recording produced by `node web/e2e/demo.mjs` against real Qwen3.5-4B weights (task L1, see docs/DEMO.md). Never substitute a scripted/fake capture. -->
-> **Demo recording (`v0.1` capture slot — pending real-weight run `L1`):**
-> _Placeholder for Claude:_ insert `docs/assets/demo-v0.1.gif` (and `<video>` MP4 link) recorded unedited in real time via [`web/e2e/demo.mjs`](docs/DEMO.md) with `Qwen3.5-4B-Q4_K_M.gguf`, captioned from `demo.json` with exact hardware, time to router chip, time to first token, and streaming tok/s.
-<!-- CLAUDE_DEMO_PLACEHOLDER_END -->
+<!-- DEMO_SLOT (task L1): the unedited real-time recording from web/e2e/demo.mjs with real weights goes here; see docs/DEMO.md. -->
 
 ## Install in 3 commands
 
@@ -58,7 +55,7 @@ Unsigned one-click desktop installer candidates (`.dmg` for macOS Apple Silicon,
 1. **Fits an ordinary 16 GB computer without a GPU.** One `Qwen3.5-4B` (`Q4_K_M`) base model ran on a 4-core 16 GB CPU-only x86 VM at `5.1–6.2 tok/s` up to an 8K prompt in `3.6 GiB` of anonymous memory (`6.1 GiB` peak RSS including the memory-mapped model file) — and we publish the slow 32K numbers too.
 2. **13 specialists, zero model-reload penalty.** Core, Code, Finance, Medicine, Law, Marketing, Science, Data, Math, Education, Writing, Business, and Security share one base model in memory and hot-swap `~42 MB` LoRA adapters (computed at rank 16) per request.
 3. **Zero-cost routing before spending tokens.** A ~1 ms lexical router (`~3,850` EN/ES domain terms) dispatches clear single-domain prompts without an LLM call (`116/130 = 0.89`, Wilson 95% CI `0.83–0.93`, on a blind holdout written without seeing the keywords); only multi-domain or ambiguous requests invoke a schema-validated DAG plan.
-4. **Local by default, external APIs only behind a firewall you control.** Connect Ollama, LM Studio, OpenAI, Anthropic, Gemini, DeepSeek, Groq, Mistral, OpenRouter, or Together with the same specialists and tools: paid calls default to blocked, API keys stay in the OS keychain, and local file passages are withheld from remote providers unless explicitly permitted.
+4. **Local by default, external APIs only when you allow them.** Connect Ollama, LM Studio, OpenAI, Anthropic, Gemini, DeepSeek, Groq, Mistral, OpenRouter, or Together with the same specialists and tools: paid calls default to blocked, API keys stay in the OS keychain, and local file passages are withheld from remote providers unless explicitly permitted (tested against stand-in endpoints, not yet against live services).
 5. **Lab receipts, including our own rejections.** Every adapter has pre-written acceptance gates (`>= +3.0 pts` domain gain at `p <= 0.05` AND `<= 1.5 pts` general-knowledge drop): we rejected our own Medicine v1 (`−7.62 pts` general drop) and Finance rounds 1 and 2, fixed Medicine in round 2, and publish every verdict in [`docs/results/specialists.json`](docs/results/specialists.json).
 
 ---
@@ -109,9 +106,9 @@ _Why CPU-only defaults to an 8K context:_ at 32K tokens on the 4-core CPU VM, an
 
 | Specialist & Round | Domain Result | General-Knowledge Drift (limit `−1.50` pts) | Gate Verdict & Caveats |
 |---|---|---|---|
-| **Medicine · Round 1** (`2026-10-20`, `oasst2` replay, scale `1.0`) | `32.2% → 64.1%` (`+31.92` pts on `2,318` questions) | **`−7.62` pts** (`63.9% → 56.2%` on `800` MMLU-Pro items) | **REJECTED** — exceeded general-knowledge forgetting limit; lost persona framing in live probes. |
-| **Medicine · Round 2** (`2026-11-05`, self-replay 30%, LoRA scale `0.5` in GGUF) | `31.9% → 67.0%` (`+35.07` pts on `2,318` questions, `p < 1e-6`) | **`−0.62` pts** (`63.7% → 63.1%`, McNemar `p = 0.74`) | **ACCEPTED** (`spike-medicine-it13270-s0.5.gguf`, `42,485,024` bytes, SHA-256 `21caa0a0...`). **Scoring caveat (read before quoting `+35.07`):** on the original scorer, the base model left `409` of `1,000` MedMCQA answers and `241` of `818` MMLU-Pro health answers unparsed (counted as wrong vs `26` and `16` for the adapter), which inflates the raw delta until `run_eval.py --rescore` is committed on `main`. Among readable answers only, MedMCQA is `0.467 → 0.660`; on PubMedQA (`0` unparsed base answers) accuracy rose `0.422 → 0.804` (`+38.20` pts). |
-| **Finance · Rounds 1 & 2** (`2026-11-09` & `2026-11-11`, 768 & 1536 window) | Selection gain cleared `+3.0` pts (`+5.17` in r1; `+7.00` in r2 at scale `0.5`) | **`−3.00` pts** (r1) and **`−2.75` pts** (r2) on `general-select` | **REJECTED** — Finance remains `not accepted yet` (β prompt profile); round 3 tests 45% self-replay. |
+| **Medicine · Round 1** (trained `2026-10-20`, `oasst2` replay, scale `1.0`) | `32.2% → 64.1%` (`+31.92` pts on `2,318` questions) | **`−7.62` pts** (`63.9% → 56.2%` on `800` MMLU-Pro items) | **REJECTED** — exceeded general-knowledge forgetting limit; lost persona framing in live probes. |
+| **Medicine · Round 2** (accepted `2026-11-05`, self-replay 30%, LoRA scale `0.5` in GGUF) | `31.9% → 67.0%` (`+35.07` pts on `2,318` questions, `p < 1e-6`) | **`−0.62` pts** (`63.7% → 63.1%`, McNemar `p = 0.74`) | **ACCEPTED** (`spike-medicine-it13270-s0.5.gguf`, `42,485,024` bytes, SHA-256 `21caa0a0...`). **Scoring caveat (read before quoting `+35.07`):** on the original scorer, the base model left `409` of `1,000` MedMCQA answers and `241` of `818` MMLU-Pro health answers unparsed (counted as wrong vs `26` and `16` for the adapter), which likely inflates the raw delta; the saved answers are being re-scored with the newer answer extractor (`run_eval.py --rescore`) and the result will be published next to this one. Among readable answers only, MedMCQA is `0.467 → 0.660`; on PubMedQA (`0` unparsed base answers) accuracy rose `0.422 → 0.804` (`+38.20` pts). |
+| **Finance · Rounds 1 & 2** (rejected `2026-11-09` & `2026-11-11`, 768- and 1536-token windows) | Selection gain cleared `+3.0` pts (`+5.17` in r1; `+7.00` in r2 at scale `0.5`) | **`−3.00` pts** (r1) and **`−2.75` pts** (r2) on `general-select` | **REJECTED** — Finance remains `not accepted yet` (β prompt profile); round 3 tests 45% self-replay. |
 | **Lexical Router (`M9`)** | `116/130 = 0.89` (Wilson 95% CI `0.83–0.93`) | ~1 ms per route, zero model calls | **MEASURED** on `evals/data/router_holdout.jsonl` (130 EN/ES prompts written blind without keyword access; `48/50 = 0.96` on original test split). Real-user traffic not measured yet. |
 
 ---
@@ -131,30 +128,45 @@ _Why CPU-only defaults to an 8K context:_ at 32K tokens on the 4-core CPU VM, an
 
 ## SPIKE next to Ollama, LM Studio, Open WebUI and Jan
 
-These tools solve different slices of the local-AI stack, and SPIKE is the newcomer. The table describes documented architecture and licensing — it does **not** claim quality or speed wins (we have not benchmarked the other four tools). External columns were verified against each project's official repository and documentation on `2026-11-18`; `"not checked"` means not audited for this table, not absent.
+These tools do different jobs, and SPIKE is new. The table says what each one *is*; it does not rank quality or
+speed. Cells about the others come from each project's own repository, docs or site, checked 2026-10-20 (sources
+below). **"not checked"** means it was not looked up for this table, not that the feature is missing. The SPIKE column
+follows [docs/STATUS.md](docs/STATUS.md).
 
-| Dimension | SPIKE | Ollama | LM Studio | Open WebUI | Jan |
+| | SPIKE | Ollama | LM Studio | Open WebUI | Jan |
 |---|---|---|---|---|---|
-| **License** | **Apache-2.0** | **MIT** | **Proprietary desktop app** (free for personal & workplace use without forms); CLI (`lms`), SDKs & MLX engine are **MIT** | **Custom license since `v0.6.6`** (BSD-3 base + branding preservation clause above 50 active monthly users; not OSI-approved; `<= v0.6.5` BSD-3) | **Apache-2.0** |
-| **Local inference engine** | Yes (`llama.cpp` `llama-server`) | Yes (native Go/GGML daemon + optional cloud models) | Yes (`llama.cpp` + Apple `MLX` on Apple Silicon) | Frontend/orchestrator that connects to Ollama or OpenAI-compatible servers | Yes (bundled `llama.cpp` + Apple Silicon support; external endpoints optional) |
-| **Model strategy** | One SHA-256-verified `Qwen3.5-4B` base + hot-swapped specialist LoRA adapters (1 accepted so far, 12 β profiles) + external APIs | Broad library of open-weight models (`ollama pull`) | Curated catalog + direct Hugging Face GGUF/MLX search | Uses models exposed by connected local or cloud backends | Downloads GGUF models from Hugging Face + cloud API keys |
-| **Built-in domain routing** | Yes: ~1 ms lexical router (`0.89` blind holdout) + multi-specialist DAG planner | Not built into daemon; single model per API call | Manual/SDK model selection | User selects model, preset, or pipe | Manual/assistant model selection |
-| **OpenAI-compatible API** | Yes: `127.0.0.1:8740/v1` (`spike-auto` or `spike-<specialist>`, tested with `openai` Python SDK) | Yes: `localhost:11434/v1` (chat completions, responses, completions, embeddings, models) | Yes: local server with chat completions, responses, completions, embeddings, models | Yes: OpenAI-compatible chat completions proxy endpoint | Yes: local API server (`127.0.0.1:1337/v1`) with trusted-host checks |
-| **MCP support** | **Client** (stdio + Streamable HTTP + `SEP-1865` MCP Apps UI) **and Server** (`spike mcp` / `/mcp`) | Native tool/function calling; MCP via ecosystem clients/bridges + web-search MCP server | **MCP Host** (`mcp.json` since `0.3.17`) | **Native Streamable HTTP MCP** (`v0.6.31+`; stdio via `mcpo` proxy) | **MCP Host** with inline tool approvals |
-| **GPU backends** | CPU-only (x86/ARM) and Apple Metal measured; other GPUs not tested yet | NVIDIA CUDA, AMD ROCm, Apple Metal, Vulkan, CPU | Apple Metal/MLX, NVIDIA CUDA, AMD/Vulkan on Windows/Linux | Delegated to connected inference server | NVIDIA CUDA, Vulkan (AMD/Intel), Apple Metal, CPU |
-| **Multi-user & RBAC** | Single-user on `127.0.0.1` by design | Local daemon (no user accounts) | Single-user desktop / `llmster` headless server | **Yes:** multi-user accounts, roles, groups, per-resource permissions | Single-user desktop app |
+| Code license | Apache-2.0 | MIT | Proprietary app, free to use at home and at work; its CLI, SDKs and MLX engine are MIT | Own license since v0.6.6: a branding clause on top of BSD-3-style terms (its docs: not OSI-approved); BSD-3 up to v0.6.5 | Apache-2.0 |
+| Runs models on your computer | Yes, through llama.cpp | Yes (cloud models are optional) | Yes, llama.cpp; MLX on Apple Silicon | Connects to Ollama and OpenAI-compatible servers that run the models | Yes, llama.cpp |
+| Models you get | Downloads one base, Qwen3.5-4B (SHA-256 checked). One specialist adapter (Medicine) accepted, not published yet | A library of many open models from other makers | A catalog of other makers' models (56 listed, 47 local) and Hugging Face search | Whatever its connected servers offer | Downloads models from Hugging Face |
+| Routes a request to a specialist by itself | Yes: lexical router plus a planner for multi-domain requests; specialists are prompt profiles for now | not checked | not checked | Not described in its feature docs; you pick a model or a preset | not checked |
+| OpenAI-compatible API | Yes: `/v1` with `spike-auto` or one specialist; tested with the official `openai` client | Yes, a subset: chat completions, responses, completions, embeddings, models | Yes: responses, chat completions, completions, embeddings, models | Its own API has an OpenAI-compatible chat completions endpoint | Yes: local server at `127.0.0.1:1337/v1` |
+| MCP | Client (stdio, Streamable HTTP) and server; tested with the official MCP SDK, not with Claude Code, Cursor or Codex | Client not checked; its docs offer a web-search MCP server for other clients | MCP host since 0.3.17 | Native since v0.6.31, Streamable HTTP only (stdio via the mcpo proxy) | Supported; needs a model with tool calling |
+| GPU backends | CPU and Metal measured; no other GPU backend tested | NVIDIA CUDA, AMD ROCm, Apple Metal, Vulkan | Apple Silicon on macOS; 4 GB+ VRAM recommended on Windows; the rest not checked | Left to the server it connects to | CUDA (NVIDIA), Vulkan (AMD, Intel), Metal |
+| Several users | No accounts or roles: built for one person on one computer | not checked | not checked | Yes: roles, groups, per-resource permissions | not checked |
 
-**Sources (verified `2026-11-18`):**
-- **Ollama:** [LICENSE](https://github.com/ollama/ollama/blob/main/LICENSE) · [Docs Home](https://docs.ollama.com) · [OpenAI Compatibility](https://docs.ollama.com/api/openai-compatibility) · [GPU Support](https://docs.ollama.com/gpu) · [Model Library](https://ollama.com/library) · [Web Search MCP](https://docs.ollama.com/capabilities/web-search)
-- **LM Studio:** [Docs](https://lmstudio.ai/docs/app) · [Free for Work Policy](https://lmstudio.ai/blog/free-for-work) · [Terms](https://lmstudio.ai/terms) · [OpenAI Compatibility](https://lmstudio.ai/docs/developer/openai-compat) · [MCP Host](https://lmstudio.ai/docs/app/mcp) · [GitHub (MIT SDKs/CLI)](https://github.com/lmstudio-ai)
-- **Open WebUI:** [Docs](https://docs.openwebui.com) · [License & Branding FAQ](https://docs.openwebui.com/license/) · [Repository LICENSE](https://github.com/open-webui/open-webui/blob/main/LICENSE) · [Features](https://docs.openwebui.com/features/) · [MCP Documentation](https://docs.openwebui.com/features/extensibility/mcp)
-- **Jan:** [Docs](https://docs.jan.ai) · [Repository & Apache-2.0 LICENSE](https://github.com/janhq/jan/blob/main/LICENSE) · [Local API Server](https://docs.jan.ai/desktop/api-server) · [llama.cpp Engine](https://docs.jan.ai/desktop/llama-cpp) · [MCP Integration](https://www.jan.ai/docs/desktop/mcp)
+Sources, all checked 2026-10-20:
 
-**Where those projects are ahead of SPIKE today:**
-- **Ollama** supports dozens of model families and tested CUDA/ROCm/Vulkan GPU backends out of the box (and SPIKE can use an Ollama daemon as a local provider).
-- **LM Studio** ships a mature signed desktop app, native Apple `MLX` runtime, `lms` CLI, Python/TS SDKs, and `llmster` headless mode.
-- **Open WebUI** provides multi-user RBAC, admin governance, and team deployments; SPIKE is intentionally built for one person on one machine.
-- **Jan** distributes signed cross-platform desktop installers with a bundled engine; SPIKE's native installers (`.dmg`, `.exe`, `.AppImage`) are unsigned release candidates today.
+- **Ollama**: [LICENSE](https://github.com/ollama/ollama/blob/main/LICENSE) (MIT), [quickstart](https://docs.ollama.com/quickstart) and [FAQ](https://docs.ollama.com/faq) (runs locally), [model library](https://ollama.com/library), [OpenAI compatibility](https://docs.ollama.com/api/openai-compatibility), [hardware support](https://docs.ollama.com/gpu), [web search (MCP server)](https://docs.ollama.com/capabilities/web-search), [docs index](https://docs.ollama.com/llms.txt).
+- **LM Studio**: [terms](https://lmstudio.ai/terms) (proprietary software), [free for work](https://lmstudio.ai/blog/free-for-work), [GitHub organization](https://github.com/lmstudio-ai) (MIT repositories), [docs home](https://lmstudio.ai/docs/app) (llama.cpp, MLX), [model catalog](https://lmstudio.ai/models), [OpenAI compatibility](https://lmstudio.ai/docs/developer/openai-compat), [MCP](https://lmstudio.ai/docs/app/mcp), [system requirements](https://lmstudio.ai/docs/app/system-requirements).
+- **Open WebUI**: [LICENSE](https://github.com/open-webui/open-webui/blob/main/LICENSE), [license page](https://docs.openwebui.com/license/), [README](https://github.com/open-webui/open-webui) (connects to Ollama and OpenAI-compatible APIs, roles and groups), [getting started](https://docs.openwebui.com/getting-started/), [features](https://docs.openwebui.com/features/), [API endpoints](https://docs.openwebui.com/getting-started/api-endpoints), [MCP](https://docs.openwebui.com/features/extensibility/mcp).
+- **Jan**: [LICENSE](https://github.com/janhq/jan/blob/main/LICENSE) and [README](https://github.com/janhq/jan) (Apache-2.0, Hugging Face models, local server), [API server](https://docs.jan.ai/desktop/api-server), [MCP](https://www.jan.ai/docs/desktop/mcp), [local engine](https://docs.jan.ai/desktop/llama-cpp) (llama.cpp, CUDA, Vulkan, Metal).
+
+What they do that SPIKE does not:
+
+- **Ollama** offers a library of many models where SPIKE offers one base, documents four GPU backends, and lists many
+  integrations. SPIKE can point at an Ollama server as an OpenAI-compatible provider (not tried against the real product).
+- **LM Studio** is a desktop app with an in-app model catalog, a CLI, SDKs and a headless mode (`llmster`).
+- **Open WebUI** describes itself as multi-user, with roles and groups, document search (RAG) and a model arena.
+  SPIKE is one person on one computer.
+- **Jan** is a desktop app with installers for Windows, macOS and Linux. SPIKE runs as a local Python server plus
+  llama.cpp with script installers (`scripts/`) and unsigned native installer candidates (`.dmg`, `.exe`, `.AppImage`
+  in `packaging/`, tested on clean GitHub runners; not published or code-signed yet).
+- **SPIKE is new**: it has the measurements in this repository and no track record yet.
+
+Not claimed here: that SPIKE answers better than any of them (only Medicine has an accepted verdict, and it is
+measured against its own base model, not against these apps), or that it is faster (the others were not benchmarked). SPIKE's bet is a
+router and specialists on one small model that fits a CPU-only 16 GB computer, with numbers published next to the
+command that reproduces them.
 
 ---
 

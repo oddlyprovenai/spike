@@ -19,7 +19,7 @@ ROOT = Path(__file__).resolve().parents[1]
 SITE = ROOT / "site"
 SCRIPT = ROOT / "scripts" / "build_site.py"
 PAGES = {"en": SITE / "index.html", "es": SITE / "es" / "index.html"}
-REPO_URL = "https://github.com/jpimasreiser11-gif/spike"
+REPO_URL = "https://github.com/oddlyprovenai/spike"
 ALLOWED_EXTERNAL = (REPO_URL, "https://huggingface.co/")
 PALETTE = {"ink": "#052E1E", "green": "#88D445", "shadow": "#5FBB47", "mint": "#E3FADA", "cream": "#FDFDFA"}
 SECTIONS = ["what", "today", "figures", "install", "licenses", "not-claimed"]
@@ -195,7 +195,7 @@ def test_links_and_assets_exist_and_no_third_party_hosts() -> None:
             if url.scheme in ("http", "https"):
                 assert ref.startswith(ALLOWED_EXTERNAL), f"{lang}: external URL {ref}"
                 if ref.startswith(REPO_URL + "/blob/main/"):
-                    rel = unquote(url.path.removeprefix("/jpimasreiser11-gif/spike/blob/main/"))
+                    rel = unquote(url.path.removeprefix("/oddlyprovenai/spike/blob/main/"))
                     assert (ROOT / rel).exists(), f"{lang}: {rel} is not in the repository"
                 continue
             assert not url.scheme and not ref.startswith("//"), f"{lang}: {ref}"
@@ -207,7 +207,7 @@ def test_links_and_assets_exist_and_no_third_party_hosts() -> None:
             if url.fragment and target.suffix == ".html":
                 assert f'id="{url.fragment}"' in target.read_text(encoding="utf-8"), f"{lang}: {ref}"
         assert "<script" not in html.lower() and "<iframe" not in html.lower() and "<form" not in html.lower()
-        assert not re.search(r"https?://(?!(?:github\.com/jpimasreiser11-gif/spike|huggingface\.co)\b)", html), lang
+        assert not re.search(r"https?://(?!(?:github\.com/oddlyprovenai/spike|huggingface\.co)\b)", html), lang
         assert not re.search(r"gtag|googletagmanager|plausible|matomo|document\.cookie", html, re.I)
     css = (SITE / "assets" / "site.css").read_text(encoding="utf-8")
     assert "@import" not in css and not re.search(r"https?:", css)

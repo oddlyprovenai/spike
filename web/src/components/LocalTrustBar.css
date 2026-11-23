@@ -50,6 +50,8 @@
 }
 
 .local-trust-dot.state-remote_shared,
+.local-trust-dot.state-mixed,
+.local-trust-dot.state-unknown,
 .local-trust-dot.state-local_stopped {
   background: var(--warn);
 }

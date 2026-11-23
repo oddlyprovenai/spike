@@ -7,7 +7,7 @@ import { t } from "./i18n";
 import type { ProviderInfo, Specialist } from "./types";
 
 const localProvider: ProviderInfo = {
-  id: "local",
+  id: "spike-local",
   kind: "openai_compat",
   name: "Local (llama.cpp)",
   base_url: "http://127.0.0.1:8090/v1",
@@ -58,7 +58,7 @@ const medicineAdapterSpec: Specialist = {
   adapter_accepted: true,
   sensitive: true,
   tools: [],
-  active_provider: "local",
+  active_provider: "spike-local",
   active_mode: "adapter_loaded",
 };
 
@@ -129,10 +129,76 @@ describe("computeTrustSnapshot (U9 local-AI residency & context budget)", () => 
     expect(blockedSnap.residency).toBe("remote_blocked");
   });
 
+  it("override provider wins over specialist binding", () => {
+    const snap = computeTrustSnapshot({
+      mode: "medicine", providerId: "anthropic",
+      providers: [localProvider, cloudProtected],
+      specialists: [medicineAdapterSpec, financeProfileSpec],
+      engine: { running: true, context: 8192, rss_mb: 6000 }, charCount: 0,
+    });
+    expect(snap.residency).toBe("remote_protected");
+    expect(snap.providerId).toBe("anthropic");
+    expect(snap.rssGiB).toBeNull();
+  });
+
+  it("specialist bound to a remote provider resolves to that provider", () => {
+    const snap = computeTrustSnapshot({
+      mode: "finance", providerId: null,
+      providers: [localProvider, cloudProtected],
+      specialists: [medicineAdapterSpec, financeProfileSpec],
+      engine: { running: true, context: 8192, rss_mb: 6000 }, charCount: 0,
+    });
+    expect(snap.residency).toBe("remote_protected");
+    expect(snap.isLocal).toBe(false);
+  });
+
+  it("auto with every specialist on spike-local is local and shows engine RSS", () => {
+    const snap = computeTrustSnapshot({
+      mode: "auto", providerId: null,
+      providers: [localProvider, cloudProtected],
+      specialists: [medicineAdapterSpec, { ...financeProfileSpec, active_provider: "spike-local" }],
+      engine: { running: true, context: 8192, rss_mb: 6246.4 }, charCount: 0,
+    });
+    expect(snap.residency).toBe("local_running");
+    expect(snap.rssGiB).toBe("6.1");
+    expect(snap.contextLimit).toBe(8192);
+  });
+
+  it("auto with one specialist on a remote provider is mixed, never local", () => {
+    const snap = computeTrustSnapshot({
+      mode: "auto", providerId: null,
+      providers: [localProvider, cloudProtected],
+      specialists: [medicineAdapterSpec, financeProfileSpec],
+      engine: { running: true, context: 8192, rss_mb: 6246.4 }, charCount: 0,
+    });
+    expect(snap.residency).toBe("mixed");
+    expect(snap.isLocal).toBe(false);
+    expect(snap.rssGiB).toBeNull();
+    expect(snap.externalNames).toEqual(["Anthropic"]);
+  });
+
+  it("non-engine local providers count as running without engine data", () => {
+    const ollama: ProviderInfo = { ...localProvider, id: "ollama", name: "Ollama" };
+    const snap = computeTrustSnapshot({
+      mode: "auto", providerId: "ollama", providers: [localProvider, ollama],
+      specialists: [], engine: { running: false }, charCount: 0,
+    });
+    expect(snap.residency).toBe("local_running");
+    expect(snap.rssGiB).toBeNull();
+  });
+
+  it("is unknown (not local) when no provider can be resolved", () => {
+    const snap = computeTrustSnapshot({
+      mode: "auto", providerId: null, providers: [], specialists: [], engine: null, charCount: 0,
+    });
+    expect(snap.residency).toBe("unknown");
+    expect(snap.isLocal).toBe(false);
+  });
+
   it("raises warn at >=75% and high at >=90% of local context window", () => {
     const warnSnap = computeTrustSnapshot({
       mode: "auto",
-      providerId: "local",
+      providerId: "spike-local",
       providers: [localProvider],
       specialists: [],
       engine: { running: true, context: 8192, rss_mb: 3686.4 },
@@ -142,7 +208,7 @@ describe("computeTrustSnapshot (U9 local-AI residency & context budget)", () => 
 
     const highSnap = computeTrustSnapshot({
       mode: "auto",
-      providerId: "local",
+      providerId: "spike-local",
       providers: [localProvider],
       specialists: [],
       engine: { running: true, context: 8192, rss_mb: 3686.4 },
@@ -183,7 +249,7 @@ describe("LocalTrustBar interactive accessibility & disclosure", () => {
       root.render(
         <LocalTrustBar
           mode="medicine"
-          providerId="local"
+          providerId="spike-local"
           providers={[localProvider]}
           specialists={[medicineAdapterSpec]}
           engine={{ running: true, context: 8192, rss_mb: 6246.4 }}

@@ -1,7 +1,7 @@
 import { act } from "react";
 import { createRoot, type Root } from "react-dom/client";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
-import { api, streamPost } from "./api";
+import { ApiError, api, streamPost } from "./api";
 import { DataBackup } from "./components/DataBackup";
 import { ErrorLog } from "./components/ErrorLog";
 import { SampleProjects } from "./components/SampleProjects";
@@ -45,6 +45,36 @@ describe("U8 — API error normalization & i18n coverage", () => {
     const abortErr = new DOMException("Aborted", "AbortError");
     vi.stubGlobal("fetch", vi.fn().mockRejectedValue(abortErr));
     await expect(streamPost("/api/chat", { message: "hi" }, () => {})).rejects.toBe(abortErr);
+  });
+
+  it("gives ApiError the translated text for synthetic codes and leaves server messages untouched", async () => {
+    vi.stubGlobal("fetch", vi.fn().mockRejectedValue(new TypeError("Failed to fetch")));
+    const net = (await api.get("/api/health").catch((e) => e)) as ApiError;
+    expect(net).toBeInstanceOf(ApiError);
+    expect(net.status).toBe(0);
+    expect(net.message).toBe(projectError("network_unreachable"));
+    expect(net.message).not.toBe("network_unreachable");
+
+    const respond = (status: number, detail: unknown) => vi.stubGlobal("fetch", vi.fn().mockResolvedValue({
+      ok: false, status, statusText: "x", json: async () => ({ detail }),
+    }));
+    respond(422, [{ type: "missing", loc: ["body", "name"], msg: "Field required" }]);
+    const val = (await api.post("/api/x", {}).catch((e) => e)) as ApiError;
+    expect(val.status).toBe(422);
+    expect(val.message).toBe(projectError("validation_field:name"));
+    expect(val.message).toContain("name");
+    expect(val.message).not.toContain("validation_field");
+
+    respond(400, "already undone");
+    const srv = (await api.post("/api/x", {}).catch((e) => e)) as ApiError;
+    expect(srv.status).toBe(400);
+    expect(srv.message).toBe("already undone");
+
+    const abortErr = new DOMException("Aborted", "AbortError");
+    vi.stubGlobal("fetch", vi.fn().mockRejectedValue(abortErr));
+    const ab = await api.get("/api/x").catch((e) => e);
+    expect(ab).toBe(abortErr);
+    expect(ab).not.toBeInstanceOf(ApiError);
   });
 
   it("formats FastAPI 422 validation arrays cleanly on both JSON and SSE routes without [object Object]", async () => {

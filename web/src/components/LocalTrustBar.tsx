@@ -1,7 +1,7 @@
 import "./LocalTrustBar.css";
 import { useEffect, useRef, useState } from "react";
 import { t } from "../i18n";
-import { computeTrustSnapshot, type ResidencyKind, type RuntimeSnapshot } from "../localTrust";
+import { LOCAL_ENGINE_ID, computeTrustSnapshot, type ResidencyKind, type RuntimeSnapshot } from "../localTrust";
 import type { ProviderInfo, Specialist } from "../types";
 import type { SettingsTab } from "./SettingsDialog";
 
@@ -25,10 +25,14 @@ function residencyBadge(kind: ResidencyKind): string {
       return t.localTrust.badgeRemoteShared;
     case "remote_blocked":
       return t.localTrust.badgeRemoteBlocked;
+    case "mixed":
+      return t.localTrust.badgeMixed;
+    case "unknown":
+      return t.localTrust.badgeUnknown;
   }
 }
 
-function residencyDetail(kind: ResidencyKind, provider: string): string {
+function residencyDetail(kind: ResidencyKind, provider: string, providers: string): string {
   switch (kind) {
     case "local_running":
       return fmt(t.localTrust.detailLocalRunning, { provider });
@@ -40,6 +44,10 @@ function residencyDetail(kind: ResidencyKind, provider: string): string {
       return fmt(t.localTrust.detailRemoteShared, { provider });
     case "remote_blocked":
       return fmt(t.localTrust.detailRemoteBlocked, { provider });
+    case "mixed":
+      return fmt(t.localTrust.detailMixed, { providers });
+    case "unknown":
+      return t.localTrust.detailUnknown;
   }
 }
 
@@ -99,7 +107,7 @@ export function LocalTrustBar({
         ? t.localTrust.modeAdapter
         : t.localTrust.modeProfile;
 
-  const targetTab: SettingsTab = snap.isLocal && snap.providerId === "local" ? "engine" : "providers";
+  const targetTab: SettingsTab = snap.providerId === LOCAL_ENGINE_ID ? "engine" : "providers";
   const settingsLabel = targetTab === "engine" ? t.localTrust.openEngine : t.localTrust.openProviders;
   const providerLabel = snap.model ? `${snap.providerName} · ${snap.model}` : snap.providerName;
 
@@ -132,7 +140,7 @@ export function LocalTrustBar({
           aria-label={t.localTrust.panelTitle}
         >
           <h3 className="local-trust-title">{t.localTrust.panelTitle}</h3>
-          <p className="local-trust-detail">{residencyDetail(snap.residency, providerLabel)}</p>
+          <p className="local-trust-detail">{residencyDetail(snap.residency, providerLabel, snap.externalNames.join(", "))}</p>
 
           <div className="local-trust-block">
             <span className="local-trust-label">{t.localTrust.modeHeading}</span>

@@ -8,6 +8,8 @@ import subprocess
 import sys
 from pathlib import Path
 
+import pytest
+
 ROOT = Path(__file__).resolve().parents[1]
 INSTALL_SH = ROOT / "scripts" / "install.sh"
 INSTALL_PS1 = ROOT / "scripts" / "install.ps1"
@@ -53,6 +55,11 @@ def _make_clean_project(tmp_path: Path) -> tuple[Path, Path, Path, Path]:
     return proj, home, bin_dir, invocations
 
 
+posix_bash = pytest.mark.skipif(sys.platform == "win32" or shutil.which("bash") is None,
+                                reason="runs install.sh with bash on macOS or Linux")
+
+
+@posix_bash
 def test_install_sh_dry_run_executes_nothing_and_leaves_home_clean(tmp_path: Path) -> None:
     proj, home, bin_dir, invocations = _make_clean_project(tmp_path)
     bash = shutil.which("bash")
@@ -89,6 +96,7 @@ def test_install_sh_dry_run_executes_nothing_and_leaves_home_clean(tmp_path: Pat
     assert not (home / ".spike").exists()
 
 
+@posix_bash
 def test_install_sh_clean_no_model_runs_real_spike_doctor_on_any_posix_os(tmp_path: Path) -> None:
     proj, home, bin_dir, invocations = _make_clean_project(tmp_path)
     bash = shutil.which("bash")

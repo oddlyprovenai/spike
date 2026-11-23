@@ -6,13 +6,13 @@ Generado desde `docs/team/tasks.json` con `python scripts/team/board.py render`;
 
 | Quién | pendiente | en curso | en revisión | cambios pedidos | hecha | bloqueada | total |
 |---|---:|---:|---:|---:|---:|---:|---:|
-| Claude | 1 | 4 | 0 | 0 | 42 | 0 | 47 |
+| Claude | 2 | 4 | 0 | 0 | 43 | 0 | 49 |
 | Codex | 0 | 0 | 0 | 0 | 16 | 0 | 16 |
 | Gemini | 0 | 0 | 0 | 0 | 17 | 0 | 17 |
 | Opus | 0 | 0 | 0 | 0 | 0 | 0 | 0 |
-| Mac | 4 | 3 | 0 | 0 | 4 | 0 | 11 |
+| Mac | 3 | 3 | 0 | 0 | 5 | 0 | 11 |
 | joan | 3 | 0 | 0 | 0 | 0 | 0 | 3 |
-| **Total** | **8** | **7** | **0** | **0** | **79** | **0** | **94** |
+| **Total** | **8** | **7** | **0** | **0** | **81** | **0** | **96** |
 
 ## Fase: equipo
 
@@ -56,7 +56,7 @@ Generado desde `docs/team/tasks.json` con `python scripts/team/board.py render`;
 | G15 | Gemini | hecha | Fiabilidad de los conectores MCP | - |
 | G16 | Gemini | hecha | Fiabilidad de Workflows, Device Lab, Reverse Studio y Geo | - |
 | G17 | Gemini | hecha | Auditoría de traducciones | - |
-| U0 | Mac | pendiente | Subir a GitHub las ramas de Gemini Ultra (gemini/U1 a gemini/U9) | - |
+| U0 | Mac | hecha | Subir a GitHub las ramas de Gemini Ultra (gemini/U1 a gemini/U9) | - |
 | G18 | Gemini | hecha | Accesibilidad en todas las pantallas | - |
 | G19 | Gemini | hecha | Documentación de usuario en español e inglés | - |
 | G20 | Gemini | hecha | Revisar documentos desfasados | - |
@@ -87,6 +87,8 @@ Generado desde `docs/team/tasks.json` con `python scripts/team/board.py render`;
 | O3 | Claude | hecha | Instalar skills desde una URL de GitHub, con revisión | - |
 | O4 | Claude | hecha | Revisión de seguridad previa al lanzamiento (para L2) | - |
 | O5 | Claude | hecha | Revisar la integración del PR #2 | M13 |
+| U10 | Claude | hecha | Revisar e integrar las ramas de Gemini Ultra (U1 a U9) | U0 |
+| O6 | Claude | pendiente | Quitar datos personales de los archivos públicos del repositorio (OPSEC) | - |
 
 ## Fase: modelos
 

@@ -30,11 +30,7 @@ def test_launch_audit_exists_and_cites_verified_repo_evidence() -> None:
     assert receipt["sha256"] in text
     assert "409" in text and "1,000" in text
 
-    results = json.loads((ROOT / "docs" / "results" / "specialists.json").read_text(encoding="utf-8"))
-    med_rounds = results["specialists"]["medicine"]["rounds"]
-    round2 = next(r for r in med_rounds if r["round"] == 2)
-    assert round2["final"]["rescored"] is None
-    assert '"rescored": null' in text
+    assert '"rescored": null' in text  # a dated snapshot of 260943e: the re-scored numbers come later (M16)
 
     for target in re.findall(r"\[[^\]]+\]\(([^)]+)\)", text):
         if target.startswith(("http://", "https://", "#")):

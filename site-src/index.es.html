@@ -62,7 +62,7 @@
         <li><strong>Compatible con tus herramientas:</strong> un endpoint compatible con OpenAI y un servidor MCP permiten que otros agentes y SDK usen SPIKE.</li>
         <li><strong>Instaladores:</strong> la instalación por línea de comandos funciona hoy. Los instaladores de escritorio existen como candidatos y aún no están publicados ni firmados.</li>
       </ul>
-      <p class="note">La lista completa, con la evidencia de cada punto, está en <a href="https://github.com/jpimasreiser11-gif/spike/blob/main/docs/STATUS.md">docs/STATUS.md</a> (en inglés).</p>
+      <p class="note">La lista completa, con la evidencia de cada punto, está en <a href="https://github.com/oddlyprovenai/spike/blob/main/docs/STATUS.md">docs/STATUS.md</a> (en inglés).</p>
     </div>
   </section>
 
@@ -115,11 +115,11 @@
 
       <h3>Los registros</h3>
       <ul class="plain">
-        <li><a href="https://github.com/jpimasreiser11-gif/spike/blob/main/training/runs/medicine/sweep/final/summary.json">Resumen de la evaluación de Medicina</a> (preguntas, precisión, prueba emparejada)</li>
-        <li><a href="https://github.com/jpimasreiser11-gif/spike/blob/main/spike/specialists/acceptance/medicine.json">Recibo de aceptación de Medicina</a> (veredicto, archivo, tamaño, SHA-256)</li>
-        <li><a href="https://github.com/jpimasreiser11-gif/spike/blob/main/evals/results/bench-x86-16gb-20261018/bench-cpu-ngl0.json">Benchmark de 16 GB con CPU</a> y su <a href="https://github.com/jpimasreiser11-gif/spike/blob/main/evals/results/bench-x86-16gb-20261018/README.md">método</a></li>
-        <li><a href="https://github.com/jpimasreiser11-gif/spike/blob/main/evals/results/bench-mac-20261017/bench-metal-ngl99.json">Benchmark del Apple M4 Max</a></li>
-        <li><a href="https://github.com/jpimasreiser11-gif/spike/blob/main/docs/STATUS.md#measured-with-real-weights">Medido con pesos reales</a> en STATUS.md, con los comandos que reproducen cada número</li>
+        <li><a href="https://github.com/oddlyprovenai/spike/blob/main/training/runs/medicine/sweep/final/summary.json">Resumen de la evaluación de Medicina</a> (preguntas, precisión, prueba emparejada)</li>
+        <li><a href="https://github.com/oddlyprovenai/spike/blob/main/spike/specialists/acceptance/medicine.json">Recibo de aceptación de Medicina</a> (veredicto, archivo, tamaño, SHA-256)</li>
+        <li><a href="https://github.com/oddlyprovenai/spike/blob/main/evals/results/bench-x86-16gb-20261018/bench-cpu-ngl0.json">Benchmark de 16 GB con CPU</a> y su <a href="https://github.com/oddlyprovenai/spike/blob/main/evals/results/bench-x86-16gb-20261018/README.md">método</a></li>
+        <li><a href="https://github.com/oddlyprovenai/spike/blob/main/evals/results/bench-mac-20261017/bench-metal-ngl99.json">Benchmark del Apple M4 Max</a></li>
+        <li><a href="https://github.com/oddlyprovenai/spike/blob/main/docs/STATUS.md#measured-with-real-weights">Medido con pesos reales</a> en STATUS.md, con los comandos que reproducen cada número</li>
       </ul>
     </div>
   </section>
@@ -127,12 +127,12 @@
   <section id="install" aria-labelledby="install-h">
     <div class="wrap">
       <h2 id="install-h">Instalar en dos comandos</h2>
-      <p>Necesitas Python 3.11 o superior, llama.cpp (<code>llama-server</code>), npm para construir la interfaz web, 16&nbsp;GB de RAM recomendados y unos 3&nbsp;GB de disco para el modelo. Empieza desde un clon de <a href="https://github.com/jpimasreiser11-gif/spike">el repositorio</a>, dentro de su carpeta:</p>
+      <p>Necesitas Python 3.11 o superior, llama.cpp (<code>llama-server</code>), npm para construir la interfaz web, 16&nbsp;GB de RAM recomendados y unos 3&nbsp;GB de disco para el modelo. Empieza desde un clon de <a href="https://github.com/oddlyprovenai/spike">el repositorio</a>, dentro de su carpeta:</p>
       <pre><code>{{cmd_install}}
 {{cmd_run}}</code></pre>
       <p>El primer comando construye la aplicación web e instala SPIKE; el segundo lo arranca y lo abre en el navegador. La primera vez, descarga el modelo local una sola vez (se comprueban su licencia y su SHA-256), o añade un proveedor externo en Ajustes:</p>
       <pre><code>{{cmd_pull}}</code></pre>
-      <p class="note">Son los comandos del inicio rápido del README. La guía paso a paso, con lo que hace cada comando, está en <a href="https://github.com/jpimasreiser11-gif/spike/blob/main/docs/guide/es/installation.md">la guía de instalación</a>. No hay versión alojada ni registro de usuarios.</p>
+      <p class="note">Son los comandos del inicio rápido del README. La guía paso a paso, con lo que hace cada comando, está en <a href="https://github.com/oddlyprovenai/spike/blob/main/docs/guide/es/installation.md">la guía de instalación</a>. No hay versión alojada ni registro de usuarios.</p>
     </div>
   </section>
 
@@ -140,9 +140,9 @@
     <div class="wrap">
       <h2 id="licenses-h">Licencias</h2>
       <ul class="plain">
-        <li><strong>Código de SPIKE:</strong> <a href="https://github.com/jpimasreiser11-gif/spike/blob/main/LICENSE">Apache-2.0</a>.</li>
-        <li><strong>Modelo base Qwen3.5-4B:</strong> Apache-2.0. Los conjuntos de datos y los componentes de terceros conservan su propia licencia, listada en <a href="https://github.com/jpimasreiser11-gif/spike/blob/main/THIRD_PARTY.md">THIRD_PARTY.md</a>.</li>
-        <li><strong>Nombre y logotipo del cactus:</strong> son la identidad del proyecto, véase la <a href="https://github.com/jpimasreiser11-gif/spike/blob/main/brand/README.md">carpeta de marca</a>.</li>
+        <li><strong>Código de SPIKE:</strong> <a href="https://github.com/oddlyprovenai/spike/blob/main/LICENSE">Apache-2.0</a>.</li>
+        <li><strong>Modelo base Qwen3.5-4B:</strong> Apache-2.0. Los conjuntos de datos y los componentes de terceros conservan su propia licencia, listada en <a href="https://github.com/oddlyprovenai/spike/blob/main/THIRD_PARTY.md">THIRD_PARTY.md</a>.</li>
+        <li><strong>Nombre y logotipo del cactus:</strong> son la identidad del proyecto, véase la <a href="https://github.com/oddlyprovenai/spike/blob/main/brand/README.md">carpeta de marca</a>.</li>
         <li><strong>Tipografía de esta página, Inter:</strong> SIL Open Font License 1.1, servida desde este sitio con su <a href="../assets/fonts/Inter-LICENSE.txt">texto de licencia</a>.</li>
       </ul>
       <p class="note">Esta página no usa cookies, no tiene analítica, no ejecuta scripts y no hace peticiones a otros sitios.</p>
@@ -167,7 +167,7 @@
 <footer>
   <div class="wrap">
     <img src="../assets/spike-wordmark-white.png" width="133" height="34" alt="SPIKE">
-    <p>Apache-2.0. <a href="https://github.com/jpimasreiser11-gif/spike">Código en GitHub</a>. <a href="../index.html" hreflang="en" lang="en">English version</a>.</p>
+    <p>Apache-2.0. <a href="https://github.com/oddlyprovenai/spike">Código en GitHub</a>. <a href="../index.html" hreflang="en" lang="en">English version</a>.</p>
   </div>
 </footer>
 </body>
