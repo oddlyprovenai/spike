@@ -1,0 +1,153 @@
+{
+  "specialist": "finance",
+  "recipe": "training/configs/finance.yaml",
+  "run": {
+    "git_commit": "58eb44913e2e5759d2907098c647b011d3837735",
+    "iters": 8825,
+    "started_utc": "2026-11-06T09:37:59Z"
+  },
+  "model": "/Users/jpima/.spike/models/Qwen3.5-4B-Q4_K_M.gguf",
+  "select": {
+    "suites": [
+      "finance-select",
+      "general-select"
+    ],
+    "rule": {
+      "primary": {
+        "suite": "finance-select",
+        "min_gain_points": 3.0,
+        "max_p_value": 0.05
+      },
+      "regression": {
+        "suite": "general-select",
+        "max_drop_points": 1.5
+      }
+    },
+    "results": "training/runs/finance/sweep/select"
+  },
+  "candidates": [
+    {
+      "asked": [
+        "0.125"
+      ],
+      "fraction": 0.125,
+      "iteration": 1200,
+      "scale": 1.0,
+      "stem": "spike-finance-it1200-s1",
+      "checkpoint": "training/runs/finance/adapter/0001200_adapters.safetensors",
+      "gguf": "training/runs/finance/sweep/gguf/spike-finance-it1200-s1.gguf",
+      "select": {
+        "primary": {
+          "suite": "finance-select",
+          "paired_n": 600,
+          "delta_points": 1.5,
+          "p_value": 0.488022
+        },
+        "regression": {
+          "suite": "general-select",
+          "paired_n": 400,
+          "delta_points": -10.0,
+          "p_value": 7.9e-05
+        }
+      },
+      "passes": false,
+      "reasons": [
+        "finance-select: +1.50 pts (need ≥ 3.0), p = 0.488 (need ≤ 0.05)",
+        "general-select: -10.00 pts (max drop 1.5)"
+      ]
+    },
+    {
+      "asked": [
+        "0.25"
+      ],
+      "fraction": 0.25,
+      "iteration": 2200,
+      "scale": 1.0,
+      "stem": "spike-finance-it2200-s1",
+      "checkpoint": "training/runs/finance/adapter/0002200_adapters.safetensors",
+      "gguf": "training/runs/finance/sweep/gguf/spike-finance-it2200-s1.gguf",
+      "select": {
+        "primary": {
+          "suite": "finance-select",
+          "paired_n": 600,
+          "delta_points": 4.17,
+          "p_value": 0.028703
+        },
+        "regression": {
+          "suite": "general-select",
+          "paired_n": 400,
+          "delta_points": -6.75,
+          "p_value": 0.005014
+        }
+      },
+      "passes": false,
+      "reasons": [
+        "finance-select: +4.17 pts (need ≥ 3.0), p = 0.0287 (need ≤ 0.05)",
+        "general-select: -6.75 pts (max drop 1.5)"
+      ]
+    },
+    {
+      "asked": [
+        "0.5"
+      ],
+      "fraction": 0.5,
+      "iteration": 4400,
+      "scale": 1.0,
+      "stem": "spike-finance-it4400-s1",
+      "checkpoint": "training/runs/finance/adapter/0004400_adapters.safetensors",
+      "gguf": "training/runs/finance/sweep/gguf/spike-finance-it4400-s1.gguf",
+      "select": {
+        "primary": {
+          "suite": "finance-select",
+          "paired_n": 600,
+          "delta_points": 6.33,
+          "p_value": 0.000534
+        },
+        "regression": {
+          "suite": "general-select",
+          "paired_n": 400,
+          "delta_points": -6.75,
+          "p_value": 0.004512
+        }
+      },
+      "passes": false,
+      "reasons": [
+        "finance-select: +6.33 pts (need ≥ 3.0), p = 0.000534 (need ≤ 0.05)",
+        "general-select: -6.75 pts (max drop 1.5)"
+      ]
+    },
+    {
+      "asked": [
+        "1@0.5"
+      ],
+      "fraction": 1.0,
+      "iteration": 8825,
+      "scale": 0.5,
+      "stem": "spike-finance-it8825-s0.5",
+      "checkpoint": "training/runs/finance/adapter/adapters.safetensors",
+      "gguf": "training/runs/finance/sweep/gguf/spike-finance-it8825-s0.5.gguf",
+      "select": {
+        "primary": {
+          "suite": "finance-select",
+          "paired_n": 600,
+          "delta_points": 5.17,
+          "p_value": 0.003854
+        },
+        "regression": {
+          "suite": "general-select",
+          "paired_n": 400,
+          "delta_points": -3.0,
+          "p_value": 0.229864
+        }
+      },
+      "passes": false,
+      "reasons": [
+        "finance-select: +5.17 pts (need ≥ 3.0), p = 0.003854 (need ≤ 0.05)",
+        "general-select: -3.00 pts (max drop 1.5)"
+      ]
+    }
+  ],
+  "chosen": null,
+  "final": null,
+  "exit_code": 2
+}

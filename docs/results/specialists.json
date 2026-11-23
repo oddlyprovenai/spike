@@ -457,7 +457,480 @@
   "finance": {
    "status": "base_profile",
    "accepted": null,
-   "rounds": []
+   "rounds": [
+    {
+     "round": 1,
+     "sweep": "round1/sweep",
+     "evidence": "training/runs/finance/round1/sweep/summary.json",
+     "trained_utc": {
+      "started": "2026-11-06T09:37:59Z",
+      "finished": "2026-11-06T13:27:22Z"
+     },
+     "git_commit": "58eb44913e2e5759d2907098c647b011d3837735",
+     "data": {
+      "train": 8825,
+      "valid": 180,
+      "replay_ratio_actual": 0.2999
+     },
+     "rule": {
+      "primary": {
+       "suite": "finance-select",
+       "min_gain_points": 3.0,
+       "max_p_value": 0.05
+      },
+      "regression": {
+       "suite": "general-select",
+       "max_drop_points": 1.5
+      }
+     },
+     "candidates": [
+      {
+       "name": "spike-finance-it8825-s0.25",
+       "iteration": 8825,
+       "scale": 0.25,
+       "select": {
+        "primary": {
+         "suite": "finance-select",
+         "paired_n": 600,
+         "delta_points": 1.67,
+         "p_value": 0.295413
+        },
+        "regression": {
+         "suite": "general-select",
+         "paired_n": 400,
+         "delta_points": -5.5,
+         "p_value": 0.01408
+        }
+       },
+       "passes": false,
+       "reasons": [
+        "finance-select: +1.67 pts (need ≥ 3.0), p = 0.2954 (need ≤ 0.05)",
+        "general-select: -5.50 pts (max drop 1.5)"
+       ]
+      },
+      {
+       "name": "spike-finance-it8825-s0.35",
+       "iteration": 8825,
+       "scale": 0.35,
+       "select": {
+        "primary": {
+         "suite": "finance-select",
+         "paired_n": 600,
+         "delta_points": 4.0,
+         "p_value": 0.011634
+        },
+        "regression": {
+         "suite": "general-select",
+         "paired_n": 400,
+         "delta_points": -4.5,
+         "p_value": 0.056664
+        }
+       },
+       "passes": false,
+       "reasons": [
+        "finance-select: +4.00 pts (need ≥ 3.0), p = 0.01163 (need ≤ 0.05)",
+        "general-select: -4.50 pts (max drop 1.5)"
+       ]
+      },
+      {
+       "name": "spike-finance-it4400-s0.5",
+       "iteration": 4400,
+       "scale": 0.5,
+       "select": {
+        "primary": {
+         "suite": "finance-select",
+         "paired_n": 600,
+         "delta_points": 3.67,
+         "p_value": 0.056823
+        },
+        "regression": {
+         "suite": "general-select",
+         "paired_n": 400,
+         "delta_points": -5.5,
+         "p_value": 0.018316
+        }
+       },
+       "passes": false,
+       "reasons": [
+        "finance-select: +3.67 pts (need ≥ 3.0), p = 0.05682 (need ≤ 0.05)",
+        "general-select: -5.50 pts (max drop 1.5)"
+       ]
+      }
+     ],
+     "chosen": null,
+     "verdict": "rejected",
+     "reasons": [
+      "no candidate passed the selection"
+     ],
+     "final": null
+    },
+    {
+     "round": 1,
+     "sweep": "round1/sweep-default",
+     "evidence": "training/runs/finance/round1/sweep-default/summary.json",
+     "trained_utc": {
+      "started": "2026-11-06T09:37:59Z",
+      "finished": "2026-11-06T13:27:22Z"
+     },
+     "git_commit": "58eb44913e2e5759d2907098c647b011d3837735",
+     "data": {
+      "train": 8825,
+      "valid": 180,
+      "replay_ratio_actual": 0.2999
+     },
+     "rule": {
+      "primary": {
+       "suite": "finance-select",
+       "min_gain_points": 3.0,
+       "max_p_value": 0.05
+      },
+      "regression": {
+       "suite": "general-select",
+       "max_drop_points": 1.5
+      }
+     },
+     "candidates": [
+      {
+       "name": "spike-finance-it1200-s1",
+       "iteration": 1200,
+       "scale": 1.0,
+       "select": {
+        "primary": {
+         "suite": "finance-select",
+         "paired_n": 600,
+         "delta_points": 1.5,
+         "p_value": 0.488022
+        },
+        "regression": {
+         "suite": "general-select",
+         "paired_n": 400,
+         "delta_points": -10.0,
+         "p_value": 7.9e-05
+        }
+       },
+       "passes": false,
+       "reasons": [
+        "finance-select: +1.50 pts (need ≥ 3.0), p = 0.488 (need ≤ 0.05)",
+        "general-select: -10.00 pts (max drop 1.5)"
+       ]
+      },
+      {
+       "name": "spike-finance-it2200-s1",
+       "iteration": 2200,
+       "scale": 1.0,
+       "select": {
+        "primary": {
+         "suite": "finance-select",
+         "paired_n": 600,
+         "delta_points": 4.17,
+         "p_value": 0.028703
+        },
+        "regression": {
+         "suite": "general-select",
+         "paired_n": 400,
+         "delta_points": -6.75,
+         "p_value": 0.005014
+        }
+       },
+       "passes": false,
+       "reasons": [
+        "finance-select: +4.17 pts (need ≥ 3.0), p = 0.0287 (need ≤ 0.05)",
+        "general-select: -6.75 pts (max drop 1.5)"
+       ]
+      },
+      {
+       "name": "spike-finance-it4400-s1",
+       "iteration": 4400,
+       "scale": 1.0,
+       "select": {
+        "primary": {
+         "suite": "finance-select",
+         "paired_n": 600,
+         "delta_points": 6.33,
+         "p_value": 0.000534
+        },
+        "regression": {
+         "suite": "general-select",
+         "paired_n": 400,
+         "delta_points": -6.75,
+         "p_value": 0.004512
+        }
+       },
+       "passes": false,
+       "reasons": [
+        "finance-select: +6.33 pts (need ≥ 3.0), p = 0.000534 (need ≤ 0.05)",
+        "general-select: -6.75 pts (max drop 1.5)"
+       ]
+      },
+      {
+       "name": "spike-finance-it8825-s0.5",
+       "iteration": 8825,
+       "scale": 0.5,
+       "select": {
+        "primary": {
+         "suite": "finance-select",
+         "paired_n": 600,
+         "delta_points": 5.17,
+         "p_value": 0.003854
+        },
+        "regression": {
+         "suite": "general-select",
+         "paired_n": 400,
+         "delta_points": -3.0,
+         "p_value": 0.229864
+        }
+       },
+       "passes": false,
+       "reasons": [
+        "finance-select: +5.17 pts (need ≥ 3.0), p = 0.003854 (need ≤ 0.05)",
+        "general-select: -3.00 pts (max drop 1.5)"
+       ]
+      }
+     ],
+     "chosen": null,
+     "verdict": "rejected",
+     "reasons": [
+      "no candidate passed the selection"
+     ],
+     "final": null
+    },
+    {
+     "round": 2,
+     "sweep": "round2/sweep",
+     "evidence": "training/runs/finance/round2/sweep/summary.json",
+     "trained_utc": {
+      "started": "2026-11-10T03:21:14Z",
+      "finished": "2026-11-10T16:33:32Z"
+     },
+     "git_commit": "fc6273925567d01838c74db258db679eb0a2dcb0",
+     "data": {
+      "train": 20063,
+      "valid": 409,
+      "replay_ratio_actual": 0.3
+     },
+     "rule": {
+      "primary": {
+       "suite": "finance-select",
+       "min_gain_points": 3.0,
+       "max_p_value": 0.05
+      },
+      "regression": {
+       "suite": "general-select",
+       "max_drop_points": 1.5
+      }
+     },
+     "candidates": [
+      {
+       "name": "spike-finance-it20063-s0.25",
+       "iteration": 20063,
+       "scale": 0.25,
+       "select": {
+        "primary": {
+         "suite": "finance-select",
+         "paired_n": 600,
+         "delta_points": 3.67,
+         "p_value": 0.016853
+        },
+        "regression": {
+         "suite": "general-select",
+         "paired_n": 400,
+         "delta_points": -3.75,
+         "p_value": 0.072177
+        }
+       },
+       "passes": false,
+       "reasons": [
+        "finance-select: +3.67 pts (need ≥ 3.0), p = 0.01685 (need ≤ 0.05)",
+        "general-select: -3.75 pts (max drop 1.5)"
+       ]
+      },
+      {
+       "name": "spike-finance-it20063-s0.35",
+       "iteration": 20063,
+       "scale": 0.35,
+       "select": {
+        "primary": {
+         "suite": "finance-select",
+         "paired_n": 600,
+         "delta_points": 5.5,
+         "p_value": 0.000378
+        },
+        "regression": {
+         "suite": "general-select",
+         "paired_n": 400,
+         "delta_points": -5.0,
+         "p_value": 0.016858
+        }
+       },
+       "passes": false,
+       "reasons": [
+        "finance-select: +5.50 pts (need ≥ 3.0), p = 0.000378 (need ≤ 0.05)",
+        "general-select: -5.00 pts (max drop 1.5)"
+       ]
+      },
+      {
+       "name": "spike-finance-it10000-s0.5",
+       "iteration": 10000,
+       "scale": 0.5,
+       "select": {
+        "primary": {
+         "suite": "finance-select",
+         "paired_n": 600,
+         "delta_points": 6.17,
+         "p_value": 0.00057
+        },
+        "regression": {
+         "suite": "general-select",
+         "paired_n": 400,
+         "delta_points": -5.25,
+         "p_value": 0.039608
+        }
+       },
+       "passes": false,
+       "reasons": [
+        "finance-select: +6.17 pts (need ≥ 3.0), p = 0.00057 (need ≤ 0.05)",
+        "general-select: -5.25 pts (max drop 1.5)"
+       ]
+      }
+     ],
+     "chosen": null,
+     "verdict": "rejected",
+     "reasons": [
+      "no candidate passed the selection"
+     ],
+     "final": null
+    },
+    {
+     "round": 2,
+     "sweep": "round2/sweep-default",
+     "evidence": "training/runs/finance/round2/sweep-default/summary.json",
+     "trained_utc": {
+      "started": "2026-11-10T03:21:14Z",
+      "finished": "2026-11-10T16:33:32Z"
+     },
+     "git_commit": "fc6273925567d01838c74db258db679eb0a2dcb0",
+     "data": {
+      "train": 20063,
+      "valid": 409,
+      "replay_ratio_actual": 0.3
+     },
+     "rule": {
+      "primary": {
+       "suite": "finance-select",
+       "min_gain_points": 3.0,
+       "max_p_value": 0.05
+      },
+      "regression": {
+       "suite": "general-select",
+       "max_drop_points": 1.5
+      }
+     },
+     "candidates": [
+      {
+       "name": "spike-finance-it2600-s1",
+       "iteration": 2600,
+       "scale": 1.0,
+       "select": {
+        "primary": {
+         "suite": "finance-select",
+         "paired_n": 600,
+         "delta_points": 4.67,
+         "p_value": 0.015818
+        },
+        "regression": {
+         "suite": "general-select",
+         "paired_n": 400,
+         "delta_points": -12.5,
+         "p_value": 0.0
+        }
+       },
+       "passes": false,
+       "reasons": [
+        "finance-select: +4.67 pts (need ≥ 3.0), p = 0.01582 (need ≤ 0.05)",
+        "general-select: -12.50 pts (max drop 1.5)"
+       ]
+      },
+      {
+       "name": "spike-finance-it5000-s1",
+       "iteration": 5000,
+       "scale": 1.0,
+       "select": {
+        "primary": {
+         "suite": "finance-select",
+         "paired_n": 600,
+         "delta_points": 6.0,
+         "p_value": 0.002194
+        },
+        "regression": {
+         "suite": "general-select",
+         "paired_n": 400,
+         "delta_points": -7.75,
+         "p_value": 0.000371
+        }
+       },
+       "passes": false,
+       "reasons": [
+        "finance-select: +6.00 pts (need ≥ 3.0), p = 0.002194 (need ≤ 0.05)",
+        "general-select: -7.75 pts (max drop 1.5)"
+       ]
+      },
+      {
+       "name": "spike-finance-it10000-s1",
+       "iteration": 10000,
+       "scale": 1.0,
+       "select": {
+        "primary": {
+         "suite": "finance-select",
+         "paired_n": 600,
+         "delta_points": 4.0,
+         "p_value": 0.053208
+        },
+        "regression": {
+         "suite": "general-select",
+         "paired_n": 400,
+         "delta_points": -10.25,
+         "p_value": 2e-05
+        }
+       },
+       "passes": false,
+       "reasons": [
+        "finance-select: +4.00 pts (need ≥ 3.0), p = 0.05321 (need ≤ 0.05)",
+        "general-select: -10.25 pts (max drop 1.5)"
+       ]
+      },
+      {
+       "name": "spike-finance-it20063-s0.5",
+       "iteration": 20063,
+       "scale": 0.5,
+       "select": {
+        "primary": {
+         "suite": "finance-select",
+         "paired_n": 600,
+         "delta_points": 7.0,
+         "p_value": 3.9e-05
+        },
+        "regression": {
+         "suite": "general-select",
+         "paired_n": 400,
+         "delta_points": -2.75,
+         "p_value": 0.235098
+        }
+       },
+       "passes": false,
+       "reasons": [
+        "finance-select: +7.00 pts (need ≥ 3.0), p = 3.9e-05 (need ≤ 0.05)",
+        "general-select: -2.75 pts (max drop 1.5)"
+       ]
+      }
+     ],
+     "chosen": null,
+     "verdict": "rejected",
+     "reasons": [
+      "no candidate passed the selection"
+     ],
+     "final": null
+    }
+   ]
   },
   "medicine": {
    "status": "adapter_accepted",
@@ -904,9 +1377,728 @@
         "p_value": 0.0
        }
       },
-      "questions": null,
-      "topics": {},
-      "rescored": null
+      "questions": "training/runs/medicine/sweep/final/questions.jsonl",
+      "topics": {
+       "medmcqa-val": {
+        "Anaesthesia": {
+         "n": 5,
+         "base_correct": 1,
+         "adapter_correct": 4
+        },
+        "Anatomy": {
+         "n": 56,
+         "base_correct": 24,
+         "adapter_correct": 39
+        },
+        "Biochemistry": {
+         "n": 43,
+         "base_correct": 25,
+         "adapter_correct": 38
+        },
+        "Dental": {
+         "n": 280,
+         "base_correct": 53,
+         "adapter_correct": 144
+        },
+        "ENT": {
+         "n": 11,
+         "base_correct": 3,
+         "adapter_correct": 7
+        },
+        "Forensic Medicine": {
+         "n": 16,
+         "base_correct": 5,
+         "adapter_correct": 8
+        },
+        "Gynaecology & Obstetrics": {
+         "n": 70,
+         "base_correct": 11,
+         "adapter_correct": 40
+        },
+        "Medicine": {
+         "n": 71,
+         "base_correct": 28,
+         "adapter_correct": 51
+        },
+        "Microbiology": {
+         "n": 27,
+         "base_correct": 4,
+         "adapter_correct": 14
+        },
+        "Ophthalmology": {
+         "n": 10,
+         "base_correct": 2,
+         "adapter_correct": 6
+        },
+        "Orthopaedics": {
+         "n": 5,
+         "base_correct": 0,
+         "adapter_correct": 2
+        },
+        "Pathology": {
+         "n": 96,
+         "base_correct": 32,
+         "adapter_correct": 73
+        },
+        "Pediatrics": {
+         "n": 55,
+         "base_correct": 18,
+         "adapter_correct": 37
+        },
+        "Pharmacology": {
+         "n": 54,
+         "base_correct": 12,
+         "adapter_correct": 41
+        },
+        "Physiology": {
+         "n": 58,
+         "base_correct": 21,
+         "adapter_correct": 45
+        },
+        "Psychiatry": {
+         "n": 4,
+         "base_correct": 0,
+         "adapter_correct": 2
+        },
+        "Radiology": {
+         "n": 22,
+         "base_correct": 4,
+         "adapter_correct": 14
+        },
+        "Skin": {
+         "n": 4,
+         "base_correct": 1,
+         "adapter_correct": 1
+        },
+        "Social & Preventive Medicine": {
+         "n": 27,
+         "base_correct": 9,
+         "adapter_correct": 19
+        },
+        "Surgery": {
+         "n": 85,
+         "base_correct": 23,
+         "adapter_correct": 58
+        },
+        "Unknown": {
+         "n": 1,
+         "base_correct": 0,
+         "adapter_correct": 0
+        }
+       },
+       "mmlu-pro-general": {
+        "formal_logic": {
+         "n": 33,
+         "base_correct": 26,
+         "adapter_correct": 26
+        },
+        "global_facts": {
+         "n": 33,
+         "base_correct": 11,
+         "adapter_correct": 12
+        },
+        "high_school_european_history": {
+         "n": 20,
+         "base_correct": 7,
+         "adapter_correct": 7
+        },
+        "high_school_geography": {
+         "n": 26,
+         "base_correct": 17,
+         "adapter_correct": 21
+        },
+        "high_school_government_and_politics": {
+         "n": 9,
+         "base_correct": 5,
+         "adapter_correct": 6
+        },
+        "high_school_psychology": {
+         "n": 57,
+         "base_correct": 42,
+         "adapter_correct": 39
+        },
+        "high_school_us_history": {
+         "n": 26,
+         "base_correct": 13,
+         "adapter_correct": 16
+        },
+        "high_school_world_history": {
+         "n": 28,
+         "base_correct": 17,
+         "adapter_correct": 17
+        },
+        "human_sexuality": {
+         "n": 17,
+         "base_correct": 11,
+         "adapter_correct": 8
+        },
+        "logical_fallacies": {
+         "n": 23,
+         "base_correct": 20,
+         "adapter_correct": 21
+        },
+        "miscellaneous": {
+         "n": 68,
+         "base_correct": 50,
+         "adapter_correct": 47
+        },
+        "moral_disputes": {
+         "n": 41,
+         "base_correct": 19,
+         "adapter_correct": 17
+        },
+        "philosophy": {
+         "n": 38,
+         "base_correct": 21,
+         "adapter_correct": 21
+        },
+        "prehistory": {
+         "n": 49,
+         "base_correct": 29,
+         "adapter_correct": 28
+        },
+        "professional_accounting": {
+         "n": 51,
+         "base_correct": 34,
+         "adapter_correct": 35
+        },
+        "professional_psychology": {
+         "n": 99,
+         "base_correct": 69,
+         "adapter_correct": 68
+        },
+        "public_relations": {
+         "n": 21,
+         "base_correct": 7,
+         "adapter_correct": 6
+        },
+        "security_studies": {
+         "n": 39,
+         "base_correct": 23,
+         "adapter_correct": 23
+        },
+        "sociology": {
+         "n": 16,
+         "base_correct": 11,
+         "adapter_correct": 8
+        },
+        "stemez-Psychology": {
+         "n": 80,
+         "base_correct": 63,
+         "adapter_correct": 67
+        },
+        "us_foreign_policy": {
+         "n": 10,
+         "base_correct": 6,
+         "adapter_correct": 4
+        },
+        "world_religions": {
+         "n": 16,
+         "base_correct": 9,
+         "adapter_correct": 8
+        }
+       },
+       "mmlu-pro-health": {
+        "anatomy": {
+         "n": 79,
+         "base_correct": 30,
+         "adapter_correct": 44
+        },
+        "clinical_knowledge": {
+         "n": 72,
+         "base_correct": 20,
+         "adapter_correct": 42
+        },
+        "college_medicine": {
+         "n": 48,
+         "base_correct": 19,
+         "adapter_correct": 35
+        },
+        "human_aging": {
+         "n": 86,
+         "base_correct": 16,
+         "adapter_correct": 34
+        },
+        "medical_genetics": {
+         "n": 54,
+         "base_correct": 18,
+         "adapter_correct": 36
+        },
+        "nutrition": {
+         "n": 179,
+         "base_correct": 40,
+         "adapter_correct": 113
+        },
+        "professional_medicine": {
+         "n": 254,
+         "base_correct": 103,
+         "adapter_correct": 175
+        },
+        "virology": {
+         "n": 46,
+         "base_correct": 7,
+         "adapter_correct": 29
+        }
+       },
+       "pubmedqa-labeled": {
+        "": {
+         "n": 500,
+         "base_correct": 211,
+         "adapter_correct": 402
+        }
+       }
+      },
+      "rescored": {
+       "rescored": {
+        "date_utc": "2026-11-23T02:15:50Z",
+        "git_commit": "6b8a0de",
+        "rows": 6236,
+        "parsed_changed": 27,
+        "correct_changed": 16
+       },
+       "evidence": "training/runs/medicine/sweep/final-rescored/summary.json",
+       "protocol": {
+        "model": "Qwen3.5-4B-Q4_K_M.gguf",
+        "llama_cpp": "b11669-620d2225c",
+        "decoding": "greedy",
+        "thinking": false,
+        "max_tokens": 2048,
+        "seed": 0,
+        "kv_cache_type": "q8_0",
+        "prompt": "the specialist's system prompt; zero-shot (question, options, answer-format instruction)"
+       },
+       "suites": {
+        "general": {
+         "base": {
+          "n": 800,
+          "correct": 510,
+          "accuracy": 0.6375,
+          "ci95": [
+           0.6036,
+           0.6701
+          ],
+          "unparsed": 10,
+          "truncated": 37
+         },
+         "adapter": {
+          "n": 800,
+          "correct": 505,
+          "accuracy": 0.6312,
+          "ci95": [
+           0.5973,
+           0.664
+          ],
+          "unparsed": 1,
+          "truncated": 26
+         },
+         "delta_points": -0.62,
+         "p_value": 0.743269
+        },
+        "medicine": {
+         "base": {
+          "n": 2318,
+          "correct": 752,
+          "accuracy": 0.3244,
+          "ci95": [
+           0.3057,
+           0.3438
+          ],
+          "unparsed": 631,
+          "truncated": 52
+         },
+         "adapter": {
+          "n": 2318,
+          "correct": 1553,
+          "accuracy": 0.67,
+          "ci95": [
+           0.6506,
+           0.6888
+          ],
+          "unparsed": 43,
+          "truncated": 66
+         },
+         "delta_points": 34.56,
+         "p_value": 0.0
+        }
+       },
+       "tasks": {
+        "medmcqa-val": {
+         "base": {
+          "n": 1000,
+          "correct": 274,
+          "accuracy": 0.274,
+          "ci95": [
+           0.2473,
+           0.3025
+          ],
+          "unparsed": 402,
+          "truncated": 24
+         },
+         "adapter": {
+          "n": 1000,
+          "correct": 643,
+          "accuracy": 0.643,
+          "ci95": [
+           0.6128,
+           0.6721
+          ],
+          "unparsed": 26,
+          "truncated": 34
+         },
+         "delta_points": 36.9,
+         "p_value": 0.0
+        },
+        "mmlu-pro-general": {
+         "base": {
+          "n": 800,
+          "correct": 510,
+          "accuracy": 0.6375,
+          "ci95": [
+           0.6036,
+           0.6701
+          ],
+          "unparsed": 10,
+          "truncated": 37
+         },
+         "adapter": {
+          "n": 800,
+          "correct": 505,
+          "accuracy": 0.6312,
+          "ci95": [
+           0.5973,
+           0.664
+          ],
+          "unparsed": 1,
+          "truncated": 26
+         },
+         "delta_points": -0.62,
+         "p_value": 0.743269
+        },
+        "mmlu-pro-health": {
+         "base": {
+          "n": 818,
+          "correct": 267,
+          "accuracy": 0.3264,
+          "ci95": [
+           0.2951,
+           0.3593
+          ],
+          "unparsed": 229,
+          "truncated": 27
+         },
+         "adapter": {
+          "n": 818,
+          "correct": 508,
+          "accuracy": 0.621,
+          "ci95": [
+           0.5873,
+           0.6536
+          ],
+          "unparsed": 16,
+          "truncated": 31
+         },
+         "delta_points": 29.46,
+         "p_value": 0.0
+        },
+        "pubmedqa-labeled": {
+         "base": {
+          "n": 500,
+          "correct": 211,
+          "accuracy": 0.422,
+          "ci95": [
+           0.3795,
+           0.4657
+          ],
+          "unparsed": 0,
+          "truncated": 1
+         },
+         "adapter": {
+          "n": 500,
+          "correct": 402,
+          "accuracy": 0.804,
+          "ci95": [
+           0.7669,
+           0.8364
+          ],
+          "unparsed": 1,
+          "truncated": 1
+         },
+         "delta_points": 38.2,
+         "p_value": 0.0
+        }
+       },
+       "questions": "training/runs/medicine/sweep/final-rescored/questions.jsonl",
+       "topics": {
+        "medmcqa-val": {
+         "Anaesthesia": {
+          "n": 5,
+          "base_correct": 1,
+          "adapter_correct": 4
+         },
+         "Anatomy": {
+          "n": 56,
+          "base_correct": 23,
+          "adapter_correct": 39
+         },
+         "Biochemistry": {
+          "n": 43,
+          "base_correct": 25,
+          "adapter_correct": 38
+         },
+         "Dental": {
+          "n": 280,
+          "base_correct": 53,
+          "adapter_correct": 144
+         },
+         "ENT": {
+          "n": 11,
+          "base_correct": 3,
+          "adapter_correct": 7
+         },
+         "Forensic Medicine": {
+          "n": 16,
+          "base_correct": 5,
+          "adapter_correct": 8
+         },
+         "Gynaecology & Obstetrics": {
+          "n": 70,
+          "base_correct": 11,
+          "adapter_correct": 40
+         },
+         "Medicine": {
+          "n": 71,
+          "base_correct": 28,
+          "adapter_correct": 51
+         },
+         "Microbiology": {
+          "n": 27,
+          "base_correct": 4,
+          "adapter_correct": 14
+         },
+         "Ophthalmology": {
+          "n": 10,
+          "base_correct": 2,
+          "adapter_correct": 6
+         },
+         "Orthopaedics": {
+          "n": 5,
+          "base_correct": 0,
+          "adapter_correct": 2
+         },
+         "Pathology": {
+          "n": 96,
+          "base_correct": 32,
+          "adapter_correct": 73
+         },
+         "Pediatrics": {
+          "n": 55,
+          "base_correct": 18,
+          "adapter_correct": 37
+         },
+         "Pharmacology": {
+          "n": 54,
+          "base_correct": 12,
+          "adapter_correct": 41
+         },
+         "Physiology": {
+          "n": 58,
+          "base_correct": 20,
+          "adapter_correct": 45
+         },
+         "Psychiatry": {
+          "n": 4,
+          "base_correct": 0,
+          "adapter_correct": 2
+         },
+         "Radiology": {
+          "n": 22,
+          "base_correct": 4,
+          "adapter_correct": 14
+         },
+         "Skin": {
+          "n": 4,
+          "base_correct": 1,
+          "adapter_correct": 1
+         },
+         "Social & Preventive Medicine": {
+          "n": 27,
+          "base_correct": 9,
+          "adapter_correct": 19
+         },
+         "Surgery": {
+          "n": 85,
+          "base_correct": 23,
+          "adapter_correct": 58
+         },
+         "Unknown": {
+          "n": 1,
+          "base_correct": 0,
+          "adapter_correct": 0
+         }
+        },
+        "mmlu-pro-general": {
+         "formal_logic": {
+          "n": 33,
+          "base_correct": 26,
+          "adapter_correct": 26
+         },
+         "global_facts": {
+          "n": 33,
+          "base_correct": 11,
+          "adapter_correct": 12
+         },
+         "high_school_european_history": {
+          "n": 20,
+          "base_correct": 7,
+          "adapter_correct": 7
+         },
+         "high_school_geography": {
+          "n": 26,
+          "base_correct": 17,
+          "adapter_correct": 21
+         },
+         "high_school_government_and_politics": {
+          "n": 9,
+          "base_correct": 5,
+          "adapter_correct": 6
+         },
+         "high_school_psychology": {
+          "n": 57,
+          "base_correct": 42,
+          "adapter_correct": 39
+         },
+         "high_school_us_history": {
+          "n": 26,
+          "base_correct": 13,
+          "adapter_correct": 16
+         },
+         "high_school_world_history": {
+          "n": 28,
+          "base_correct": 17,
+          "adapter_correct": 17
+         },
+         "human_sexuality": {
+          "n": 17,
+          "base_correct": 11,
+          "adapter_correct": 8
+         },
+         "logical_fallacies": {
+          "n": 23,
+          "base_correct": 20,
+          "adapter_correct": 21
+         },
+         "miscellaneous": {
+          "n": 68,
+          "base_correct": 50,
+          "adapter_correct": 47
+         },
+         "moral_disputes": {
+          "n": 41,
+          "base_correct": 19,
+          "adapter_correct": 17
+         },
+         "philosophy": {
+          "n": 38,
+          "base_correct": 21,
+          "adapter_correct": 21
+         },
+         "prehistory": {
+          "n": 49,
+          "base_correct": 29,
+          "adapter_correct": 28
+         },
+         "professional_accounting": {
+          "n": 51,
+          "base_correct": 34,
+          "adapter_correct": 35
+         },
+         "professional_psychology": {
+          "n": 99,
+          "base_correct": 69,
+          "adapter_correct": 68
+         },
+         "public_relations": {
+          "n": 21,
+          "base_correct": 7,
+          "adapter_correct": 6
+         },
+         "security_studies": {
+          "n": 39,
+          "base_correct": 23,
+          "adapter_correct": 23
+         },
+         "sociology": {
+          "n": 16,
+          "base_correct": 11,
+          "adapter_correct": 8
+         },
+         "stemez-Psychology": {
+          "n": 80,
+          "base_correct": 63,
+          "adapter_correct": 67
+         },
+         "us_foreign_policy": {
+          "n": 10,
+          "base_correct": 6,
+          "adapter_correct": 4
+         },
+         "world_religions": {
+          "n": 16,
+          "base_correct": 9,
+          "adapter_correct": 8
+         }
+        },
+        "mmlu-pro-health": {
+         "anatomy": {
+          "n": 79,
+          "base_correct": 31,
+          "adapter_correct": 44
+         },
+         "clinical_knowledge": {
+          "n": 72,
+          "base_correct": 22,
+          "adapter_correct": 42
+         },
+         "college_medicine": {
+          "n": 48,
+          "base_correct": 20,
+          "adapter_correct": 35
+         },
+         "human_aging": {
+          "n": 86,
+          "base_correct": 17,
+          "adapter_correct": 34
+         },
+         "medical_genetics": {
+          "n": 54,
+          "base_correct": 18,
+          "adapter_correct": 36
+         },
+         "nutrition": {
+          "n": 179,
+          "base_correct": 44,
+          "adapter_correct": 113
+         },
+         "professional_medicine": {
+          "n": 254,
+          "base_correct": 106,
+          "adapter_correct": 175
+         },
+         "virology": {
+          "n": 46,
+          "base_correct": 9,
+          "adapter_correct": 29
+         }
+        },
+        "pubmedqa-labeled": {
+         "": {
+          "n": 500,
+          "base_correct": 211,
+          "adapter_correct": 402
+         }
+        }
+       }
+      }
      }
     }
    ]

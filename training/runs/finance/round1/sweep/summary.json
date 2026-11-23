@@ -1,0 +1,123 @@
+{
+  "specialist": "finance",
+  "recipe": "training/configs/finance.yaml",
+  "run": {
+    "git_commit": "58eb44913e2e5759d2907098c647b011d3837735",
+    "iters": 8825,
+    "started_utc": "2026-11-06T09:37:59Z"
+  },
+  "model": "/Users/jpima/.spike/models/Qwen3.5-4B-Q4_K_M.gguf",
+  "select": {
+    "suites": [
+      "finance-select",
+      "general-select"
+    ],
+    "rule": {
+      "primary": {
+        "suite": "finance-select",
+        "min_gain_points": 3.0,
+        "max_p_value": 0.05
+      },
+      "regression": {
+        "suite": "general-select",
+        "max_drop_points": 1.5
+      }
+    },
+    "results": "training/runs/finance/sweep/select"
+  },
+  "candidates": [
+    {
+      "asked": [
+        "1@0.25"
+      ],
+      "fraction": 1.0,
+      "iteration": 8825,
+      "scale": 0.25,
+      "stem": "spike-finance-it8825-s0.25",
+      "checkpoint": "training/runs/finance/adapter/adapters.safetensors",
+      "gguf": "training/runs/finance/sweep/gguf/spike-finance-it8825-s0.25.gguf",
+      "select": {
+        "primary": {
+          "suite": "finance-select",
+          "paired_n": 600,
+          "delta_points": 1.67,
+          "p_value": 0.295413
+        },
+        "regression": {
+          "suite": "general-select",
+          "paired_n": 400,
+          "delta_points": -5.5,
+          "p_value": 0.01408
+        }
+      },
+      "passes": false,
+      "reasons": [
+        "finance-select: +1.67 pts (need ≥ 3.0), p = 0.2954 (need ≤ 0.05)",
+        "general-select: -5.50 pts (max drop 1.5)"
+      ]
+    },
+    {
+      "asked": [
+        "1@0.35"
+      ],
+      "fraction": 1.0,
+      "iteration": 8825,
+      "scale": 0.35,
+      "stem": "spike-finance-it8825-s0.35",
+      "checkpoint": "training/runs/finance/adapter/adapters.safetensors",
+      "gguf": "training/runs/finance/sweep/gguf/spike-finance-it8825-s0.35.gguf",
+      "select": {
+        "primary": {
+          "suite": "finance-select",
+          "paired_n": 600,
+          "delta_points": 4.0,
+          "p_value": 0.011634
+        },
+        "regression": {
+          "suite": "general-select",
+          "paired_n": 400,
+          "delta_points": -4.5,
+          "p_value": 0.056664
+        }
+      },
+      "passes": false,
+      "reasons": [
+        "finance-select: +4.00 pts (need ≥ 3.0), p = 0.01163 (need ≤ 0.05)",
+        "general-select: -4.50 pts (max drop 1.5)"
+      ]
+    },
+    {
+      "asked": [
+        "0.5@0.5"
+      ],
+      "fraction": 0.5,
+      "iteration": 4400,
+      "scale": 0.5,
+      "stem": "spike-finance-it4400-s0.5",
+      "checkpoint": "training/runs/finance/adapter/0004400_adapters.safetensors",
+      "gguf": "training/runs/finance/sweep/gguf/spike-finance-it4400-s0.5.gguf",
+      "select": {
+        "primary": {
+          "suite": "finance-select",
+          "paired_n": 600,
+          "delta_points": 3.67,
+          "p_value": 0.056823
+        },
+        "regression": {
+          "suite": "general-select",
+          "paired_n": 400,
+          "delta_points": -5.5,
+          "p_value": 0.018316
+        }
+      },
+      "passes": false,
+      "reasons": [
+        "finance-select: +3.67 pts (need ≥ 3.0), p = 0.05682 (need ≤ 0.05)",
+        "general-select: -5.50 pts (max drop 1.5)"
+      ]
+    }
+  ],
+  "chosen": null,
+  "final": null,
+  "exit_code": 2
+}
