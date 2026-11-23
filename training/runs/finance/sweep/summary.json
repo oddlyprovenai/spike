@@ -1,0 +1,153 @@
+{
+  "specialist": "finance",
+  "recipe": "training/configs/finance.yaml",
+  "run": {
+    "git_commit": "7a1559c652b59dd867127a0486945eddac09f44c",
+    "iters": 13375,
+    "started_utc": "2026-11-23T02:30:27Z"
+  },
+  "model": "~/.spike/models/Qwen3.5-4B-Q4_K_M.gguf",
+  "select": {
+    "suites": [
+      "finance-select",
+      "general-select"
+    ],
+    "rule": {
+      "primary": {
+        "suite": "finance-select",
+        "min_gain_points": 3.0,
+        "max_p_value": 0.05
+      },
+      "regression": {
+        "suite": "general-select",
+        "max_drop_points": 1.5
+      }
+    },
+    "results": "training/runs/finance/sweep/select"
+  },
+  "candidates": [
+    {
+      "asked": [
+        "0.125"
+      ],
+      "fraction": 0.125,
+      "iteration": 1600,
+      "scale": 1.0,
+      "stem": "spike-finance-it1600-s1",
+      "checkpoint": "training/runs/finance/adapter/0001600_adapters.safetensors",
+      "gguf": "training/runs/finance/sweep/gguf/spike-finance-it1600-s1.gguf",
+      "select": {
+        "primary": {
+          "suite": "finance-select",
+          "paired_n": 600,
+          "delta_points": 0.33,
+          "p_value": 0.930155
+        },
+        "regression": {
+          "suite": "general-select",
+          "paired_n": 400,
+          "delta_points": -8.75,
+          "p_value": 0.000127
+        }
+      },
+      "passes": false,
+      "reasons": [
+        "finance-select: +0.33 pts (need ≥ 3.0), p = 0.9302 (need ≤ 0.05)",
+        "general-select: -8.75 pts (max drop 1.5)"
+      ]
+    },
+    {
+      "asked": [
+        "0.25"
+      ],
+      "fraction": 0.25,
+      "iteration": 3400,
+      "scale": 1.0,
+      "stem": "spike-finance-it3400-s1",
+      "checkpoint": "training/runs/finance/adapter/0003400_adapters.safetensors",
+      "gguf": "training/runs/finance/sweep/gguf/spike-finance-it3400-s1.gguf",
+      "select": {
+        "primary": {
+          "suite": "finance-select",
+          "paired_n": 600,
+          "delta_points": 2.17,
+          "p_value": 0.298071
+        },
+        "regression": {
+          "suite": "general-select",
+          "paired_n": 400,
+          "delta_points": -8.5,
+          "p_value": 0.000222
+        }
+      },
+      "passes": false,
+      "reasons": [
+        "finance-select: +2.17 pts (need ≥ 3.0), p = 0.2981 (need ≤ 0.05)",
+        "general-select: -8.50 pts (max drop 1.5)"
+      ]
+    },
+    {
+      "asked": [
+        "0.5"
+      ],
+      "fraction": 0.5,
+      "iteration": 6600,
+      "scale": 1.0,
+      "stem": "spike-finance-it6600-s1",
+      "checkpoint": "training/runs/finance/adapter/0006600_adapters.safetensors",
+      "gguf": "training/runs/finance/sweep/gguf/spike-finance-it6600-s1.gguf",
+      "select": {
+        "primary": {
+          "suite": "finance-select",
+          "paired_n": 600,
+          "delta_points": 5.67,
+          "p_value": 0.004188
+        },
+        "regression": {
+          "suite": "general-select",
+          "paired_n": 400,
+          "delta_points": -8.25,
+          "p_value": 0.000264
+        }
+      },
+      "passes": false,
+      "reasons": [
+        "finance-select: +5.67 pts (need ≥ 3.0), p = 0.004188 (need ≤ 0.05)",
+        "general-select: -8.25 pts (max drop 1.5)"
+      ]
+    },
+    {
+      "asked": [
+        "1@0.5"
+      ],
+      "fraction": 1.0,
+      "iteration": 13375,
+      "scale": 0.5,
+      "stem": "spike-finance-it13375-s0.5",
+      "checkpoint": "training/runs/finance/adapter/adapters.safetensors",
+      "gguf": "training/runs/finance/sweep/gguf/spike-finance-it13375-s0.5.gguf",
+      "select": {
+        "primary": {
+          "suite": "finance-select",
+          "paired_n": 600,
+          "delta_points": 6.83,
+          "p_value": 7.8e-05
+        },
+        "regression": {
+          "suite": "general-select",
+          "paired_n": 400,
+          "delta_points": -6.0,
+          "p_value": 0.01375
+        }
+      },
+      "passes": false,
+      "reasons": [
+        "finance-select: +6.83 pts (need ≥ 3.0), p = 7.8e-05 (need ≤ 0.05)",
+        "general-select: -6.00 pts (max drop 1.5)"
+      ]
+    }
+  ],
+  "chosen": null,
+  "final": null,
+  "exit_code": 2
+}

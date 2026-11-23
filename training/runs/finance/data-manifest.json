@@ -1,0 +1,223 @@
+{
+  "specialist": "finance",
+  "config": {
+    "specialist": "finance",
+    "base_model": "Qwen/Qwen3.5-4B",
+    "hypothesis": "LoRA on permissively licensed, human-annotated finance data (news and tweet classification and entity extraction from Sujet-Finance, plus FinQA and TAT-QA questions with their calculations) improves exact-answer finance reasoning of the 4B base, measured on the held-out FinQA and TAT-QA test sets (FinQA in the gold-facts setting: the supporting facts are given, so it is not comparable with retriever-based leaderboards) and MMLU-Pro business and economics, without degrading general knowledge.\n",
+    "acceptance": {
+      "primary": {
+        "suite": "finance",
+        "min_gain_points": 3.0,
+        "max_p_value": 0.05
+      },
+      "regression": {
+        "suite": "general",
+        "max_drop_points": 1.5
+      }
+    },
+    "domain_sources": [
+      {
+        "source": "sujet-finance",
+        "max": 8000,
+        "max_per_value": 2000
+      },
+      {
+        "source": "finqa-train"
+      },
+      {
+        "source": "tatqa-train"
+      }
+    ],
+    "replay": {
+      "ratio": 0.45,
+      "sources": [
+        {
+          "source": "oasst2",
+          "max": 13000
+        }
+      ]
+    },
+    "eval": {
+      "max_tokens": 2048
+    },
+    "decontaminate_against": [
+      "mmlu-pro",
+      "finqa-test",
+      "tatqa-test"
+    ],
+    "valid_fraction": 0.02,
+    "seed": 0,
+    "train": {
+      "epochs": 1.0,
+      "batch_size": 1,
+      "grad_accumulation_steps": 16,
+      "learning_rate": 0.0001,
+      "lr_schedule": {
+        "name": "cosine_decay",
+        "warmup": 100,
+        "arguments": [
+          0.0001,
+          "auto",
+          1e-05
+        ]
+      },
+      "max_seq_length": 1536,
+      "grad_checkpoint": true,
+      "mask_prompt": true,
+      "num_layers": -1,
+      "lora_parameters": {
+        "rank": 16,
+        "scale": 2.0,
+        "dropout": 0.05,
+        "keys": [
+          "self_attn.q_proj",
+          "self_attn.k_proj",
+          "self_attn.v_proj",
+          "self_attn.o_proj",
+          "mlp.gate_proj",
+          "mlp.up_proj",
+          "mlp.down_proj"
+        ]
+      }
+    }
+  },
+  "created_utc": "2026-11-23T02:28:35Z",
+  "sources": {
+    "mmlu-pro": {
+      "hub": "TIGER-Lab/MMLU-Pro",
+      "license_hub": "mit",
+      "license_registry": "mit",
+      "role": "eval",
+      "provenance": "12k 10-option questions in 14 categories; used per category for domain and regression evals.",
+      "license_status": "legacy",
+      "indexed_prompts": 12032
+    },
+    "finqa-test": {
+      "urls": [
+        {
+          "url": "https://raw.githubusercontent.com/czyssrs/FinQA/0f16e2867befa6840783e58be38c9efb9229d742/dataset/test.json",
+          "sha256": "831dbfb2e785dbc227f895ce3f24046433467aec67b09db2bd6ac7692a8a30dc"
+        }
+      ],
+      "revision": "0f16e2867befa6840783e58be38c9efb9229d742",
+      "repo": "https://github.com/czyssrs/FinQA",
+      "license_url": "https://raw.githubusercontent.com/czyssrs/FinQA/0f16e2867befa6840783e58be38c9efb9229d742/LICENSE",
+      "license_hub": "mit",
+      "license_registry": "mit",
+      "role": "eval",
+      "provenance": "FinQA test split, 1,147 questions, gold-facts setting (see finqa-train). Scored against the program's result (0.5 % tolerance; a percentage may be written as such) or the annotated answer; yes/no questions by yes/no. The dev split is not registered.",
+      "license_status": "legacy",
+      "indexed_prompts": 1147
+    },
+    "tatqa-test": {
+      "urls": [
+        {
+          "url": "https://raw.githubusercontent.com/NExTplusplus/TAT-QA/870accc41953dcde885aabeb963d94aabdc0fbc3/dataset_raw/tatqa_dataset_test_gold.json",
+          "sha256": "c4d08418359c1d76468dec420ee748a37f48c06b63cb8ec2766f19d5d314b597"
+        }
+      ],
+      "revision": "870accc41953dcde885aabeb963d94aabdc0fbc3",
+      "repo": "https://github.com/NExTplusplus/TAT-QA",
+      "license_url": "https://raw.githubusercontent.com/NExTplusplus/TAT-QA/870accc41953dcde885aabeb963d94aabdc0fbc3/LICENSE",
+      "license_hub": "mit",
+      "license_registry": "mit",
+      "role": "eval",
+      "provenance": "TAT-QA test split with gold answers (tatqa_dataset_test_gold.json), 277 documents, 1,663 questions. Numbers are scored with a 0.5 % tolerance ignoring scale words, % and $; spans by normalized exact match; multi-span as an unordered set. The dev split is not registered.",
+      "license_status": "legacy",
+      "indexed_prompts": 1663
+    },
+    "sujet-finance": {
+      "hub": "sujet-ai/Sujet-Finance-Instruct-177k",
+      "filter": {
+        "dataset": [
+          "ugursa/Yahoo-Finance-News-Sentences",
+          "zeroshot/twitter-financial-news-topic",
+          "zeroshot/twitter-financial-news-sentiment",
+          "yixuantt/FinEntity"
+        ]
+      },
+      "license_hub": "apache-2.0",
+      "license_registry": "apache-2.0",
+      "role": "train",
+      "provenance": "Subset of an aggregation of 18 public finance datasets, chosen by the `dataset` column after a license audit. Kept: the four classification and entity-extraction sources above (no QA), uploader-claimed MIT or odc-by; the news and tweet text in them is third-party. Excluded: gbharti/finance-alpaca (text-davinci-003 and GPT-3.5 outputs, CC BY-NC), dylanalloy/ehc-contrived-financial (OpenAI davinci-turbo outputs), amphora/lmsys-finance (GPT-4 and Claude outputs), financial_phrasebank and its copies AdaptLLM/finance-tasks_FPB, KennNguyenDev/FiQA_Financial_Phrasebank_Combined, AdiOO7/llama-2-finance (CC BY-NC-SA 3.0), AdaptLLM/finance-tasks_FiQA_SA (FiQA, non-commercial), AdaptLLM/finance-tasks_Headline and _ConvFinQA (no license; ConvFinQA overlaps FinQA), ceadar-ie/FinTalk-19k (answer provenance unverified), nickmuchi/financial-classification, lighthouzai/finqabench and adityamavle/FinRiskAnalysis (unknown provenance or LLM-generated).",
+      "license_status": "legacy",
+      "kept": 6962
+    },
+    "finqa-train": {
+      "urls": [
+        {
+          "url": "https://raw.githubusercontent.com/czyssrs/FinQA/0f16e2867befa6840783e58be38c9efb9229d742/dataset/train.json",
+          "sha256": "49f237eb9779b569473b26b08048867d04635a7cc39ad6a7a5664c55bb428db6"
+        }
+      ],
+      "revision": "0f16e2867befa6840783e58be38c9efb9229d742",
+      "repo": "https://github.com/czyssrs/FinQA",
+      "license_url": "https://raw.githubusercontent.com/czyssrs/FinQA/0f16e2867befa6840783e58be38c9efb9229d742/LICENSE",
+      "license_hub": "mit",
+      "license_registry": "mit",
+      "role": "train",
+      "provenance": "FinQA (Chen et al., EMNLP 2021): questions over S&P 500 earnings reports written by financial experts, with the supporting facts and the calculation program annotated. 6,251 questions. GOLD-FACTS setting: the prompt gives the annotated supporting facts (`gold_inds`) and no retrieval is involved, so scores are not comparable with retriever-based FinQA leaderboards. The training target is the annotated program rendered as lines such as \"5829 - 5735 = 94\", then \"Answer: <annotated answer>\". Rows whose annotated step results contradict their own arguments (385 of 6,251, e.g. \"2.5 / 1.6 = 0.9\" or a lost minus sign) are dropped, so the model is not taught wrong arithmetic; the test split is not filtered.",
+      "license_status": "legacy",
+      "kept": 5378
+    },
+    "tatqa-train": {
+      "urls": [
+        {
+          "url": "https://raw.githubusercontent.com/NExTplusplus/TAT-QA/870accc41953dcde885aabeb963d94aabdc0fbc3/dataset_raw/tatqa_dataset_train.json",
+          "sha256": "2df6e722cdbaaa37efcbfb280f5c9a15be29a6ec18f618ef936fe63cc6d07c69"
+        }
+      ],
+      "revision": "870accc41953dcde885aabeb963d94aabdc0fbc3",
+      "repo": "https://github.com/NExTplusplus/TAT-QA",
+      "license_url": "https://raw.githubusercontent.com/NExTplusplus/TAT-QA/870accc41953dcde885aabeb963d94aabdc0fbc3/LICENSE",
+      "license_hub": "mit",
+      "license_registry": "mit",
+      "role": "train",
+      "provenance": "TAT-QA (Zhu et al., ACL 2021): questions over tables plus text from financial reports, annotated by finance experts. 2,201 documents, 13,215 questions (span, multi-span, count, arithmetic). The repository LICENSE is MIT; the Hugging Face card says CC BY 4.0, both permissive. The training target is the annotated derivation (when there is one) and \"Answer: <answer> <scale>\".",
+      "license_status": "legacy",
+      "kept": 10289
+    },
+    "oasst2": {
+      "hub": "OpenAssistant/oasst2",
+      "license_hub": "apache-2.0",
+      "license_registry": "apache-2.0",
+      "role": "train",
+      "provenance": "Human-written conversations collected by OpenAssistant (2023); only reviewed, non-deleted, non-synthetic messages are used.",
+      "license_status": "legacy",
+      "kept": 6142
+    },
+    "self_replay:self_replay.jsonl": {
+      "role": "train",
+      "self_generated": true,
+      "sha256": "bf533f78891673af77a10d243ced42e7f31657f398f0349243a0df2be2f4acd6",
+      "rows": 6145,
+      "teachers": {
+        "Qwen/Qwen3.5-4B": {
+          "license_hub": "apache-2.0",
+          "license_recorded": "apache-2.0"
+        }
+      },
+      "kept": 6142
+    }
+  },
+  "dropped": {
+    "format_or_quality": 386,
+    "duplicate": 48,
+    "contaminated": 2991,
+    "too_long": 425
+  },
+  "counts": {
+    "domain": 7506,
+    "replay_available": 6142,
+    "train": 13375,
+    "valid": 272,
+    "replay_ratio_target": 0.45,
+    "replay_ratio_actual": 0.45,
+    "domain_before_fit": 22581,
+    "iters": 13375
+  },
+  "files": {
+    "train.jsonl": "02e17fc95d27d16b10d1d56a214cea9dd513c7776943904c057701b55db51105",
+    "valid.jsonl": "a8b3503968708791c73b7953135ee39a7762fbf3c293e05fb63569ef14c46e28"
+  }
+}
