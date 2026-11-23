@@ -16,7 +16,8 @@ domain_sources:
   - {source: finqa-train}                # 6,251 questions, minus rows whose own arithmetic is wrong
   - {source: tatqa-train}                # all 13,215 questions (many are longer than max_seq_length and dropped)
 replay:
-  ratio: 0.3                          # share of general data in the training mix (anti-forgetting)
+  ratio: 0.45                         # share of general data in the training mix (anti-forgetting); M3 round 3's one
+                                      # change (0.30 -> 0.45): round 2 passed finance (+7.00) but lost general (-2.75)
   sources:
     - {source: oasst2, max: 13000}       # human-written only; 13,002 chats are built from en+es
 eval:
