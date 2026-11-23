@@ -4,6 +4,7 @@
 // Usage (from web/ or repo root): node web/e2e/a11y.mjs [screenshotDir]
 import { chromium } from "playwright-core";
 import fs from "node:fs";
+import os from "node:os";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { createServer } from "vite";
@@ -1304,8 +1305,8 @@ await server.listen();
 const base = server.resolvedUrls.local[0];
 const executablePath = [
   process.env.CHROMIUM_PATH,
-  "/Users/jpima/Library/Caches/ms-playwright/chromium-1234/chrome-mac-arm64/Google Chrome for Testing.app/Contents/MacOS/Google Chrome for Testing",
-  "/Users/jpima/Library/Caches/ms-playwright/chromium_headless_shell-1234/chrome-headless-shell-mac-arm64/chrome-headless-shell",
+  path.join(os.homedir(), "Library/Caches/ms-playwright/chromium-1234/chrome-mac-arm64/Google Chrome for Testing.app/Contents/MacOS/Google Chrome for Testing"),
+  path.join(os.homedir(), "Library/Caches/ms-playwright/chromium_headless_shell-1234/chrome-headless-shell-mac-arm64/chrome-headless-shell"),
   "/opt/pw-browsers/chromium_headless_shell-1194/chrome-linux/headless_shell",
   "/opt/pw-browsers/chromium-1194/chrome-linux/chrome",
 ].find((p) => p && fs.existsSync(p) && fs.statSync(p).isFile());

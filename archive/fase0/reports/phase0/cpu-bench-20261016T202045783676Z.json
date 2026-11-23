@@ -131,7 +131,7 @@
     "No es evaluación de calidad, comparativa Gemma ni gate de especialista."
   ],
   "model": {
-    "path": "/Users/jpima/Downloads/spike/models/qwen35/Qwen3.5-0.8B-Q4_K_M.gguf",
+    "path": "~/Downloads/spike/models/qwen35/Qwen3.5-0.8B-Q4_K_M.gguf",
     "sha256": "bd258782e35f7f458f8aced1adc053e6e92e89bc735ba3be89d38a06121dc517",
     "size_bytes": 532517120,
     "upstream_repository": "unsloth/Qwen3.5-0.8B-GGUF",
@@ -144,7 +144,7 @@
   "command_redacted": [
     "/opt/homebrew/bin/llama-server",
     "--model",
-    "/Users/jpima/Downloads/spike/models/qwen35/Qwen3.5-0.8B-Q4_K_M.gguf",
+    "~/Downloads/spike/models/qwen35/Qwen3.5-0.8B-Q4_K_M.gguf",
     "--host",
     "127.0.0.1",
     "--port",
@@ -166,10 +166,10 @@
   "model_cpu16_verified": false,
   "runtime_start_ms": 5076.994,
   "server_pid": 71539,
-  "served_model_id": "/Users/jpima/Downloads/spike/models/qwen35/Qwen3.5-0.8B-Q4_K_M.gguf",
+  "served_model_id": "~/Downloads/spike/models/qwen35/Qwen3.5-0.8B-Q4_K_M.gguf",
   "ttft_ms_median": 57.279,
   "ttft_ms_max": 63.063,
   "total_ms_median": 417.971,
-  "llama_log_path": "/Users/jpima/Downloads/spike/reports/phase0/cpu-bench-20261016T202045783676Z.llama.log",
+  "llama_log_path": "~/Downloads/spike/reports/phase0/cpu-bench-20261016T202045783676Z.llama.log",
   "llama_log_size_bytes": 5659
 }

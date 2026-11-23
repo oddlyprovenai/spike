@@ -9,13 +9,13 @@ El tablero mantiene 41 tareas: 14 `done`, 23 `todo`, 4 `doing`. Hay 12 PR abiert
 
 | Orden | Entrega | Situación y acción de revisión |
 |---|---|---|
-| 1 | [COMPAT1 #16](https://github.com/jpimasreiser11-gif/spike/pull/16) | Sus nueve comprobaciones pasan en el SHA 9072c70; corrida 40841454389. Revisar borrado recuperable de proyectos, rutas Windows y sincronización del smoke. No se ha integrado. |
-| 2 | [DEV1 #15](https://github.com/jpimasreiser11-gif/spike/pull/15) | Sesiones de Dev. Incorporar COMPAT1 y repetir CI; su propio SHA sigue pendiente de ese arreglo. |
-| 2 | [A13 #11](https://github.com/jpimasreiser11-gif/spike/pull/11) → [A14 #14](https://github.com/jpimasreiser11-gif/spike/pull/14) | A14 depende de A13. Voz/imagen y después audio/subtítulos; validar motores y pesos reales aparte de pruebas simuladas. |
-| 3 | [A9 #7](https://github.com/jpimasreiser11-gif/spike/pull/7), [A11 #8](https://github.com/jpimasreiser11-gif/spike/pull/8), [A12 #9](https://github.com/jpimasreiser11-gif/spike/pull/9) | Proyectos, skills, Data-to-Software. Revisar límites, persistencia y compatibilidad; no modificar el tablero hasta decidir. |
-| 3 | [A15 #12](https://github.com/jpimasreiser11-gif/spike/pull/12), [SEARCH1 #13](https://github.com/jpimasreiser11-gif/spike/pull/13) | Fuentes, investigación y búsqueda. Revisar junto con memoria de Claude; ninguna evidencia simulada equivale a proveedor real. |
-| 4 | [M5 #6](https://github.com/jpimasreiser11-gif/spike/pull/6), [I1 #10](https://github.com/jpimasreiser11-gif/spike/pull/10) | Recetas e instalación: las recetas requieren auditoría de Claude, el lanzador necesita instaladores finales y pruebas limpias. |
-| Auditar solapamientos | [Trabajo previo #2](https://github.com/jpimasreiser11-gif/spike/pull/2) | Comparar con main y PR posteriores antes de integrar; no asumir que sigue siendo un conjunto independiente. |
+| 1 | [COMPAT1 #16](https://github.com/oddlyprovenai/spike/pull/16) | Sus nueve comprobaciones pasan en el SHA 9072c70; corrida 40841454389. Revisar borrado recuperable de proyectos, rutas Windows y sincronización del smoke. No se ha integrado. |
+| 2 | [DEV1 #15](https://github.com/oddlyprovenai/spike/pull/15) | Sesiones de Dev. Incorporar COMPAT1 y repetir CI; su propio SHA sigue pendiente de ese arreglo. |
+| 2 | [A13 #11](https://github.com/oddlyprovenai/spike/pull/11) → [A14 #14](https://github.com/oddlyprovenai/spike/pull/14) | A14 depende de A13. Voz/imagen y después audio/subtítulos; validar motores y pesos reales aparte de pruebas simuladas. |
+| 3 | [A9 #7](https://github.com/oddlyprovenai/spike/pull/7), [A11 #8](https://github.com/oddlyprovenai/spike/pull/8), [A12 #9](https://github.com/oddlyprovenai/spike/pull/9) | Proyectos, skills, Data-to-Software. Revisar límites, persistencia y compatibilidad; no modificar el tablero hasta decidir. |
+| 3 | [A15 #12](https://github.com/oddlyprovenai/spike/pull/12), [SEARCH1 #13](https://github.com/oddlyprovenai/spike/pull/13) | Fuentes, investigación y búsqueda. Revisar junto con memoria de Claude; ninguna evidencia simulada equivale a proveedor real. |
+| 4 | [M5 #6](https://github.com/oddlyprovenai/spike/pull/6), [I1 #10](https://github.com/oddlyprovenai/spike/pull/10) | Recetas e instalación: las recetas requieren auditoría de Claude, el lanzador necesita instaladores finales y pruebas limpias. |
+| Auditar solapamientos | [Trabajo previo #2](https://github.com/oddlyprovenai/spike/pull/2) | Comparar con main y PR posteriores antes de integrar; no asumir que sigue siendo un conjunto independiente. |
 | Entregar | Gemini G1 | Cambios locales en DevDiagnostics, estilos, i18n, tests y reporte. No tiene entrega remota comprobada. Revisar y pedir una rama/PR antes de marcar terminada; evitar ediciones simultáneas. |
 
 Las descripciones de #14 y #15 ya explican la dependencia de COMPAT1. No se cerró ni fusionó ninguna PR. Conservar APIs;

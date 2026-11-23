@@ -16,7 +16,7 @@
   },
   "python": "3.12.13",
   "model": {
-    "path": "/Users/jpima/.spike/models/Qwen3.5-4B-Q4_K_M.gguf",
+    "path": "~/.spike/models/Qwen3.5-4B-Q4_K_M.gguf",
     "file_gb": 2.553
   },
   "settings": {

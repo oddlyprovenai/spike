@@ -40,7 +40,7 @@ or `CHANGELOG.md` (Claude merges those). Put the text for STATUS and CHANGELOG i
 - **Merges stay small**: new HTTP routes in their own module with an `APIRouter`, registered with one line in
   `spike/server/app.py`; new UI in new component files.
 - **The owner's Mac**: do not start llama-server, training, model downloads or anything heavy; never write outside your
-  worktree. `/Users/jpima/Downloads/Spike` is the owner's folder: read it only when a task says so, never change it.
+  worktree. `~/Downloads/Spike` is the owner's folder: read it only when a task says so, never change it.
 
 ## Verify before you finish
 From the repository root:

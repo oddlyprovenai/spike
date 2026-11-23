@@ -146,7 +146,7 @@ dist/assets/index-DHQ-Wc2c.js                              618.93 kB │ gzip: 1
 - Últimas 15 líneas:
 
 ```text
-/Users/jpima/Downloads/Spike-codex/tests/fixtures/out/.team-qa/COMPAT1/20261029-091924
+~/Downloads/Spike-codex/tests/fixtures/out/.team-qa/COMPAT1/20261029-091924
 E2E OK
 
 server stopped -15

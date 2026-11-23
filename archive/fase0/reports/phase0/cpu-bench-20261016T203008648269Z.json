@@ -132,7 +132,7 @@
     "No es evaluación de calidad, comparativa Gemma ni gate de especialista."
   ],
   "model": {
-    "path": "/Users/jpima/Downloads/spike/models/qwen35/Qwen3.5-4B-Q4_K_M.gguf",
+    "path": "~/Downloads/spike/models/qwen35/Qwen3.5-4B-Q4_K_M.gguf",
     "sha256": "00fe7986ff5f6b463e62455821146049db6f9313603938a70800d1fb69ef11a4",
     "size_bytes": 2740937888,
     "upstream_repository": "unsloth/Qwen3.5-4B-GGUF",
@@ -143,14 +143,14 @@
     "version": "version: 0.7.0 (build 11669, commit 620d2225c)\nbuilt with AppleClang 21.0.0.21000334 for Darwin arm64"
   },
   "draft": {
-    "path": "/Users/jpima/Downloads/spike/models/qwen35/Qwen3.5-0.8B-Q4_K_M.gguf",
+    "path": "~/Downloads/spike/models/qwen35/Qwen3.5-0.8B-Q4_K_M.gguf",
     "sha256": "bd258782e35f7f458f8aced1adc053e6e92e89bc735ba3be89d38a06121dc517",
     "size_bytes": 532517120
   },
   "command_redacted": [
     "/opt/homebrew/bin/llama-server",
     "--model",
-    "/Users/jpima/Downloads/spike/models/qwen35/Qwen3.5-4B-Q4_K_M.gguf",
+    "~/Downloads/spike/models/qwen35/Qwen3.5-4B-Q4_K_M.gguf",
     "--host",
     "127.0.0.1",
     "--port",
@@ -170,7 +170,7 @@
     "--reasoning",
     "off",
     "--spec-draft-model",
-    "/Users/jpima/Downloads/spike/models/qwen35/Qwen3.5-0.8B-Q4_K_M.gguf",
+    "~/Downloads/spike/models/qwen35/Qwen3.5-0.8B-Q4_K_M.gguf",
     "--spec-draft-ngl",
     "0"
   ],
@@ -178,10 +178,10 @@
   "model_cpu16_verified": false,
   "runtime_start_ms": 13416.872,
   "server_pid": 74517,
-  "served_model_id": "/Users/jpima/Downloads/spike/models/qwen35/Qwen3.5-4B-Q4_K_M.gguf",
+  "served_model_id": "~/Downloads/spike/models/qwen35/Qwen3.5-4B-Q4_K_M.gguf",
   "ttft_ms_median": 288.674,
   "ttft_ms_max": 316.772,
   "total_ms_median": 600.485,
-  "llama_log_path": "/Users/jpima/Downloads/spike/reports/phase0/cpu-bench-20261016T203008648269Z.llama.log",
+  "llama_log_path": "~/Downloads/spike/reports/phase0/cpu-bench-20261016T203008648269Z.llama.log",
   "llama_log_size_bytes": 5766
 }

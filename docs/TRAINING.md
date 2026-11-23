@@ -125,7 +125,7 @@ do nothing), and everything stays on this computer.
 The sources Codex proposed for the other specialists were reviewed with evidence gathered on a GitHub runner,
 because the cloud session cannot reach the Hub: `training/verify_sources.py` (workflow `sources.yml`, manual)
 records the Hub license metadata, the dataset card, the Hub commit, every row of the split streamed and counted and
-how many the formatter accepts. Run: https://github.com/jpimasreiser11-gif/spike/actions/runs/41407296157
+how many the formatter accepts. Run: https://github.com/oddlyprovenai/spike/actions/runs/41407296157
 (`datasets` 5.1.0). Each entry of `training/datasets.yaml` keeps its numbers in `license_review`.
 
 | Specialist | Source | Hub license | Rows (train / eval), all formatted | Decision |

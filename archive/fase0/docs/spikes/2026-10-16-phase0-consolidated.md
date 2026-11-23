@@ -4,7 +4,7 @@
 
 ## 1. Fuente verificable, repositorio y alcance
 
-El repositorio existente y privado es [`jpimasreiser11-gif/spike`](https://github.com/jpimasreiser11-gif/spike), sincronizado localmente en el Mac de desarrollo, rama `main`. Histórico comprobado antes de esta revisión: commit `c18a263efe3a0062dec52fc9bed6acf92cb72232` (preparación), commit `d3703931e86be40123d346ab54032b942bbe2991` (auditoría y preflight), y [GitHub Actions run 38876647080](https://github.com/jpimasreiser11-gif/spike/actions/runs/38876647080) completada satisfactoriamente en `d370393`. Esta revisión conserva ambos commits y no crea otro proyecto.
+El repositorio existente y privado es [`jpimasreiser11-gif/spike`](https://github.com/oddlyprovenai/spike), sincronizado localmente en el Mac de desarrollo, rama `main`. Histórico comprobado antes de esta revisión: commit `c18a263efe3a0062dec52fc9bed6acf92cb72232` (preparación), commit `d3703931e86be40123d346ab54032b942bbe2991` (auditoría y preflight), y [GitHub Actions run 38876647080](https://github.com/oddlyprovenai/spike/actions/runs/38876647080) completada satisfactoriamente en `d370393`. Esta revisión conserva ambos commits y no crea otro proyecto.
 
 **Actualización de la fuente (2026-10-16):** Joan facilitó el Plan Maestro v3 íntegro y ya se comprobó su presencia como [`PLAN.md`](../../PLAN.md) en el checkout (`§§0–17`, incluidas las especificaciones literales S1–S7 en §14 y clean-room en §13). El [informe histórico de recuperación](2026-10-16-plan-source-gate.md) describe correctamente el **bloqueo anterior**, que ahora queda **RESUELTO solo como fuente documental**. Ningún gate experimental se supera por haber recibido el texto. Se mantienen íntegramente los criterios originales y la necesidad de aprobación expresa para Fase 1.
 

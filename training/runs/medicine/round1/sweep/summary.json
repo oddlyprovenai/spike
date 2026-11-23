@@ -6,7 +6,7 @@
     "iters": 25469,
     "started_utc": "2026-10-20T08:40:23Z"
   },
-  "model": "/Users/jpima/.spike/models/Qwen3.5-4B-Q4_K_M.gguf",
+  "model": "~/.spike/models/Qwen3.5-4B-Q4_K_M.gguf",
   "select": {
     "suites": [
       "medicine-select",

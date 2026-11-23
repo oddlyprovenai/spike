@@ -1,6 +1,6 @@
-2026-11-02T12:30:04Z supervising bash /Users/jpima/Downloads/Spike-main/training/train.sh medicine; Config(swap_growth_gb=2.0, min_free_gb=2.5, resume_free_gb=22.0, resume_stable_min=10.0, max_restarts=20, sample_sec=5.0, grace_sec=30.0, log_every_sec=300.0)
+2026-11-02T12:30:04Z supervising bash ~/Downloads/Spike-main/training/train.sh medicine; Config(swap_growth_gb=2.0, min_free_gb=2.5, resume_free_gb=22.0, resume_stable_min=10.0, max_restarts=20, sample_sec=5.0, grace_sec=30.0, log_every_sec=300.0)
 2026-11-02T12:30:04Z waiting for 22 GB available for 10 min in a row; available 16.26 GB, swap used 0.00 GB
-2026-11-02T12:31:31Z supervising bash /Users/jpima/Downloads/Spike-main/training/train.sh medicine; Config(swap_growth_gb=2.0, min_free_gb=2.5, resume_free_gb=15.0, resume_stable_min=2.0, max_restarts=20, sample_sec=5.0, grace_sec=30.0, log_every_sec=300.0)
+2026-11-02T12:31:31Z supervising bash ~/Downloads/Spike-main/training/train.sh medicine; Config(swap_growth_gb=2.0, min_free_gb=2.5, resume_free_gb=15.0, resume_stable_min=2.0, max_restarts=20, sample_sec=5.0, grace_sec=30.0, log_every_sec=300.0)
 2026-11-02T12:31:31Z attempt 1: started pid 81693; available 16.35 GB, swap used 0.00 GB; stop above 2.00 GB swap or below 2.5 GB available
 2026-11-02T12:36:31Z attempt 1 running; available 9.98 GB, swap used 0.00 GB
 2026-11-02T12:41:31Z attempt 1 running; available 7.29 GB, swap used 0.00 GB

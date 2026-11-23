@@ -954,7 +954,7 @@
         "state": "in_review",
         "revision": "592a0182a56aee33cd0aca6eb7b5ee950314eaa1",
         "references": [
-          "https://github.com/jpimasreiser11-gif/spike/pull/14"
+          "https://github.com/oddlyprovenai/spike/pull/14"
         ]
       },
       "journeys": [
@@ -1171,7 +1171,7 @@
         "state": "in_review",
         "revision": "592a0182a56aee33cd0aca6eb7b5ee950314eaa1",
         "references": [
-          "https://github.com/jpimasreiser11-gif/spike/pull/14"
+          "https://github.com/oddlyprovenai/spike/pull/14"
         ]
       },
       "journeys": [
@@ -1213,7 +1213,7 @@
         "state": "in_review",
         "revision": "b1f2f601afbcae196167a90124ef0df446679854",
         "references": [
-          "https://github.com/jpimasreiser11-gif/spike/pull/12"
+          "https://github.com/oddlyprovenai/spike/pull/12"
         ]
       },
       "journeys": [
@@ -1342,7 +1342,7 @@
         "state": "in_review",
         "revision": "b1f2f601afbcae196167a90124ef0df446679854",
         "references": [
-          "https://github.com/jpimasreiser11-gif/spike/pull/12"
+          "https://github.com/oddlyprovenai/spike/pull/12"
         ]
       },
       "journeys": [
@@ -1429,7 +1429,7 @@
         "state": "in_review",
         "revision": "b1f2f601afbcae196167a90124ef0df446679854",
         "references": [
-          "https://github.com/jpimasreiser11-gif/spike/pull/12"
+          "https://github.com/oddlyprovenai/spike/pull/12"
         ]
       },
       "journeys": [
@@ -1868,7 +1868,7 @@
         "state": "in_review",
         "revision": "2b48c2aaf36d27df2e661af8d8650d1ba1fe51bc",
         "references": [
-          "https://github.com/jpimasreiser11-gif/spike/pull/9"
+          "https://github.com/oddlyprovenai/spike/pull/9"
         ]
       },
       "journeys": [
@@ -2087,7 +2087,7 @@
         "state": "in_review",
         "revision": "de5d31d4854734eb4f59fa3fb7c049bc198f83cd",
         "references": [
-          "https://github.com/jpimasreiser11-gif/spike/pull/7"
+          "https://github.com/oddlyprovenai/spike/pull/7"
         ]
       },
       "journeys": [
@@ -2324,7 +2324,7 @@
         "state": "in_review",
         "revision": "de5d31d4854734eb4f59fa3fb7c049bc198f83cd",
         "references": [
-          "https://github.com/jpimasreiser11-gif/spike/pull/7"
+          "https://github.com/oddlyprovenai/spike/pull/7"
         ]
       },
       "journeys": [
@@ -2366,7 +2366,7 @@
         "state": "in_review",
         "revision": "de5d31d4854734eb4f59fa3fb7c049bc198f83cd",
         "references": [
-          "https://github.com/jpimasreiser11-gif/spike/pull/7"
+          "https://github.com/oddlyprovenai/spike/pull/7"
         ]
       },
       "journeys": [
@@ -3425,7 +3425,7 @@
         "state": "in_review",
         "revision": "9bb0274e2fca5f7b40dabe155411163776b62173",
         "references": [
-          "https://github.com/jpimasreiser11-gif/spike/pull/11"
+          "https://github.com/oddlyprovenai/spike/pull/11"
         ]
       },
       "journeys": [
@@ -3469,7 +3469,7 @@
         "state": "in_review",
         "revision": "a91316035de1f4efbeee6557547f996878dc5bfc",
         "references": [
-          "https://github.com/jpimasreiser11-gif/spike/pull/8"
+          "https://github.com/oddlyprovenai/spike/pull/8"
         ]
       },
       "journeys": [
@@ -3554,7 +3554,7 @@
         "revision": "df11471377cc737b1c3ed99fab128b96c35a4b2e",
         "references": [
           "tests/test_dev.py",
-          "https://github.com/jpimasreiser11-gif/spike/pull/15"
+          "https://github.com/oddlyprovenai/spike/pull/15"
         ]
       },
       "journeys": [
@@ -4171,7 +4171,7 @@
         "references": [
           "scripts/install.sh",
           "scripts/install.ps1",
-          "https://github.com/jpimasreiser11-gif/spike/pull/10"
+          "https://github.com/oddlyprovenai/spike/pull/10"
         ]
       },
       "journeys": [

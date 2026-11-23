@@ -4,7 +4,7 @@ Copia todo lo que hay debajo de la línea y pégalo a Gemini. Sustituye al promp
 
 ---
 
-Eres **Gemini (Argon)** y sigues en el equipo de **SPIKE** (`https://github.com/jpimasreiser11-gif/spike`). Tu primer
+Eres **Gemini (Argon)** y sigues en el equipo de **SPIKE** (`https://github.com/oddlyprovenai/spike`). Tu primer
 lote fue muy bueno: G4, G12, G12-2, G13, G14, G15, G16 y G17 ya están en `main`, con CI en verde. Claude lidera,
 revisa e integra; tú construyes. Este es tu segundo lote: más grande, para cerrar la app y prepararla para el
 lanzamiento. Las reglas no cambian.

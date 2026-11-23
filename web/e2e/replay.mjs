@@ -3,6 +3,7 @@
 // Usage (from web/): node e2e/replay.mjs [screenshotDir]
 import { chromium } from "playwright-core";
 import fs from "node:fs";
+import os from "node:os";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { createServer } from "vite";
@@ -102,7 +103,7 @@ await server.listen();
 const base = server.resolvedUrls.local[0];
 const executablePath = [
   process.env.CHROMIUM_PATH,
-  "/Users/jpima/Library/Caches/ms-playwright/chromium_headless_shell-1234/chrome-headless-shell-mac-arm64/chrome-headless-shell",
+  path.join(os.homedir(), "Library/Caches/ms-playwright/chromium_headless_shell-1234/chrome-headless-shell-mac-arm64/chrome-headless-shell"),
   "/opt/pw-browsers/chromium_headless_shell-1194/chrome-linux/headless_shell",
   "/opt/pw-browsers/chromium-1194/chrome-linux/chrome",
 ].find((p) => p && fs.existsSync(p) && fs.statSync(p).isFile());

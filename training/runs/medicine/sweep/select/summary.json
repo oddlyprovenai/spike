@@ -1,7 +1,7 @@
 {
   "meta": {
     "run_id": "20261102-185716",
-    "model": "/Users/jpima/.spike/models/Qwen3.5-4B-Q4_K_M.gguf",
+    "model": "~/.spike/models/Qwen3.5-4B-Q4_K_M.gguf",
     "adapters": {
       "spike-medicine-it1600-s1": 0,
       "spike-medicine-it3400-s1": 1,

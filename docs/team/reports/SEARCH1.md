@@ -151,7 +151,7 @@ dist/assets/index-BCfo7Uo_.js                              626.43 kB │ gzip: 1
 - Últimas 15 líneas:
 
 ```text
-/Users/jpima/Downloads/Spike-codex/tests/fixtures/out/.team-qa/SEARCH1/20261028-102438
+~/Downloads/Spike-codex/tests/fixtures/out/.team-qa/SEARCH1/20261028-102438
 E2E OK
 
 server stopped -15

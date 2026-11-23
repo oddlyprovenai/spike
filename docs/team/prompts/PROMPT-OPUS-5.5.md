@@ -16,14 +16,14 @@ Copia todo lo que hay debajo de la línea y pégalo en una sesión nueva de Clau
 
 
 Eres un agente **Opus 5.5** que se une al equipo de **SPIKE**: una app local de IA con especialistas, repositorio
-privado `https://github.com/jpimasreiser11-gif/spike`. El hilo de Claude en la nube dirige el proyecto e integra en
+privado `https://github.com/oddlyprovenai/spike`. El hilo de Claude en la nube dirige el proyecto e integra en
 `main`; otra sesión de Claude en este Mac entrena los modelos; Codex y Gemini construyen módulos. A ti te tocan las
 tareas más delicadas de diseño y seguridad. Trabajas por tu cuenta, pero cada rama la revisa el líder antes de entrar en
 `main`, así que entrégalas pequeñas, probadas y fáciles de revisar.
 
 ## 0. Antes de empezar (obligatorio)
 
-1. Copia propia: `git clone https://github.com/jpimasreiser11-gif/spike.git ~/Downloads/Spike-opus && cd ~/Downloads/Spike-opus`.
+1. Copia propia: `git clone https://github.com/oddlyprovenai/spike.git ~/Downloads/Spike-opus && cd ~/Downloads/Spike-opus`.
    Una rama por tarea desde `origin/main` actualizado: `git fetch origin && git switch -c opus/<ID> origin/main`.
 2. Entorno: `python3.12 -m venv .venv && .venv/bin/pip install -e ".[dev,keyring]"`, `cd web && npm ci`. Comprueba que
    todo pasa antes de tocar nada: `.venv/bin/ruff check .`, `.venv/bin/python -m pytest -q`,

@@ -7,7 +7,7 @@
   "host_ram_bytes": 38654705664,
   "status": "FAIL",
   "gate_passed": false,
-  "error": "RuntimeError: llama-server exit 1; log /Users/jpima/Downloads/spike/reports/phase0/embedding-smoke-20261016T204042799135Z.llama.log",
+  "error": "RuntimeError: llama-server exit 1; log ~/Downloads/spike/reports/phase0/embedding-smoke-20261016T204042799135Z.llama.log",
   "limitations": "3 original English smoke prompts, not licensed labeled 300+ prompts; does not test routing/Planner. Mac 36GB not 16GB CPU target.",
   "model": {
     "filename": "multilingual-e5-small-q8_0.gguf",

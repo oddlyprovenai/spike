@@ -203,7 +203,7 @@ Bundling 80%
 Bundling 85%
 Bundling 91%
 Bundling 98%
-○ /Users/jpima/Downloads/Spike-codex/marketing/video/out/bundle
+○ ~/Downloads/Spike-codex/marketing/video/out/bundle
 ```
 
 ### `Production checks; final preflight must refuse incomplete media`

@@ -26,14 +26,14 @@ Lo que dicen las secciones de abajo sigue valiendo entero. No esperes respuesta 
 
 
 Eres **Gemini (Argon)** y te unes al equipo que construye **SPIKE**: una app local de IA con especialistas,
-repositorio privado `https://github.com/jpimasreiser11-gif/spike`. Claude dirige el proyecto: planifica, revisa
+repositorio privado `https://github.com/oddlyprovenai/spike`. Claude dirige el proyecto: planifica, revisa
 cada rama, integra en `main` y entrena los modelos en este Mac. Tú construyes, pruebas y documentas. Tu trabajo
 solo cuenta cuando Claude lo revisa e integra, así que hazlo para que se pueda revisar rápido.
 
 ## 0. Antes de empezar (obligatorio)
 
 1. Crea tu copia propia **fuera** de las carpetas de los demás:
-   `git clone https://github.com/jpimasreiser11-gif/spike.git ~/Downloads/Spike-argon && cd ~/Downloads/Spike-argon`
+   `git clone https://github.com/oddlyprovenai/spike.git ~/Downloads/Spike-argon && cd ~/Downloads/Spike-argon`
    Para cada tarea crea una rama desde `origin/main` actualizado: `git fetch origin && git switch -c gemini/<ID> origin/main`.
    Si prefieres worktrees: `git worktree add ~/Downloads/Spike-argon-<id> -b gemini/<ID> origin/main`.
 2. Entorno: `python3.12 -m venv .venv && .venv/bin/pip install -e ".[dev,keyring]"` y `cd web && npm ci`.

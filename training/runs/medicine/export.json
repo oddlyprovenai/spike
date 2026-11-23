@@ -1,5 +1,5 @@
 {
-  "gguf": "/Users/jpima/.spike/adapters/spike-medicine.gguf",
+  "gguf": "~/.spike/adapters/spike-medicine.gguf",
   "peft": {
     "peft_type": "LORA",
     "task_type": "CAUSAL_LM",

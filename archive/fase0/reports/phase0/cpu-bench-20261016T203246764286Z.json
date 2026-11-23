@@ -132,7 +132,7 @@
     "No es evaluación de calidad, comparativa Gemma ni gate de especialista."
   ],
   "model": {
-    "path": "/Users/jpima/Downloads/spike/models/gemma4/gemma-4-E4B.Q4_K_M.gguf",
+    "path": "~/Downloads/spike/models/gemma4/gemma-4-E4B.Q4_K_M.gguf",
     "sha256": "17434a48d7b466313d2f7249500448074138856faecf1c03cd83ad13ca63aa52",
     "size_bytes": 5335273984,
     "upstream_repository": "mradermacher/gemma-4-E4B-GGUF",
@@ -145,7 +145,7 @@
   "command_redacted": [
     "/opt/homebrew/bin/llama-server",
     "--model",
-    "/Users/jpima/Downloads/spike/models/gemma4/gemma-4-E4B.Q4_K_M.gguf",
+    "~/Downloads/spike/models/gemma4/gemma-4-E4B.Q4_K_M.gguf",
     "--host",
     "127.0.0.1",
     "--port",
@@ -169,10 +169,10 @@
   "model_cpu16_verified": false,
   "runtime_start_ms": 5565.287,
   "server_pid": 75433,
-  "served_model_id": "/Users/jpima/Downloads/spike/models/gemma4/gemma-4-E4B.Q4_K_M.gguf",
+  "served_model_id": "~/Downloads/spike/models/gemma4/gemma-4-E4B.Q4_K_M.gguf",
   "ttft_ms_median": 488.791,
   "ttft_ms_max": 1734.349,
   "total_ms_median": 2149.369,
-  "llama_log_path": "/Users/jpima/Downloads/spike/reports/phase0/cpu-bench-20261016T203246764286Z.llama.log",
+  "llama_log_path": "~/Downloads/spike/reports/phase0/cpu-bench-20261016T203246764286Z.llama.log",
   "llama_log_size_bytes": 6122
 }

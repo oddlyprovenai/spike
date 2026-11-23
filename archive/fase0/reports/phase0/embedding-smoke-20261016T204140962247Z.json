@@ -21,7 +21,7 @@
     "dimension": 768,
     "same_domain_cosine": 0.65113762,
     "cross_domain_cosine": 0.50384195,
-    "server_model_id": "/Users/jpima/Downloads/spike/models/embeddings/nomic-embed-text-v1.5.Q4_K_M.gguf",
+    "server_model_id": "~/Downloads/spike/models/embeddings/nomic-embed-text-v1.5.Q4_K_M.gguf",
     "cpu_layers_requested": 0
   },
   "memory": {

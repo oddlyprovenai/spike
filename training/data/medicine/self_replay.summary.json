@@ -25,5 +25,5 @@
     "repeated_ngrams": 0,
     "too_long": 0
   },
-  "out": "/Users/jpima/Downloads/Spike-main/training/data/medicine/self_replay.jsonl"
+  "out": "~/Downloads/Spike-main/training/data/medicine/self_replay.jsonl"
 }

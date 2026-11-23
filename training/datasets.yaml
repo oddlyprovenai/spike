@@ -188,7 +188,7 @@ sources:
     split: train
     license: cc-by-4.0
     license_status: verified
-    license_review: {date: '2026-11-02', by: Claude, hub_license: cc-by-4.0, hub_sha: c23fdff1a6bf74e0e1a71cb86f1e781d37da888c, rows: 45000, rows_formatted: 45000, evidence: 'https://github.com/jpimasreiser11-gif/spike/actions/runs/41407296157'}
+    license_review: {date: '2026-11-02', by: Claude, hub_license: cc-by-4.0, hub_sha: c23fdff1a6bf74e0e1a71cb86f1e781d37da888c, rows: 45000, rows_formatted: 45000, evidence: 'https://github.com/oddlyprovenai/spike/actions/runs/41407296157'}
     license_url: https://huggingface.co/datasets/coastalcph/lex_glue
     role: train
     format: case_hold
@@ -201,7 +201,7 @@ sources:
     split: test
     license: cc-by-4.0
     license_status: verified
-    license_review: {date: '2026-11-02', by: Claude, hub_license: cc-by-4.0, hub_sha: c23fdff1a6bf74e0e1a71cb86f1e781d37da888c, rows: 3600, rows_formatted: 3600, evidence: 'https://github.com/jpimasreiser11-gif/spike/actions/runs/41407296157'}
+    license_review: {date: '2026-11-02', by: Claude, hub_license: cc-by-4.0, hub_sha: c23fdff1a6bf74e0e1a71cb86f1e781d37da888c, rows: 3600, rows_formatted: 3600, evidence: 'https://github.com/oddlyprovenai/spike/actions/runs/41407296157'}
     license_url: https://huggingface.co/datasets/coastalcph/lex_glue
     role: eval
     format: case_hold
@@ -238,7 +238,7 @@ sources:
     split: train
     license: mit
     license_status: verified
-    license_review: {date: '2026-11-02', by: Claude, hub_license: mit, hub_sha: 740312add88f781978c0658806c59bc2815b9866, rows: 7473, rows_formatted: 7473, evidence: 'https://github.com/jpimasreiser11-gif/spike/actions/runs/41407296157'}
+    license_review: {date: '2026-11-02', by: Claude, hub_license: mit, hub_sha: 740312add88f781978c0658806c59bc2815b9866, rows: 7473, rows_formatted: 7473, evidence: 'https://github.com/oddlyprovenai/spike/actions/runs/41407296157'}
     license_url: https://huggingface.co/datasets/openai/gsm8k
     role: train
     format: gsm8k
@@ -250,7 +250,7 @@ sources:
     split: train
     license: cc-by-4.0
     license_status: verified
-    license_review: {date: '2026-11-02', by: Claude, hub_license: cc-by-4.0, hub_sha: 4bb6404fdc6cacfda99d4ac4205087b89d32030c, rows: 374, rows_formatted: 374, evidence: 'https://github.com/jpimasreiser11-gif/spike/actions/runs/41407296157'}
+    license_review: {date: '2026-11-02', by: Claude, hub_license: cc-by-4.0, hub_sha: 4bb6404fdc6cacfda99d4ac4205087b89d32030c, rows: 374, rows_formatted: 374, evidence: 'https://github.com/oddlyprovenai/spike/actions/runs/41407296157'}
     license_url: https://huggingface.co/datasets/google-research-datasets/mbpp
     role: train
     format: mbpp
@@ -263,7 +263,7 @@ sources:
     split: test
     license: cc-by-4.0
     license_status: verified
-    license_review: {date: '2026-11-02', by: Claude, hub_license: cc-by-4.0, hub_sha: 4bb6404fdc6cacfda99d4ac4205087b89d32030c, rows: 500, rows_formatted: 500, evidence: 'https://github.com/jpimasreiser11-gif/spike/actions/runs/41407296157'}
+    license_review: {date: '2026-11-02', by: Claude, hub_license: cc-by-4.0, hub_sha: 4bb6404fdc6cacfda99d4ac4205087b89d32030c, rows: 500, rows_formatted: 500, evidence: 'https://github.com/oddlyprovenai/spike/actions/runs/41407296157'}
     license_url: https://huggingface.co/datasets/google-research-datasets/mbpp
     role: eval
     format: mbpp
@@ -298,7 +298,7 @@ sources:
     split: train
     license: cc-by-4.0
     license_status: verified
-    license_review: {date: '2026-11-02', by: Claude, hub_license: cc-by-4.0, hub_sha: a34ba204eb9a33b919c10cc08f4f1c8dae5ec070, rows: 8134, rows_formatted: 8134, evidence: 'https://github.com/jpimasreiser11-gif/spike/actions/runs/41407296157'}
+    license_review: {date: '2026-11-02', by: Claude, hub_license: cc-by-4.0, hub_sha: a34ba204eb9a33b919c10cc08f4f1c8dae5ec070, rows: 8134, rows_formatted: 8134, evidence: 'https://github.com/oddlyprovenai/spike/actions/runs/41407296157'}
     license_url: https://huggingface.co/datasets/allenai/qasc
     role: train
     format: qasc
@@ -310,7 +310,7 @@ sources:
     split: validation
     license: cc-by-4.0
     license_status: verified
-    license_review: {date: '2026-11-02', by: Claude, hub_license: cc-by-4.0, hub_sha: a34ba204eb9a33b919c10cc08f4f1c8dae5ec070, rows: 926, rows_formatted: 926, evidence: 'https://github.com/jpimasreiser11-gif/spike/actions/runs/41407296157'}
+    license_review: {date: '2026-11-02', by: Claude, hub_license: cc-by-4.0, hub_sha: a34ba204eb9a33b919c10cc08f4f1c8dae5ec070, rows: 926, rows_formatted: 926, evidence: 'https://github.com/oddlyprovenai/spike/actions/runs/41407296157'}
     license_url: https://huggingface.co/datasets/allenai/qasc
     role: eval
     format: qasc
@@ -322,7 +322,7 @@ sources:
     split: train
     license: mit
     license_status: verified
-    license_review: {date: '2026-11-02', by: Claude, hub_license: mit, hub_sha: 94630fe30dad47192a8546eb75f094926d47e155, rows: 9741, rows_formatted: 9741, evidence: 'https://github.com/jpimasreiser11-gif/spike/actions/runs/41407296157'}
+    license_review: {date: '2026-11-02', by: Claude, hub_license: mit, hub_sha: 94630fe30dad47192a8546eb75f094926d47e155, rows: 9741, rows_formatted: 9741, evidence: 'https://github.com/oddlyprovenai/spike/actions/runs/41407296157'}
     license_url: https://huggingface.co/datasets/tau/commonsense_qa
     role: train
     format: commonsense_qa
@@ -335,7 +335,7 @@ sources:
     split: validation
     license: mit
     license_status: verified
-    license_review: {date: '2026-11-02', by: Claude, hub_license: mit, hub_sha: 94630fe30dad47192a8546eb75f094926d47e155, rows: 1221, rows_formatted: 1221, evidence: 'https://github.com/jpimasreiser11-gif/spike/actions/runs/41407296157'}
+    license_review: {date: '2026-11-02', by: Claude, hub_license: mit, hub_sha: 94630fe30dad47192a8546eb75f094926d47e155, rows: 1221, rows_formatted: 1221, evidence: 'https://github.com/oddlyprovenai/spike/actions/runs/41407296157'}
     license_url: https://huggingface.co/datasets/tau/commonsense_qa
     role: eval
     format: commonsense_qa
@@ -348,7 +348,7 @@ sources:
     split: train
     license: cc-by-4.0
     license_status: verified
-    license_review: {date: '2026-11-02', by: Claude, hub_license: cc-by-4.0, hub_sha: 1846984189f2bc0ac51c6fc3a600fa9e1714e0c6, rows: 10003, rows_formatted: 10003, evidence: 'https://github.com/jpimasreiser11-gif/spike/actions/runs/41407296157'}
+    license_review: {date: '2026-11-02', by: Claude, hub_license: cc-by-4.0, hub_sha: 1846984189f2bc0ac51c6fc3a600fa9e1714e0c6, rows: 10003, rows_formatted: 10003, evidence: 'https://github.com/oddlyprovenai/spike/actions/runs/41407296157'}
     license_url: https://huggingface.co/datasets/PolyAI/banking77
     role: train
     format: banking77
@@ -360,7 +360,7 @@ sources:
     split: test
     license: cc-by-4.0
     license_status: verified
-    license_review: {date: '2026-11-02', by: Claude, hub_license: cc-by-4.0, hub_sha: 1846984189f2bc0ac51c6fc3a600fa9e1714e0c6, rows: 3080, rows_formatted: 3080, evidence: 'https://github.com/jpimasreiser11-gif/spike/actions/runs/41407296157'}
+    license_review: {date: '2026-11-02', by: Claude, hub_license: cc-by-4.0, hub_sha: 1846984189f2bc0ac51c6fc3a600fa9e1714e0c6, rows: 3080, rows_formatted: 3080, evidence: 'https://github.com/oddlyprovenai/spike/actions/runs/41407296157'}
     license_url: https://huggingface.co/datasets/PolyAI/banking77
     role: eval
     format: banking77
@@ -372,7 +372,7 @@ sources:
     split: train
     license: cc-by-4.0
     license_status: verified
-    license_review: {date: '2026-11-02', by: Claude, hub_license: cc-by-4.0, hub_sha: 1375d450d4540205ac11781b807249c9509739cd, rows: 7658, rows_formatted: 7658, evidence: 'https://github.com/jpimasreiser11-gif/spike/actions/runs/41407296157'}
+    license_review: {date: '2026-11-02', by: Claude, hub_license: cc-by-4.0, hub_sha: 1375d450d4540205ac11781b807249c9509739cd, rows: 7658, rows_formatted: 7658, evidence: 'https://github.com/oddlyprovenai/spike/actions/runs/41407296157'}
     license_url: https://huggingface.co/datasets/pirocheto/phishing-url
     role: train
     format: phishing_url
@@ -385,7 +385,7 @@ sources:
     split: test
     license: cc-by-4.0
     license_status: verified
-    license_review: {date: '2026-11-02', by: Claude, hub_license: cc-by-4.0, hub_sha: 1375d450d4540205ac11781b807249c9509739cd, rows: 3772, rows_formatted: 3772, evidence: 'https://github.com/jpimasreiser11-gif/spike/actions/runs/41407296157'}
+    license_review: {date: '2026-11-02', by: Claude, hub_license: cc-by-4.0, hub_sha: 1375d450d4540205ac11781b807249c9509739cd, rows: 3772, rows_formatted: 3772, evidence: 'https://github.com/oddlyprovenai/spike/actions/runs/41407296157'}
     license_url: https://huggingface.co/datasets/pirocheto/phishing-url
     role: eval
     format: phishing_url
@@ -398,7 +398,7 @@ sources:
     split: train
     license: cc0-1.0
     license_status: verified
-    license_review: {date: '2026-11-02', by: Claude, hub_license: cc0-1.0, hub_sha: 3d8510441c06a3d9dfb32eb0d7f80151730bcc4f, rows: 18949, rows_formatted: 18949, evidence: 'https://github.com/jpimasreiser11-gif/spike/actions/runs/41407296157'}
+    license_review: {date: '2026-11-02', by: Claude, hub_license: cc0-1.0, hub_sha: 3d8510441c06a3d9dfb32eb0d7f80151730bcc4f, rows: 18949, rows_formatted: 18949, evidence: 'https://github.com/oddlyprovenai/spike/actions/runs/41407296157'}
     license_url: https://huggingface.co/datasets/FiscalNote/billsum
     role: train
     format: billsum_title
@@ -410,7 +410,7 @@ sources:
     split: test
     license: cc0-1.0
     license_status: verified
-    license_review: {date: '2026-11-02', by: Claude, hub_license: cc0-1.0, hub_sha: 3d8510441c06a3d9dfb32eb0d7f80151730bcc4f, rows: 3269, rows_formatted: 3269, evidence: 'https://github.com/jpimasreiser11-gif/spike/actions/runs/41407296157'}
+    license_review: {date: '2026-11-02', by: Claude, hub_license: cc0-1.0, hub_sha: 3d8510441c06a3d9dfb32eb0d7f80151730bcc4f, rows: 3269, rows_formatted: 3269, evidence: 'https://github.com/oddlyprovenai/spike/actions/runs/41407296157'}
     license_url: https://huggingface.co/datasets/FiscalNote/billsum
     role: eval
     format: billsum_title

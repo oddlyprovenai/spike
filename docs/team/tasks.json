@@ -1505,7 +1505,7 @@
   {
    "id": "O6",
    "owner": "claude",
-   "status": "todo",
+   "status": "doing",
    "phase": "app",
    "title": "Quitar datos personales de los archivos públicos del repositorio (OPSEC)",
    "depends": [],
@@ -1524,7 +1524,7 @@
     "pytest green",
     "acceptance receipts still verify"
    ],
-   "note": "2026-11-23: found by the U1 audit."
+   "note": "2026-11-23: found by the U1 audit. Done: the old handle and home-folder paths replaced in 59 tracked files (docs, team reports and prompts, evidence records' model paths, logs, datasets.yaml links, e2e fixtures); no measured value changed; pytest 3562 passed, readiness check valid (receipt hash unchanged). Left, the owner's decision: the commit identity (scripts/team/codex_worker.py IDENT, tests/test_team.py) together with git history (rewriting it needs a force push), and the owner's first name in 34 docs and tests."
   }
  ]
 }
