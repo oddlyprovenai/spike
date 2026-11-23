@@ -154,7 +154,42 @@ def format_note(summary: dict, cfg: dict, variant: str) -> list[str]:
             f"{variant} {readable(ours):.3f}.", ""]
 
 
-def render(spec, cfg: dict, manifest: dict, export: dict, summary: dict, summary_md: str, run: str = "") -> str:
+def rescore_lines(summary: dict, rescored: dict, cfg: dict, variant: str) -> list[str]:
+    """The figures of `evals/run_eval.py --rescore` (the same saved answers read again by a newer answer reader) next
+    to the recorded ones: the verdict above stays the one recorded at acceptance, this says what the re-read changes."""
+    info = (rescored.get("meta") or {}).get("rescored")
+    if not info:
+        raise SystemExit("the --rescored summary is not a re-scored copy (its meta has no 'rescored'); "
+                         "run evals/run_eval.py --rescore on a copy of the eval run")
+    again = (rescored.get("acceptance") or {}).get(variant)
+    if again is None:
+        raise SystemExit(f"the re-scored summary has no acceptance verdict for {variant}")
+    acceptance = cfg.get("acceptance") or {}
+    suites = [s for s in ((acceptance.get("primary") or {}).get("suite"), (acceptance.get("regression") or {}).get("suite")) if s]
+
+    def delta(run: dict, suite: str) -> float | None:
+        return (((run.get("suites") or {}).get(suite) or {}).get("vs_base") or {}).get(variant, {}).get("delta_points")
+
+    def unparsed(run: dict, suite: str) -> dict | None:
+        return (((run.get("suites") or {}).get(suite) or {}).get("accuracy") or {}).get("base")
+
+    deltas = [f"{s} {delta(rescored, s):+.2f} pts (recorded {delta(summary, s):+.2f})"
+              for s in suites if delta(rescored, s) is not None and delta(summary, s) is not None]
+    line = (f"Re-scored on {info['date_utc'][:10]}: the same saved answers read again by the newer answer reader "
+            f"(`evals/run_eval.py --rescore`), {info['parsed_changed']} answers read differently, "
+            f"{info['correct_changed']} changed correctness. Adapter minus base: {', '.join(deltas)}.")
+    primary = suites[0] if suites else None
+    base_now, base_then = (unparsed(rescored, primary), unparsed(summary, primary)) if primary else (None, None)
+    if base_now and base_then:
+        line += (f" Base answers with no readable answer on {primary}: {base_now['unparsed']:,} of {base_now['n']:,} "
+                 f"(recorded {base_then['unparsed']:,}).")
+    line += (" With the re-read answers the adapter " + ("would still be accepted" if again["accepted"] else
+             "would not be accepted") + " by the same criteria; the verdict above is the one recorded at acceptance.")
+    return [line, ""]
+
+
+def render(spec, cfg: dict, manifest: dict, export: dict, summary: dict, summary_md: str, run: str = "",
+           rescored: dict | None = None) -> str:
     verdict = verdict_of(summary)
     if verdict is None:
         raise SystemExit("the eval run has no acceptance verdict for exactly one adapter; run run_eval.py with "
@@ -222,6 +257,8 @@ def render(spec, cfg: dict, manifest: dict, export: dict, summary: dict, summary
                   f"`{summary['meta']['run_id']}`). Accuracy is exact-answer scoring; the 95% interval is Wilson's, "
                   "the paired test is McNemar's.", "", body, ""]
         lines += format_note(summary, cfg, variant)
+        if rescored is not None:
+            lines += rescore_lines(summary, rescored, cfg, variant)
     live = export.get("live_check")
     if live:
         lines += [f"Export check: with the adapter loaded in llama-server, {live['outputs_changed']} of "
@@ -253,6 +290,8 @@ def main() -> int:
     ap.add_argument("--out", help="default training/runs/<specialist>/hf")
     ap.add_argument("--export", help="export record of the evaluated file (default training/runs/<specialist>/export.json; "
                                      "a checkpoint sweep writes one per candidate in sweep/<candidate>/export.json)")
+    ap.add_argument("--rescored", help="a copy of the --eval run re-scored with evals/run_eval.py --rescore: its figures "
+                                       "are added next to the recorded ones, the verdict stays the recorded one")
     args = ap.parse_args()
 
     from spike.specialists.catalog import load_catalog
@@ -270,7 +309,8 @@ def main() -> int:
     if not banner.is_file():
         raise SystemExit(f"missing banner: {banner}")
 
-    card = render(spec, cfg, manifest, export, summary, summary_md, eval_dir.resolve().name)
+    rescored = load(Path(args.rescored) / "summary.json", "re-scored eval summary") if args.rescored else None
+    card = render(spec, cfg, manifest, export, summary, summary_md, eval_dir.resolve().name, rescored=rescored)
     out = Path(args.out or run_dir / "hf")
     out.mkdir(parents=True, exist_ok=True)
     (out / "README.md").write_text(card, encoding="utf-8")

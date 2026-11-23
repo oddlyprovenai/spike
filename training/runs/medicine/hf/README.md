@@ -26,7 +26,7 @@ LoRA adapter for [Qwen/Qwen3.5-4B](https://huggingface.co/Qwen/Qwen3.5-4B) that 
 
 ## Use
 
-In SPIKE: put `spike-medicine-it13270-s0.5.gguf` in `~/.spike/adapters/`; the app loads it next to the base model and routes medicine and health sciences requests to it.
+In SPIKE: save it as `~/.spike/adapters/spike-medicine.gguf`; the app loads it next to the base model, routes medicine and health sciences requests to it and shows in Settings whether the file is the accepted one (SHA-256).
 
 With llama.cpp directly:
 
@@ -80,6 +80,10 @@ Model `Qwen3.5-4B-Q4_K_M.gguf`, llama.cpp `b11669-620d2225c`, greedy, thinking o
 **spike-medicine-it13270-s0.5: ACCEPTED**
 - medicine: +35.07 pts (need ≥ 3.0), p = 0 (need ≤ 0.05)
 - general: -0.62 pts (max drop 1.5)
+
+Answer format: the base model gave no readable answer on 650 of 2,318 medicine questions, spike-medicine-it13270-s0.5 on 43. Unreadable answers count as wrong, so part of the gain is answering in the asked format. Accuracy among readable answers only: base 0.444, spike-medicine-it13270-s0.5 0.683.
+
+Re-scored on 2026-11-23: the same saved answers read again by the newer answer reader (`evals/run_eval.py --rescore`), 27 answers read differently, 16 changed correctness. Adapter minus base: medicine +34.56 pts (recorded +35.07), general -0.62 pts (recorded -0.62). Base answers with no readable answer on medicine: 631 of 2,318 (recorded 650). With the re-read answers the adapter would still be accepted by the same criteria; the verdict above is the one recorded at acceptance.
 
 ## Limitations
 

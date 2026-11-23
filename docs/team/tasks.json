@@ -1415,7 +1415,7 @@
    "accept": [
     "checklist all ticked with evidence"
    ],
-   "note": "2026-11-02: review, 4 medium + 7 low fixes, licenses in the bundle (Native installers run 41501251258 counted 199/198/194 files), llama.cpp b11709 vendored and embedded-UI npm notices. Waits on: L1 demo, M2 adapter, founder decision on libfuse LGPL, final release notes. 2026-11-14: before release, medicine's numbers in README, catalog, guides, model card and release notes are updated to the re-scored ones (M14/M16) with the original verdict kept."
+   "note": "2026-11-02: review, 4 medium + 7 low fixes, licenses in the bundle (Native installers run 41501251258 counted 199/198/194 files), llama.cpp b11709 vendored and embedded-UI npm notices. Waits on: L1 demo, M2 adapter, founder decision on libfuse LGPL, final release notes. 2026-11-14: before release, medicine's numbers in README, catalog, guides, model card and release notes are updated to the re-scored ones (M14/M16) with the original verdict kept. 2026-11-23: done for README, docs/SPECIALISTS.md, the en/es guides (FAQ, specialists), STATUS, CHANGELOG and the Hugging Face card (training/model_card.py --rescored, card regenerated: +34.56 next to the recorded +35.07, base unreadable 631 vs 650, still accepted). The app's acceptance record and the release notes keep the acceptance-time verdict (no figure in the notes). Redo after the M14 fix re-scores again."
   },
   {
    "id": "L3",

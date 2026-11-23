@@ -101,6 +101,36 @@ def test_card_says_how_much_of_the_gain_is_answer_format():
     assert "readable answer" not in card
 
 
+def test_card_adds_the_re_scored_figures_and_keeps_the_recorded_verdict():
+    """`--rescore` re-reads the saved answers with a newer answer reader: the card keeps the verdict and table of the
+    run that was accepted and adds the re-read figures beside them, saying what changed."""
+    spec = load_catalog().get("medicine")
+    cfg = {**CFG, "acceptance": {"primary": {"suite": "medicine"}, "regression": {"suite": "general"}}}
+
+    def run(base_correct: int, base_unparsed: int, delta: float, reasons: list[str], meta: dict) -> dict:
+        acc = {"base": {"n": 1000, "correct": base_correct, "unparsed": base_unparsed},
+               "spike-medicine": {"n": 1000, "correct": 640, "unparsed": 20}}
+        return {"meta": {"run_id": "final", **meta},
+                "acceptance": {"spike-medicine": {"accepted": True, "reasons": reasons}},
+                "suites": {"medicine": {"accuracy": acc, "vs_base": {"spike-medicine": {"delta_points": delta}}},
+                           "general": {"vs_base": {"spike-medicine": {"delta_points": -0.6}}}}}
+
+    original = run(300, 400, 34.0, ["medicine: +34.00 pts"], {})
+    rescored = run(310, 380, 33.0, ["medicine: +33.00 pts"],
+                   {"rescored": {"date_utc": "2026-11-23T02:15:50Z", "parsed_changed": 27, "correct_changed": 16}})
+    card = render(spec, cfg, MANIFEST, EXPORT, original, SUMMARY_MD, "final", rescored=rescored)
+    assert "**Accepted by its acceptance criteria" in card and "| medmcqa | spike-medicine |" in card  # as recorded
+    note = card.split("Re-scored on 2026-11-23", 1)[1].split("\n\n", 1)[0]
+    assert "medicine +33.00 pts (recorded +34.00)" in note and "general -0.60 pts (recorded -0.60)" in note
+    assert "380 of 1,000 (recorded 400)" in note and "27 answers read differently, 16 changed correctness" in note
+    assert "would still be accepted" in note
+    rescored["acceptance"]["spike-medicine"]["accepted"] = False
+    assert "would not be accepted" in render(spec, cfg, MANIFEST, EXPORT, original, SUMMARY_MD, "final", rescored=rescored)
+    with pytest.raises(SystemExit, match="not a re-scored copy"):
+        render(spec, cfg, MANIFEST, EXPORT, original, SUMMARY_MD, "final", rescored=original)
+    assert "Re-scored" not in render(spec, cfg, MANIFEST, EXPORT, original, SUMMARY_MD, "final")
+
+
 def test_rejected_adapter_says_so():
     card = render(load_catalog().get("medicine"), CFG, MANIFEST, EXPORT, summary(False), SUMMARY_MD)
     assert "**Rejected by its acceptance criteria" in card and "research record" in card
