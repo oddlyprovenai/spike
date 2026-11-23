@@ -10,9 +10,9 @@ Generado desde `docs/team/tasks.json` con `python scripts/team/board.py render`;
 | Codex | 0 | 0 | 0 | 0 | 16 | 0 | 16 |
 | Gemini | 0 | 0 | 0 | 0 | 17 | 0 | 17 |
 | Opus | 0 | 0 | 0 | 0 | 0 | 0 | 0 |
-| Mac | 2 | 3 | 0 | 0 | 6 | 0 | 11 |
+| Mac | 2 | 2 | 0 | 0 | 7 | 0 | 11 |
 | joan | 3 | 0 | 0 | 0 | 0 | 0 | 3 |
-| **Total** | **6** | **8** | **0** | **0** | **82** | **0** | **96** |
+| **Total** | **6** | **7** | **0** | **0** | **83** | **0** | **96** |
 
 ## Fase: equipo
 
@@ -106,7 +106,7 @@ Generado desde `docs/team/tasks.json` con `python scripts/team/board.py render`;
 | M11 | Mac | hecha | Medicina: registrar el adaptador aceptado e instalarlo | M2 |
 | M13 | Claude | hecha | Integrar la procedencia de evaluaciones (PR #2, rama gemini/G12-2) | - |
 | M14 | Claude | en curso | Lector de respuestas: '**Final Answer Selection:** E' y el texto de la opción | M3 |
-| M15 | Mac | en curso | Medicina: ficha de Hugging Face del adaptador aceptado (sin publicar) | M11 |
+| M15 | Mac | hecha | Medicina: ficha de Hugging Face del adaptador aceptado (sin publicar) | M11 |
 | M16 | Mac | hecha | Resultados por pregunta y rondas de finanzas en main (para el benchmark de Mando) | - |
 | M17 | Claude | en curso | Entrenamiento LoRA en GPU (PEFT) para Colab, con las mismas reglas | - |
 

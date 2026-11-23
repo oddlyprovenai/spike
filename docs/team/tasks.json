@@ -829,7 +829,7 @@
   {
    "id": "M15",
    "owner": "mac",
-   "status": "doing",
+   "status": "done",
    "phase": "modelos",
    "title": "Medicina: ficha de Hugging Face del adaptador aceptado (sin publicar)",
    "depends": [
@@ -843,7 +843,7 @@
     "card built by the script, exit 0",
     "the card's file name and numbers match adapter.json and the final summary"
    ],
-   "note": "2026-11-09: card built (mac/m15 de128dd, merged; model_card.py --export). Review found two fixes, now in the generator: the Use line must name ~/.spike/adapters/spike-medicine.gguf (the name SPIKE loads), and the card states the base model's unreadable answers (650 of 2,318) with accuracy among readable ones. Left: rebuild the card on the Mac with the same command (light, can run during M3) and push mac/m15-2."
+   "note": "2026-11-09: card built (mac/m15 de128dd, merged; model_card.py --export). Review found two fixes, now in the generator: the Use line must name ~/.spike/adapters/spike-medicine.gguf (the name SPIKE loads), and the card states the base model's unreadable answers (650 of 2,318) with accuracy among readable ones. Left: rebuild the card on the Mac with the same command (light, can run during M3) and push mac/m15-2. 2026-11-23: rebuilt in the cloud by Claude (the manifest, export record and eval runs are on main, so the Mac is not needed): same command plus --rescored training/runs/medicine/sweep/final-rescored. The card names spike-medicine.gguf, states 650 of 2,318 unreadable base answers with readable-only accuracy (0.444 vs 0.683) and the re-read figures (+34.56, 631). Not published (L3). The Mac does not need mac/m15-2."
   },
   {
    "id": "M16",
