@@ -1,0 +1,388 @@
+{
+  "meta": {
+    "run_id": "20261106-162059",
+    "model": "/Users/jpima/.spike/models/Qwen3.5-4B-Q4_K_M.gguf",
+    "adapters": {
+      "spike-finance-it8825-s0.25": 0,
+      "spike-finance-it8825-s0.35": 1,
+      "spike-finance-it4400-s0.5": 2
+    },
+    "server_url": "http://127.0.0.1:64686",
+    "parallel": 4,
+    "kv_cache_type": "q8_0",
+    "max_tokens": 2048,
+    "seed": 0,
+    "limit": null,
+    "suites": "finance-select,general-select",
+    "decoding": "greedy",
+    "thinking": false,
+    "host": "macOS-27.0-arm64-arm-64bit",
+    "machine": "arm64",
+    "props": "b11669-620d2225c"
+  },
+  "variants": [
+    "base",
+    "spike-finance-it4400-s0.5",
+    "spike-finance-it8825-s0.25",
+    "spike-finance-it8825-s0.35"
+  ],
+  "tasks": {
+    "finqa-test-select": {
+      "accuracy": {
+        "base": {
+          "n": 300,
+          "correct": 214,
+          "accuracy": 0.7133,
+          "ci95": [
+            0.6597,
+            0.7616
+          ],
+          "unparsed": 28,
+          "truncated": 22
+        },
+        "spike-finance-it4400-s0.5": {
+          "n": 300,
+          "correct": 218,
+          "accuracy": 0.7267,
+          "ci95": [
+            0.6736,
+            0.774
+          ],
+          "unparsed": 0,
+          "truncated": 0
+        },
+        "spike-finance-it8825-s0.25": {
+          "n": 300,
+          "correct": 223,
+          "accuracy": 0.7433,
+          "ci95": [
+            0.691,
+            0.7895
+          ],
+          "unparsed": 13,
+          "truncated": 13
+        },
+        "spike-finance-it8825-s0.35": {
+          "n": 300,
+          "correct": 227,
+          "accuracy": 0.7567,
+          "ci95": [
+            0.7051,
+            0.8018
+          ],
+          "unparsed": 7,
+          "truncated": 4
+        }
+      },
+      "vs_base": {
+        "spike-finance-it4400-s0.5": {
+          "paired_n": 300,
+          "delta_points": 1.33,
+          "baseline_only": 34,
+          "variant_only": 38,
+          "p_value": 0.723948
+        },
+        "spike-finance-it8825-s0.25": {
+          "paired_n": 300,
+          "delta_points": 3.0,
+          "baseline_only": 12,
+          "variant_only": 21,
+          "p_value": 0.162756
+        },
+        "spike-finance-it8825-s0.35": {
+          "paired_n": 300,
+          "delta_points": 4.33,
+          "baseline_only": 15,
+          "variant_only": 28,
+          "p_value": 0.065994
+        }
+      }
+    },
+    "mmlu-pro-general-select": {
+      "accuracy": {
+        "base": {
+          "n": 400,
+          "correct": 258,
+          "accuracy": 0.645,
+          "ci95": [
+            0.5969,
+            0.6903
+          ],
+          "unparsed": 0,
+          "truncated": 16
+        },
+        "spike-finance-it4400-s0.5": {
+          "n": 400,
+          "correct": 236,
+          "accuracy": 0.59,
+          "ci95": [
+            0.5412,
+            0.6371
+          ],
+          "unparsed": 7,
+          "truncated": 5
+        },
+        "spike-finance-it8825-s0.25": {
+          "n": 400,
+          "correct": 236,
+          "accuracy": 0.59,
+          "ci95": [
+            0.5412,
+            0.6371
+          ],
+          "unparsed": 6,
+          "truncated": 11
+        },
+        "spike-finance-it8825-s0.35": {
+          "n": 400,
+          "correct": 240,
+          "accuracy": 0.6,
+          "ci95": [
+            0.5513,
+            0.6468
+          ],
+          "unparsed": 3,
+          "truncated": 9
+        }
+      },
+      "vs_base": {
+        "spike-finance-it4400-s0.5": {
+          "paired_n": 400,
+          "delta_points": -5.5,
+          "baseline_only": 51,
+          "variant_only": 29,
+          "p_value": 0.018316
+        },
+        "spike-finance-it8825-s0.25": {
+          "paired_n": 400,
+          "delta_points": -5.5,
+          "baseline_only": 48,
+          "variant_only": 26,
+          "p_value": 0.01408
+        },
+        "spike-finance-it8825-s0.35": {
+          "paired_n": 400,
+          "delta_points": -4.5,
+          "baseline_only": 49,
+          "variant_only": 31,
+          "p_value": 0.056664
+        }
+      }
+    },
+    "tatqa-test-select": {
+      "accuracy": {
+        "base": {
+          "n": 300,
+          "correct": 211,
+          "accuracy": 0.7033,
+          "ci95": [
+            0.6493,
+            0.7522
+          ],
+          "unparsed": 0,
+          "truncated": 3
+        },
+        "spike-finance-it4400-s0.5": {
+          "n": 300,
+          "correct": 229,
+          "accuracy": 0.7633,
+          "ci95": [
+            0.7121,
+            0.8079
+          ],
+          "unparsed": 0,
+          "truncated": 0
+        },
+        "spike-finance-it8825-s0.25": {
+          "n": 300,
+          "correct": 212,
+          "accuracy": 0.7067,
+          "ci95": [
+            0.6528,
+            0.7553
+          ],
+          "unparsed": 0,
+          "truncated": 0
+        },
+        "spike-finance-it8825-s0.35": {
+          "n": 300,
+          "correct": 222,
+          "accuracy": 0.74,
+          "ci95": [
+            0.6876,
+            0.7864
+          ],
+          "unparsed": 0,
+          "truncated": 0
+        }
+      },
+      "vs_base": {
+        "spike-finance-it4400-s0.5": {
+          "paired_n": 300,
+          "delta_points": 6.0,
+          "baseline_only": 16,
+          "variant_only": 34,
+          "p_value": 0.015347
+        },
+        "spike-finance-it8825-s0.25": {
+          "paired_n": 300,
+          "delta_points": 0.33,
+          "baseline_only": 20,
+          "variant_only": 21,
+          "p_value": 1.0
+        },
+        "spike-finance-it8825-s0.35": {
+          "paired_n": 300,
+          "delta_points": 3.67,
+          "baseline_only": 15,
+          "variant_only": 26,
+          "p_value": 0.117275
+        }
+      }
+    }
+  },
+  "suites": {
+    "finance-select": {
+      "accuracy": {
+        "base": {
+          "n": 600,
+          "correct": 425,
+          "accuracy": 0.7083,
+          "ci95": [
+            0.6707,
+            0.7433
+          ],
+          "unparsed": 28,
+          "truncated": 25
+        },
+        "spike-finance-it4400-s0.5": {
+          "n": 600,
+          "correct": 447,
+          "accuracy": 0.745,
+          "ci95": [
+            0.7086,
+            0.7782
+          ],
+          "unparsed": 0,
+          "truncated": 0
+        },
+        "spike-finance-it8825-s0.25": {
+          "n": 600,
+          "correct": 435,
+          "accuracy": 0.725,
+          "ci95": [
+            0.6879,
+            0.7592
+          ],
+          "unparsed": 13,
+          "truncated": 13
+        },
+        "spike-finance-it8825-s0.35": {
+          "n": 600,
+          "correct": 449,
+          "accuracy": 0.7483,
+          "ci95": [
+            0.7121,
+            0.7814
+          ],
+          "unparsed": 7,
+          "truncated": 4
+        }
+      },
+      "vs_base": {
+        "spike-finance-it4400-s0.5": {
+          "paired_n": 600,
+          "delta_points": 3.67,
+          "baseline_only": 50,
+          "variant_only": 72,
+          "p_value": 0.056823
+        },
+        "spike-finance-it8825-s0.25": {
+          "paired_n": 600,
+          "delta_points": 1.67,
+          "baseline_only": 32,
+          "variant_only": 42,
+          "p_value": 0.295413
+        },
+        "spike-finance-it8825-s0.35": {
+          "paired_n": 600,
+          "delta_points": 4.0,
+          "baseline_only": 30,
+          "variant_only": 54,
+          "p_value": 0.011634
+        }
+      }
+    },
+    "general-select": {
+      "accuracy": {
+        "base": {
+          "n": 400,
+          "correct": 258,
+          "accuracy": 0.645,
+          "ci95": [
+            0.5969,
+            0.6903
+          ],
+          "unparsed": 0,
+          "truncated": 16
+        },
+        "spike-finance-it4400-s0.5": {
+          "n": 400,
+          "correct": 236,
+          "accuracy": 0.59,
+          "ci95": [
+            0.5412,
+            0.6371
+          ],
+          "unparsed": 7,
+          "truncated": 5
+        },
+        "spike-finance-it8825-s0.25": {
+          "n": 400,
+          "correct": 236,
+          "accuracy": 0.59,
+          "ci95": [
+            0.5412,
+            0.6371
+          ],
+          "unparsed": 6,
+          "truncated": 11
+        },
+        "spike-finance-it8825-s0.35": {
+          "n": 400,
+          "correct": 240,
+          "accuracy": 0.6,
+          "ci95": [
+            0.5513,
+            0.6468
+          ],
+          "unparsed": 3,
+          "truncated": 9
+        }
+      },
+      "vs_base": {
+        "spike-finance-it4400-s0.5": {
+          "paired_n": 400,
+          "delta_points": -5.5,
+          "baseline_only": 51,
+          "variant_only": 29,
+          "p_value": 0.018316
+        },
+        "spike-finance-it8825-s0.25": {
+          "paired_n": 400,
+          "delta_points": -5.5,
+          "baseline_only": 48,
+          "variant_only": 26,
+          "p_value": 0.01408
+        },
+        "spike-finance-it8825-s0.35": {
+          "paired_n": 400,
+          "delta_points": -4.5,
+          "baseline_only": 49,
+          "variant_only": 31,
+          "p_value": 0.056664
+        }
+      }
+    }
+  }
+}

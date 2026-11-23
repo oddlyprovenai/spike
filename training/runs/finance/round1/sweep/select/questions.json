@@ -1,0 +1,16 @@
+{
+  "format": "spike-eval-questions-v1",
+  "rows": 4000,
+  "topics": true,
+  "fields": [
+    "suite",
+    "task",
+    "item",
+    "variant",
+    "topic",
+    "gold",
+    "parsed",
+    "correct",
+    "truncated"
+  ]
+}
