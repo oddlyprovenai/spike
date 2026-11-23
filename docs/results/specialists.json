@@ -929,6 +929,136 @@
       "no candidate passed the selection"
      ],
      "final": null
+    },
+    {
+     "round": 3,
+     "sweep": "sweep",
+     "evidence": "training/runs/finance/sweep/summary.json",
+     "trained_utc": {
+      "started": "2026-11-23T02:30:27Z",
+      "finished": "2026-11-23T12:31:36Z"
+     },
+     "git_commit": "7a1559c652b59dd867127a0486945eddac09f44c",
+     "data": {
+      "train": 13375,
+      "valid": 272,
+      "replay_ratio_actual": 0.45
+     },
+     "rule": {
+      "primary": {
+       "suite": "finance-select",
+       "min_gain_points": 3.0,
+       "max_p_value": 0.05
+      },
+      "regression": {
+       "suite": "general-select",
+       "max_drop_points": 1.5
+      }
+     },
+     "candidates": [
+      {
+       "name": "spike-finance-it1600-s1",
+       "iteration": 1600,
+       "scale": 1.0,
+       "select": {
+        "primary": {
+         "suite": "finance-select",
+         "paired_n": 600,
+         "delta_points": 0.33,
+         "p_value": 0.930155
+        },
+        "regression": {
+         "suite": "general-select",
+         "paired_n": 400,
+         "delta_points": -8.75,
+         "p_value": 0.000127
+        }
+       },
+       "passes": false,
+       "reasons": [
+        "finance-select: +0.33 pts (need ≥ 3.0), p = 0.9302 (need ≤ 0.05)",
+        "general-select: -8.75 pts (max drop 1.5)"
+       ]
+      },
+      {
+       "name": "spike-finance-it3400-s1",
+       "iteration": 3400,
+       "scale": 1.0,
+       "select": {
+        "primary": {
+         "suite": "finance-select",
+         "paired_n": 600,
+         "delta_points": 2.17,
+         "p_value": 0.298071
+        },
+        "regression": {
+         "suite": "general-select",
+         "paired_n": 400,
+         "delta_points": -8.5,
+         "p_value": 0.000222
+        }
+       },
+       "passes": false,
+       "reasons": [
+        "finance-select: +2.17 pts (need ≥ 3.0), p = 0.2981 (need ≤ 0.05)",
+        "general-select: -8.50 pts (max drop 1.5)"
+       ]
+      },
+      {
+       "name": "spike-finance-it6600-s1",
+       "iteration": 6600,
+       "scale": 1.0,
+       "select": {
+        "primary": {
+         "suite": "finance-select",
+         "paired_n": 600,
+         "delta_points": 5.67,
+         "p_value": 0.004188
+        },
+        "regression": {
+         "suite": "general-select",
+         "paired_n": 400,
+         "delta_points": -8.25,
+         "p_value": 0.000264
+        }
+       },
+       "passes": false,
+       "reasons": [
+        "finance-select: +5.67 pts (need ≥ 3.0), p = 0.004188 (need ≤ 0.05)",
+        "general-select: -8.25 pts (max drop 1.5)"
+       ]
+      },
+      {
+       "name": "spike-finance-it13375-s0.5",
+       "iteration": 13375,
+       "scale": 0.5,
+       "select": {
+        "primary": {
+         "suite": "finance-select",
+         "paired_n": 600,
+         "delta_points": 6.83,
+         "p_value": 7.8e-05
+        },
+        "regression": {
+         "suite": "general-select",
+         "paired_n": 400,
+         "delta_points": -6.0,
+         "p_value": 0.01375
+        }
+       },
+       "passes": false,
+       "reasons": [
+        "finance-select: +6.83 pts (need ≥ 3.0), p = 7.8e-05 (need ≤ 0.05)",
+        "general-select: -6.00 pts (max drop 1.5)"
+       ]
+      }
+     ],
+     "chosen": null,
+     "verdict": "rejected",
+     "reasons": [
+      "no candidate passed the selection"
+     ],
+     "final": null
     }
    ]
   },
