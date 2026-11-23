@@ -475,7 +475,8 @@ def test_finance_recipe_trains_on_audited_sources_and_is_scored_on_the_held_out_
         ("sujet-finance", 8000, 2000), ("finqa-train", None, None), ("tatqa-train", None, None)]
     assert 4 * 2000 == 8000 and len(reg["sujet-finance"]["filter"]["dataset"]) == 4  # every upstream dataset has a share
     assert reg["finqa-train"]["format"] == "finqa_train" and reg["finqa-test"]["format"] == "finqa"
-    assert cfg["replay"]["ratio"] == 0.3 and [e["source"] for e in cfg["replay"]["sources"]] == ["oasst2"]
+    # round 3 (M3, 2026-11-23): the one change is the general replay share, 0.30 -> 0.45 (round 2 lost -2.75 on general)
+    assert cfg["replay"]["ratio"] == 0.45 and [e["source"] for e in cfg["replay"]["sources"]] == ["oasst2"]
     assert set(cfg["decontaminate_against"]) == {"mmlu-pro", "finqa-test", "tatqa-test"}
     # round 2 (M3, 2026-11-09): the one change is the window, 768 -> 1536 tokens (STATUS, "Finance adapter, round 1")
     assert cfg["train"]["max_seq_length"] == 1536 and eval_args(cfg) == ["--max-tokens", "2048"]
@@ -570,4 +571,5 @@ def test_prepare_builds_the_finance_mix_from_filtered_hub_rows_and_pinned_files(
     for d in keep:  # the first 3 rows of each upstream dataset, none of the later ones
         assert all(f"headline {d} {i}:" in written for i in range(3)) and f"headline {d} 3:" not in written, d
     counts = manifest["counts"]
-    assert counts["domain"] == 22 and counts["train"] + counts["valid"] - 22 == int(22 * 0.3 / 0.7)
+    ratio = recipe["replay"]["ratio"]
+    assert counts["domain"] == 22 and counts["train"] + counts["valid"] - 22 == int(22 * ratio / (1 - ratio))
