@@ -431,8 +431,8 @@ def test_once_on_a_todo_task_pushes_its_branch_and_never_touches_main(team):
     assert "todo en verde" in report
     for fmt, want in (("%s", "X1: Skills pack and validators"),
                       ("%b", "Hecho por Codex con el trabajador de equipo (scripts/team/codex_worker.py)."),
-                      ("%an <%ae>", "jpimasreiser11-gif <225495977+jpimasreiser11-gif@users.noreply.github.com>"),
-                      ("%cn <%ce>", "jpimasreiser11-gif <225495977+jpimasreiser11-gif@users.noreply.github.com>")):
+                      ("%an <%ae>", "oddlyprovenai <225495977+oddlyprovenai@users.noreply.github.com>"),
+                      ("%cn <%ce>", "oddlyprovenai <225495977+oddlyprovenai@users.noreply.github.com>")):
         assert git(team.origin, "log", "-1", f"--format={fmt}", "codex/x1") == want
     assert git(team.origin, "rev-list", "--count", "main..codex/x1") == "1"
     rec = team.record()

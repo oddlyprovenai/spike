@@ -47,7 +47,7 @@ import board
 OWNER = "codex"
 GB = 1024**3
 STATE_DEFAULT = Path.home() / ".spike-team"
-IDENT = ["-c", "user.name=jpimasreiser11-gif", "-c", "user.email=225495977+jpimasreiser11-gif@users.noreply.github.com"]
+IDENT = ["-c", "user.name=oddlyprovenai", "-c", "user.email=225495977+oddlyprovenai@users.noreply.github.com"]
 BACKOFF = (2, 4, 8, 16)   # seconds between the retries of a network operation
 NAP_STEP = 5              # a wait is slept in steps this long, looking for STOP between them
 MEM_CHECK = 60            # seconds between two readings while waiting for RAM
