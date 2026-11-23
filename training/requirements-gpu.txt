@@ -1,0 +1,15 @@
+# Training on an NVIDIA GPU (Google Colab) with training/train_peft.py. Colab already has a CUDA PyTorch; keep it:
+#   pip install -r training/requirements-gpu.txt
+# Pinned: the versions tests/test_train_peft.py runs in CI (job "GPU training backend"). The versions a run used are
+# recorded in training/runs/<specialist>/run.json, and exact resume refuses a checkpoint written under other ones.
+torch             # Colab's own CUDA build; CI uses 2.14.1 CPU
+transformers==5.20.1
+peft==0.22.0
+jinja2            # apply_chat_template
+safetensors
+huggingface_hub
+datasets          # prepare.py (licenses re-checked there)
+pyyaml
+numpy
+httpx
+psutil

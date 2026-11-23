@@ -251,6 +251,10 @@ profiles on the base model, marked β, until theirs pass.
 - With the user's consent, approved corrections (from SPIKE's local model only) export as SFT and DPO data.
 
 ### Training and evaluation
+- A second training backend for NVIDIA GPUs (Google Colab), `training/train_peft.py` with PyTorch and PEFT: the same
+  prepared files and recipe as the Mac's mlx-lm runs, the same checkpoint files with exact resume, and an adapter that
+  `export_adapter.py` turns into the same GGUF LoRA. Tested on the CPU with a tiny random Qwen3.5, including the
+  trained adapter in llama-server against its hand-merged weights; **not yet run on a GPU** (speed and memory unmeasured).
 - A topics distillation run saves the teacher's tasks and each batch of answers as it goes and continues where it
   stopped when run again (`<out>.parts/`), with the same rows as a run that never stopped.
 - Resumed evals, checkpoint sweeps and the forgetting fix keep SHA-256 receipts of their inputs and refuse to mix

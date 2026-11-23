@@ -882,7 +882,7 @@
     "CPU tests with a tiny model: loss falls, resume is exact, the adapter converts to GGUF and loads in llama-server",
     "a Colab smoke run on Qwen3.5-4B reported with measured step time and memory before any real run"
    ],
-   "note": "2026-11-23: started (joan's Colab request)."
+   "note": "2026-11-23: started (joan's Colab request). Built and tested in the cloud: training/train_peft.py + spike_train/peft_backend.py, training/requirements-gpu.txt (transformers 5.20.1, peft 0.22.0; Colab's torch), ADR 0002 amendment, docs/TRAINING.md 2e. Criterion 1 met: tests/test_peft_backend.py + tests/test_train_peft.py (CI job peft: loss falls, bit-identical resume, refusal on changed data, answer-only loss) and tests/test_export_integration.py (llama.cpp job: the trained adapter via export_adapter.py gives the same greedy tokens in llama-server as the hand-merged checkpoint; a half-scale merge fails it). Criterion 2 waits for Colab: `python training/train_peft.py marketing --run <Drive folder> --stop-after 40` and report It/sec, Tokens/sec, Peak mem."
   },
   {
    "id": "U0",

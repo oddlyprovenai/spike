@@ -55,7 +55,8 @@ data; the files under `evals/data/` are evaluation only, written by hand and nev
 |---|---|---|
 | [llama.cpp](https://github.com/ggml-org/llama.cpp) (`llama-server`, `convert_lora_to_gguf.py`, `gguf`) | MIT | local inference, adapter export |
 | [mlx](https://github.com/ml-explore/mlx), [mlx-lm](https://github.com/ml-explore/mlx-lm) | MIT | training on Apple Silicon; `training/spike_train/resume.py` adapts mlx-lm's training loop (Copyright © 2023-2024 Apple Inc., MIT) |
-| PyTorch | BSD-style (Apache-2.0 AND BSD-3-Clause AND MIT AND others, per PyPI) | needed by llama.cpp's converter |
+| PyTorch | BSD-style (Apache-2.0 AND BSD-3-Clause AND MIT AND others, per PyPI) | needed by llama.cpp's converter; training on NVIDIA GPUs (`training/train_peft.py`) |
+| [PEFT](https://github.com/huggingface/peft) | Apache-2.0 | LoRA training on NVIDIA GPUs (`training/train_peft.py`) |
 | transformers, datasets, huggingface_hub, safetensors, sentencepiece | Apache-2.0 | training data and export |
 | numpy | BSD-3-Clause (with bundled 0BSD, MIT, Zlib, CC0-1.0 parts) | training and export |
 | [FFmpeg](https://ffmpeg.org) | LGPL-2.1+ (GPL-2.0+ for builds with libx264) | encodes Spike Motion videos; SPIKE runs the user's own `ffmpeg` binary |

@@ -44,3 +44,24 @@ General ability must not degrade. Every adaptation needs a hypothesis and an acc
   merged by hand, and different tokens from the base (`tests/test_export_integration.py`, tiny model).
 - Qwen3.5 module names survive the official converter as `qwen35` LoRA tensors (same test file).
 - **No real adapter has been trained yet.** Training runs on the Mac (docs/TRAINING.md).
+
+## Amendment 2026-11-23: a GPU backend for Google Colab (M17)
+
+Context: the Mac trains one adapter at a time (≈ 10 h for medicine), and the owner offered Google Colab GPUs.
+Decision: a second backend, `training/train_peft.py` (PyTorch + PEFT, LoRA in bf16 on CUDA), that keeps everything
+above except the trainer itself: the same prepared files and recipe (`mlx_lora.yaml`), the same targets (PEFT
+`target_modules` is a regex over the decoder layers only, so the vision tower and the linear-attention projections stay
+untouched), alpha = scale·r, the same checkpoint cadence and file names with mlx-lm's tensor names and shapes, exact
+resume, and the same export, sweep and acceptance gate. Base model names in the adapter follow the checkpoint's own
+files (`model.language_model.layers.N`, `language_model.model.` in mlx-lm terms), not the modules transformers loads
+(`Qwen3_5ForCausalLM` names them `model.layers.N`).
+
+Not the same arithmetic as mlx-lm, by design and stated in every run: torch Adam has bias correction (mlx's Adam has
+none by default), the data order is a seeded permutation per epoch, kernels and bf16 rounding differ. So a GPU run and
+a Mac run are compared only by their evaluations. Marketing is the first user (its first round, nothing to compare
+with); medicine and finance keep mlx so their rounds stay comparable.
+
+Evidence: tests on CPU with a tiny random Qwen3.5 in the Hub's layout (`tests/test_peft_backend.py`,
+`tests/test_train_peft.py`), and in the llama.cpp CI job the trained adapter through `export_adapter.py` gives in
+llama-server the same greedy tokens as the delta merged into the checkpoint by hand (`tests/test_export_integration.py`).
+**Not yet run on a GPU**: a Colab smoke run (`--stop-after`) must report step time and memory before any real run.

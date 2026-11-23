@@ -13,6 +13,7 @@ Configuration is not a passing run or a measurement with real weights. Dynamic r
 | ci.yml | python | macos-latest | 3.13 |
 | ci.yml | python | windows-latest | 3.13 |
 | ci.yml | mlx | ubuntu-latest | 3.13 |
+| ci.yml | peft | ubuntu-latest | 3.13 |
 | ci.yml | web | ubuntu-latest | — |
 | ci.yml | package | ubuntu-latest | 3.13 |
 | ci.yml | e2e | ubuntu-latest | 3.13 |

@@ -246,6 +246,44 @@ whether any recipe improves its suite are all unmeasured. That run is for the Ma
 `mlx_lm.server --model mlx-community/Qwen3.6-35B-A3B-4bit --port 8090`, then
 `training/scripts/run_specialist.sh science ~/src/llama.cpp ~/.spike/models/Qwen3.5-4B-Q4_K_M.gguf` (and `data`, `marketing`).
 
+### 2e. Training on an NVIDIA GPU (Google Colab) with PEFT (M17, 2026-11-23)
+
+`training/train_peft.py` is the GPU twin of `train.sh`: it reads the same prepared files (`training/data/<id>/`,
+written by `prepare.py` anywhere) and the same recipe (`mlx_lora.yaml`), and writes the same run folder, so
+`sweep_checkpoints.py`, `export_adapter.py` and the acceptance gate run unchanged on its output. ADR 0002 (amendment)
+says what is the same and what is not.
+
+```bash
+# in a Colab notebook with a GPU runtime; Colab's own CUDA PyTorch stays installed
+git clone https://github.com/oddlyprovenai/spike && cd spike
+pip install -r training/requirements-gpu.txt -e .
+python training/prepare.py training/configs/marketing.yaml      # after its distillation: training/data/marketing/distilled.jsonl
+python training/train_peft.py marketing --run /content/drive/MyDrive/spike-runs/marketing --stop-after 40
+python training/train_peft.py marketing --run /content/drive/MyDrive/spike-runs/marketing
+SPIKE_RESUME=1 python training/train_peft.py marketing --run /content/drive/MyDrive/spike-runs/marketing   # after a disconnect
+```
+
+- **Smoke run first.** `--stop-after N` ends after iteration N as an interruption would: exit 3, `run.json` says
+  `stopped_after`, and the log has `It/sec`, `Tokens/sec` and `Peak mem` every `steps_per_report` iterations. Those
+  numbers, not an estimate, decide whether the real run fits the Colab session.
+- **Keep the run folder on Google Drive** (`--run`): Colab sessions end, and `SPIKE_RESUME=1` continues from the last
+  complete checkpoint in `adapter/resume/` (kept: the latest two). It refuses to resume if `train.jsonl`, the recipe,
+  the base model or the PyTorch, transformers or PEFT version changed.
+- **Base model**: the recipe's `model` (Qwen/Qwen3.5-4B); `--revision <commit>` pins it. `run.json` records the Hub
+  commit the weights came from (`base_model`), the GPU, its memory and the package versions.
+- Without `flash-linear-attention` and `causal-conv1d` transformers runs Qwen3.5's linear-attention layers with its
+  slower reference PyTorch code (it says so in the log). Installing them is a separate decision, made only after their
+  licenses and pins are checked and with a measured speed-up.
+- Export and evaluation are the Mac's steps from section 2: `sweep_checkpoints.py` on the copied run folder.
+
+Tested on the CPU with a tiny random Qwen3.5 in the Hub's vision-language layout (`tests/test_peft_backend.py`,
+`tests/test_train_peft.py`, CI job "GPU training backend"): the loss falls; checkpoints carry mlx-lm's names under
+`language_model.model.` with self-attention LoRA only in the full-attention layer and none in the vision tower; an
+interrupted and resumed run ends with bit-identical weights; a resume after the data changed is refused; only the
+answer is trained. In the llama.cpp CI job the trained adapter goes through `export_adapter.py` and gives in
+llama-server the same greedy tokens as the delta merged into the checkpoint by hand, and different tokens from the
+base. **Not measured: anything on a real GPU** (step time, memory, the cost in Colab compute units).
+
 ## 3. What makes a result valid
 
 - Checkpoint sweeps now write `sweep/inputs.json` **before** any export/evaluation: SHA-256 of
