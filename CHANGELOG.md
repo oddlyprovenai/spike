@@ -11,9 +11,10 @@ profiles on the base model, marked β, until theirs pass.
 ### Models and runtime
 - Medicine adapter accepted (round 2): +35.07 points on MedMCQA, PubMedQA and MMLU-Pro health (2,318 questions),
   −0.62 on general knowledge (limit −1.5), after self-generated replay, sampling the domain to keep 30 % replay and
-  LoRA scale 0.5 written into the GGUF. Round 1 had been rejected for forgetting (−7.62). Not published yet. The base
-  model's score counts 650 answers the extractor could not read as wrong (adapter: 43), so the gain is likely
-  inflated; the saved answers are being re-scored with the newer extractor before the number is published.
+  LoRA scale 0.5 written into the GGUF. Round 1 had been rejected for forgetting (−7.62). Not published yet. The same
+  saved answers re-scored with the newer extractor (2026-11-23) give +34.56 and −0.62, still accepted; the base model
+  still leaves 631 of its 2,318 answers unreadable, counted as wrong (adapter: 43), so part of the gain is answer
+  format, not medical knowledge.
 - Marketing's checkpoint sweep can choose too: `sweep_checkpoints.py` judges each candidate pairwise against the base
   model on up to 48 teacher-written tasks of the run's own valid split (never trained on, never the acceptance
   prompts) plus general-select, picks the passing one with the highest win rate, and runs the 24 acceptance prompts

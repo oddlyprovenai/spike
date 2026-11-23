@@ -269,8 +269,12 @@ on 2026-11-06 (the rejected round-1 file moved aside). It is not published (need
 Medicine runs as the β profile. Of the base model's unparsed answers (`unparsed_base.json`, a heuristic reading),
 114 of 409 on MedMCQA and 40 of 241 on health state an option's text instead of its letter (54 and 17 of them the
 right one); most of the rest end with a medical disclaimer and no answer. The extractor that reads such answers
-(M14) is on `main` since 2026-11-14; the same saved answers re-scored with it, base and adapter side by side, come
-before any publication of these numbers (M16), and the verdict stays the one above.
+(M14) is on `main` since 2026-11-14. **Re-scored (M16, 2026-11-23, `training/runs/medicine/sweep/final-rescored/`):**
+the same saved answers read by M14's extractor give medicine 0.324 → 0.670, +34.56 (MedMCQA +36.90, health +29.46,
+PubMedQA +38.20) and general −0.62, still ACCEPTED. M14 reads few of these answers: the base still leaves 631 of
+2,318 unparsed (402 MedMCQA, 229 health; the adapter 43), so the gain still includes answer format. A hand check of
+the 33 answers the re-scoring changed (`HANDCHECK.md`) found 31 read right and 2 misread (an answer that states the
+gold letter first, then quotes another option in a bullet or a justification); both are base answers scored wrong.
 
 **Finance adapter, round 1 (768-token window): REJECTED (2026-11-09).** Same recipe and gate as medicine (finance
 +3.0 points at p ≤ 0.05, general drop at most 1.5). Selection suites, best candidates: the final checkpoint at scale 0.5

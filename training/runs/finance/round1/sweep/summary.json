@@ -6,7 +6,7 @@
     "iters": 8825,
     "started_utc": "2026-11-06T09:37:59Z"
   },
-  "model": "/Users/jpima/.spike/models/Qwen3.5-4B-Q4_K_M.gguf",
+  "model": "~/.spike/models/Qwen3.5-4B-Q4_K_M.gguf",
   "select": {
     "suites": [
       "finance-select",
