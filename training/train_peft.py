@@ -64,6 +64,13 @@ def v(pkg: str) -> str | None:
         return None
 
 
+def kernels() -> dict[str, str | None]:
+    """The optional CUDA kernels transformers uses for Qwen3.5's linear-attention layers when installed (otherwise its
+    reference PyTorch code): they change speed and, slightly, the numbers, so a run records them and a resume needs
+    the same ones."""
+    return {"flash_linear_attention": v("flash-linear-attention"), "causal_conv1d": v("causal-conv1d")}
+
+
 def read_jsonl(path: Path) -> list[dict]:
     return [json.loads(line) for line in path.read_text(encoding="utf-8").splitlines() if line.strip()]
 
@@ -329,7 +336,8 @@ class Trainer:
             json.dumps(dict(pb.adapter_config(self.cfg), iters=self.iters), indent=4), encoding="utf-8")
         identity = {"train_jsonl_sha256": sha256(self.data_dir / "train.jsonl"),
                     "config_sha256": sha256(self.data_dir / "mlx_lora.yaml"), "torch": v("torch"),
-                    "transformers": v("transformers"), "peft": v("peft"), "seed": self.seed, "batch_size": self.batch,
+                    "transformers": v("transformers"), "peft": v("peft"), **kernels(), "seed": self.seed,
+                    "batch_size": self.batch,
                     "grad_accumulation_steps": self.accum, "iters": self.iters, "base_model": self.base}
         start, tokens = self.begin(resume, identity)
         self.model.train()
@@ -399,7 +407,7 @@ def write_run_json(run_dir: Path, data_dir: Path, started: str, run_started: str
               "git_commit": sh("git", "rev-parse", "HEAD"), "base_model": base_model, "backend": "peft", "device": device,
               "gpu": gpu,
               "gpu_memory_bytes": gpu_mem, "os": platform.platform(), "python": platform.python_version(),
-              "torch": v("torch"), "transformers": v("transformers"), "peft": v("peft")}
+              "torch": v("torch"), "transformers": v("transformers"), "peft": v("peft"), **kernels()}
     (run_dir / "run.json").write_text(json.dumps(record, indent=2), encoding="utf-8")
     print(f"wrote {run_dir / 'run.json'} (exit {status})", flush=True)
 

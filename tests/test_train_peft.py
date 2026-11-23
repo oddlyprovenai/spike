@@ -67,6 +67,8 @@ def test_trains_writes_mlx_format_checkpoints_and_exports(tmp_path, tiny_model, 
     assert sorted(sweep_checkpoints.list_checkpoints(adapter)) == [8, 16, 24]
     run = json.loads((tmp_path / "run" / "run.json").read_text(encoding="utf-8"))
     assert run["exit_code"] == 0 and run["backend"] == "peft" and run["torch"] and run["peft"]
+    # the optional fast kernels for the linear-attention layers change speed and numerics: recorded, None when absent
+    assert run["flash_linear_attention"] is None and run["causal_conv1d"] is None
     assert run["run_started_utc"] and run["counts"]["iters"] == 24 and run["stopped_after"] is None
     assert run["base_model"] == {"model": str(tiny_model), "revision": None, "commit": None}   # a local folder
     log = (tmp_path / "run" / "train.log").read_text(encoding="utf-8")

@@ -272,8 +272,12 @@ SPIKE_RESUME=1 python training/train_peft.py marketing --run /content/drive/MyDr
 - **Base model**: the recipe's `model` (Qwen/Qwen3.5-4B); `--revision <commit>` pins it. `run.json` records the Hub
   commit the weights came from (`base_model`), the GPU, its memory and the package versions.
 - Without `flash-linear-attention` and `causal-conv1d` transformers runs Qwen3.5's linear-attention layers with its
-  slower reference PyTorch code (it says so in the log). Installing them is a separate decision, made only after their
-  licenses and pins are checked and with a measured speed-up.
+  slower reference PyTorch code (it says so in the log). Licenses checked on PyPI on 2026-11-23:
+  flash-linear-attention 0.6.0 is MIT, causal-conv1d 1.7.0 is BSD; both are training-time tools only, never shipped
+  with SPIKE. They are used only with a measured speed-up: the same `--stop-after 40` smoke run once without and once
+  with `pip install flash-linear-attention==0.6.0 causal-conv1d==1.7.0`, comparing `It/sec` and `Peak mem`.
+  `run.json` and every resume checkpoint record both versions (None when absent), and a resume with different ones
+  is refused.
 - Export and evaluation are the Mac's steps from section 2: `sweep_checkpoints.py` on the copied run folder.
 
 Tested on the CPU with a tiny random Qwen3.5 in the Hub's vision-language layout (`tests/test_peft_backend.py`,
