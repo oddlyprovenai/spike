@@ -196,13 +196,13 @@ jobs:
                   sys.exit("spike serve did not answer within 60 s")
               local = call("GET", "/api/settings")["local_runtime"]
               assert local["model"], "spike models pull did not set the local model"
-              # Short answer, thinking off (it would use up the 32 tokens), CPU only and a small context:
+              # Short answer, thinking off (it would use up the 64 tokens), CPU only and a small context:
               # CI runners have no GPU worth using and little memory.
-              call("PUT", "/api/settings", {"reasoning": False, "tools_enabled": False, "max_tokens": 32,
+              call("PUT", "/api/settings", {"reasoning": False, "tools_enabled": False, "max_tokens": 64,
                                             "local_runtime": {**local, "gpu_layers": 0, "context": 2048}})
               print("engine:", call("POST", "/api/runtime/start", timeout=600))
               reply = call("POST", "/v1/chat/completions", timeout=600, body={
-                  "model": "spike-core", "max_tokens": 32,
+                  "model": "spike-core", "max_tokens": 64,
                   "messages": [{"role": "user", "content": "Answer with one word: what is the capital of France?"}]})
               answer = reply["choices"][0]["message"]["content"].strip()
               print("answer:", answer)
