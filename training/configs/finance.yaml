@@ -10,14 +10,20 @@ hypothesis: >
 acceptance:
   primary: {suite: finance, min_gain_points: 3.0, max_p_value: 0.05}
   regression: {suite: general, max_drop_points: 1.5}
-domain_sources:
-  - {source: sujet-finance, max: 8000, max_per_value: 2000}   # the four audited upstream datasets (filter in datasets.yaml),
-                                         # the first 2,000 rows of each, so one of them cannot fill the 8,000
-  - {source: finqa-train}                # 6,251 questions, minus rows whose own arithmetic is wrong
-  - {source: tatqa-train}                # all 13,215 questions (many are longer than max_seq_length and dropped)
+domain_sources: []                     # M3 round 4: the gold targets (terse labels, spans, FinQA programs) taught the
+                                       # adapter to stop reasoning; self_distill below replaces them
+self_distill:                          # training/self_distill.py: the base model's own answers to these questions, greedy
+                                       # then one retry at retry_temperature, kept only when evaluation.score marks them
+                                       # correct against the gold; passed to prepare.py with --distilled
+  retry_temperature: 0.7
+  sources:
+    - {source: sujet-finance, max: 8000, max_per_value: 2000}   # the four audited upstream datasets (filter in
+                                         # datasets.yaml), the first 2,000 rows of each
+    - {source: finqa-train}              # 6,251 questions, minus rows whose own arithmetic is wrong
+    - {source: tatqa-train}              # all 13,215 questions (many are longer than max_seq_length and dropped)
 replay:
-  ratio: 0.45                         # share of general data in the training mix (anti-forgetting); M3 round 3's one
-                                      # change (0.30 -> 0.45): round 2 passed finance (+7.00) but lost general (-2.75)
+  ratio: 0.30                         # M3 round 4 is round 2's mix (0.30) with self-distilled domain targets; round 3's
+                                      # 0.45 still lost general (-6.00) and is reverted
   sources:
     - {source: oasst2, max: 13000}       # human-written only; 13,002 chats are built from en+es
 eval:

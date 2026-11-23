@@ -77,6 +77,28 @@ def test_trains_writes_mlx_format_checkpoints_and_exports(tmp_path, tiny_model, 
     assert len(losses) == 6 and losses[-1] < losses[0] - 0.3, losses      # it learns
     assert len(vals) == 4 and vals[-1] < vals[0] - 0.3, vals
     assert "Val loss" in log
+    # the rate a report shows is the schedule's (before the first update too), not the optimizer's initial value
+    import yaml
+    from spike_train import peft_backend as pb
+
+    cfg = yaml.safe_load((tmp_path / "data" / "mlx_lora.yaml").read_text(encoding="utf-8"))
+    accum = int(cfg["grad_accumulation_steps"])
+    for line in (x for x in log.splitlines() if "Learning Rate" in x):
+        it = int(line.split("Iter ")[1].split(":")[0])
+        shown = float(line.split("Learning Rate ")[1].split(",")[0])
+        update = max(0, it // accum - 1)   # the last update made, or the first one to come
+        assert shown == pytest.approx(pb.lr_at(update, float(cfg["learning_rate"]), cfg.get("lr_schedule")), rel=1e-3)
+
+
+def test_the_hub_commit_is_the_snapshot_the_weights_came_from(tmp_path, monkeypatch):
+    import huggingface_hub
+    import train_peft
+
+    snap = tmp_path / "models--Qwen--Qwen3.5-4B" / "snapshots" / "851bf6e0123456789abcdef0123456789abcdef0"
+    snap.mkdir(parents=True)
+    monkeypatch.setattr(huggingface_hub, "hf_hub_download", lambda repo, name, revision=None: str(snap / name))
+    assert train_peft.hub_commit("Qwen/Qwen3.5-4B", None) == snap.name
+    assert train_peft.hub_commit(str(tmp_path), None) is None   # a local folder
 
 
 def test_an_interrupted_run_resumes_to_the_same_weights(tmp_path, tiny_model, monkeypatch):

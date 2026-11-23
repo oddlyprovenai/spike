@@ -114,6 +114,17 @@ def checkpoint_names(model_id: str, revision: str | None) -> set[str]:
         return load_base_weight_names(Path(hf_hub_download(model_id, "model.safetensors", revision=revision)).parent)
 
 
+def hub_commit(model_id: str, revision: str | None) -> str | None:
+    """The Hub commit the base weights were read from (the snapshot folder of the cached config.json), None for a local
+    folder. transformers 5 no longer sets config._commit_hash, so run.json recorded null without --revision."""
+    if Path(model_id).is_dir():
+        return None
+    from huggingface_hub import hf_hub_download
+
+    snapshot = Path(hf_hub_download(model_id, "config.json", revision=revision)).parent
+    return snapshot.name if snapshot.parent.name == "snapshots" else None
+
+
 class Trainer:
     def __init__(self, args, cfg: dict, data_dir: Path, run_dir: Path):
         import torch
@@ -156,7 +167,8 @@ class Trainer:
             model = AutoModelForImageTextToText.from_pretrained(model_id, dtype=dtype, **kw)
         self.prefix = pb.mlx_prefix(checkpoint_names(model_id, self.args.revision))
         # the Hub commit the weights came from (None for a local folder): recorded in run.json and resume.json
-        self.base.update(model=model_id, commit=getattr(model.config, "_commit_hash", None))
+        self.base.update(model=model_id, commit=hub_commit(model_id, self.args.revision)
+                         or getattr(model.config, "_commit_hash", None))
         if self.cfg.get("num_layers", -1) not in (-1, None):
             raise SystemExit("num_layers other than -1 (all layers) is not supported by the GPU backend")
         lcfg = LoraConfig(r=self.rank, lora_alpha=float(self.lp["scale"]) * self.rank,
@@ -343,6 +355,8 @@ class Trainer:
         self.model.train()
         tic, window_loss, window_n = time.time(), 0.0, 0
         sched = self.cfg.get("lr_schedule")
+        for group in self.optimizer.param_groups:  # the rate of the next update, so reports before it show the schedule's
+            group["lr"] = pb.lr_at(start // self.accum, float(self.cfg["learning_rate"]), sched)
         if start == 0 and (val := self.validate()) is not None:
             print(f"Iter 1: Val loss {val:.3f}", flush=True)
         for it in range(start + 1, self.iters + 1):

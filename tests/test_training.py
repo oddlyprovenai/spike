@@ -1112,7 +1112,8 @@ def test_training_configs_fit_a_36gb_mac_with_the_same_effective_batch():
         assert train["batch_size"] == 1, path.name
         # measured with the chunked gated delta (2026-11-09, one LoRA step, M4 Max): 11.08 GB peak at 768 tokens,
         # 12.75 GB at 1536, 14.46 GB at 2048; without it 768 already took 18.7 GB RSS and 1024 ran out of memory
-        assert train["max_seq_length"] <= 1536, path.name
+        # marketing (M4, 2026-11-23): its distilled rows have a median of 1,906 tokens; 2048 is the measured ceiling
+        assert train["max_seq_length"] <= (2048 if path.stem == "marketing" else 1536), path.name
         if path.stem == "personal":  # tens of examples, not tens of thousands: a smaller effective batch (4) so that two
             assert train["grad_accumulation_steps"] == 4  # epochs still make a few dozen optimizer updates (EV6)
             continue

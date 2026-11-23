@@ -12,6 +12,8 @@ writing an empty training set. Before anything else the recipe's `distill` block
 how its tasks were made, and the manifest records the topic file or seed file, its hash and provenance (never the labels).
 A recipe with `replay: {self_generated: true}` takes its replay from the base model's own answers (--self-replay FILE,
 made by training/self_replay.py); with no file the run stops. Without it, replay is the human-written sources.
+A recipe with `self_distill.sources` (finance round 4) trains on the base model's own correct answers to those
+gold-answered questions (training/self_distill.py, passed with --distilled); the sources are license-checked here too.
 """
 
 from __future__ import annotations
@@ -228,9 +230,14 @@ def main() -> int:
 
     def no_domain_data() -> SystemExit:  # replay alone would train on nothing of the domain, and empty files look fine
         distilled_out = f"training/data/{cfg['specialist']}/distilled.jsonl"
-        fix = (f"run `python training/distill.py {args.config} --out {distilled_out}` first and pass it with "
-               "--distilled" if (cfg.get("distill") or {}).get("enabled")
-               else "add domain_sources to the config or pass --distilled / --corrections data")
+        if (cfg.get("self_distill") or {}).get("sources"):
+            fix = ("serve the base model with llama-server (no adapter), run `python training/self_distill.py "
+                   f"{args.config} --base-url http://127.0.0.1:PORT/v1 --out training/data/{cfg['specialist']}/"
+                   "self_distilled.jsonl` and pass it with --distilled")
+        elif (cfg.get("distill") or {}).get("enabled"):
+            fix = f"run `python training/distill.py {args.config} --out {distilled_out}` first and pass it with --distilled"
+        else:
+            fix = "add domain_sources to the config or pass --distilled / --corrections data"
         return SystemExit(f"no domain training data for '{cfg['specialist']}': {len(cfg.get('domain_sources', []))} "
                           f"domain sources, {len(args.distilled)} distilled and {len(args.corrections)} correction "
                           f"files gave no usable chats; {fix}")
@@ -257,8 +264,9 @@ def main() -> int:
         raise SystemExit(f"--self-replay {args.self_replay}: no such file")
 
     # Candidate recipes must stop before checking even an already-registered source on the Hub.
-    source_names = list(cfg.get("decontaminate_against", [])) + [
-        e["source"] for e in cfg.get("domain_sources", []) + cfg.get("replay", {}).get("sources", [])]
+    train_entries = (cfg.get("domain_sources", []) + cfg.get("replay", {}).get("sources", [])
+                     + (cfg.get("self_distill") or {}).get("sources", []))   # self_distill.py's questions are training data
+    source_names = list(cfg.get("decontaminate_against", [])) + [e["source"] for e in train_entries]
     for name in source_names:
         if registry[name].get("license_status") in licenses.BLOCKED_STATUS:
             gate_source(name, registry[name], registry[name]["role"], args.skip_license_check)
@@ -266,7 +274,7 @@ def main() -> int:
     # 0. every license and registry role, before anything is downloaded
     for name in cfg.get("decontaminate_against", []):
         checked(name, "eval")
-    for entry in cfg.get("domain_sources", []) + cfg.get("replay", {}).get("sources", []):
+    for entry in train_entries:
         checked(entry["source"], "train")
     distilled: dict[str, list[dict]] = {}
     for path in args.distilled:  # a teacher's terms travel with every example it wrote: same allowlist as datasets

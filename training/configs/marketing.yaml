@@ -34,7 +34,9 @@ train:
   grad_accumulation_steps: 16         # effective batch 16, same number of optimizer updates
   learning_rate: 1.0e-4
   lr_schedule: {name: cosine_decay, warmup: 60, arguments: [1.0e-4, auto, 1.0e-5]}
-  max_seq_length: 768                 # Metal peak grows ~19 MB/token in training (Qwen3.5-4B, 36 GB Mac); longer chats are dropped
+  max_seq_length: 2048                # M4 2026-11-23: at 768, 10 of the 2,929 distilled rows fit (median 1,906 tokens, measured
+                                      # with the chat template) and self-replay kept 11 of 128; 2048 keeps 2,007 (69 %); finance
+                                      # measured a 14.46 GB Metal peak at 2048 (chunked delta rule). Longer chats are dropped
   grad_checkpoint: true
   mask_prompt: true
   num_layers: -1

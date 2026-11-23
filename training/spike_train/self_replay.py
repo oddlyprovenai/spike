@@ -74,6 +74,17 @@ def repetition(text: str) -> str | None:
     return None
 
 
+def rejection(done: dict[str, Any]) -> str | None:
+    """Why a completion is not an answer SPIKE would give (thinking, cut off, empty, repeating itself), or None."""
+    if done["reasoning"]:  # the server ignored enable_thinking: these are not the answers SPIKE gives
+        return "thinking"
+    if done["finish_reason"] != "stop":
+        return "hit_length_limit" if done["finish_reason"] == "length" else "unfinished"
+    if not done["content"]:
+        return "empty"
+    return repetition(done["content"])
+
+
 async def check_server(teacher: Teacher) -> dict[str, Any]:
     """Refuse (ValueError) unless the server answers as the base model alone: llama-server's GET /lora-adapters must list
     no adapter with a non-zero scale (a request without `lora` runs at those global scales). A server without that
@@ -115,13 +126,7 @@ async def self_answer(teacher: Teacher, system: str, prompt: Prompt, count_token
     if budget < MIN_ANSWER_TOKENS:
         return None, "prompt_too_long"
     done = await teacher.complete(chat, temperature=0.0, max_tokens=budget, thinking=False)
-    if done["reasoning"]:  # the server ignored enable_thinking: these are not the answers SPIKE gives
-        return None, "thinking"
-    if done["finish_reason"] != "stop":
-        return None, "hit_length_limit" if done["finish_reason"] == "length" else "unfinished"
-    if not done["content"]:
-        return None, "empty"
-    if why := repetition(done["content"]):
+    if why := rejection(done):
         return None, why
     row: dict[str, Any] = {"messages": [*chat, {"role": "assistant", "content": done["content"]}]}
     if count_tokens(row) > max_len:

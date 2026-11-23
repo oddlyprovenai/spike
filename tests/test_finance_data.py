@@ -198,7 +198,9 @@ def test_prepare_refuses_a_url_source_whose_recorded_license_is_not_allowed(tmp_
     (tmp_path / "training" / "datasets.yaml").write_text(yaml.safe_dump(reg), encoding="utf-8")
     monkeypatch.setattr(prepare, "ROOT", tmp_path)
     monkeypatch.setattr(prepare.licenses, "hub_license", lambda repo: "mit")
-    monkeypatch.setattr(sys, "argv", ["prepare.py", str(ROOT / "training/configs/finance.yaml"), "--out", str(tmp_path / "out")])
+    # the recipe asks for finqa-train's questions through self_distill.sources: gated before any file is read
+    monkeypatch.setattr(sys, "argv", ["prepare.py", str(ROOT / "training/configs/finance.yaml"), "--out", str(tmp_path / "out"),
+                                      "--distilled", str(tmp_path / "self_distilled.jsonl")])
     with pytest.raises(SystemExit, match="refusing source 'finqa-train': license 'cc-by-nc-4.0'"):
         prepare.main()
 
@@ -471,12 +473,14 @@ def test_finance_recipe_trains_on_audited_sources_and_is_scored_on_the_held_out_
     reg = registry()
     cfg = yaml.safe_load((ROOT / "training" / "configs" / "finance.yaml").read_text(encoding="utf-8"))
     suites = yaml.safe_load((ROOT / "evals" / "suites.yaml").read_text(encoding="utf-8"))["suites"]
-    assert [(e["source"], e.get("max"), e.get("max_per_value")) for e in cfg["domain_sources"]] == [
+    # round 4 (M3, 2026-11-23): the questions of the three sources, answered by the base model and kept when correct
+    # (training/self_distill.py), replace their gold targets; the replay goes back to round 2's 0.30
+    assert cfg["domain_sources"] == [] and cfg["self_distill"]["retry_temperature"] == 0.7
+    assert [(e["source"], e.get("max"), e.get("max_per_value")) for e in cfg["self_distill"]["sources"]] == [
         ("sujet-finance", 8000, 2000), ("finqa-train", None, None), ("tatqa-train", None, None)]
     assert 4 * 2000 == 8000 and len(reg["sujet-finance"]["filter"]["dataset"]) == 4  # every upstream dataset has a share
     assert reg["finqa-train"]["format"] == "finqa_train" and reg["finqa-test"]["format"] == "finqa"
-    # round 3 (M3, 2026-11-23): the one change is the general replay share, 0.30 -> 0.45 (round 2 lost -2.75 on general)
-    assert cfg["replay"]["ratio"] == 0.45 and [e["source"] for e in cfg["replay"]["sources"]] == ["oasst2"]
+    assert cfg["replay"]["ratio"] == 0.30 and [e["source"] for e in cfg["replay"]["sources"]] == ["oasst2"]
     assert set(cfg["decontaminate_against"]) == {"mmlu-pro", "finqa-test", "tatqa-test"}
     # round 2 (M3, 2026-11-09): the one change is the window, 768 -> 1536 tokens (STATUS, "Finance adapter, round 1")
     assert cfg["train"]["max_seq_length"] == 1536 and eval_args(cfg) == ["--max-tokens", "2048"]
@@ -551,8 +555,10 @@ def test_prepare_builds_the_finance_mix_from_filtered_hub_rows_and_pinned_files(
     monkeypatch.setattr(prepare.licenses, "hub_license", lambda repo: {s["hub"]: s["license"] for s in reg.values() if "hub" in s}[repo])
     monkeypatch.setattr(prepare, "load_token_counter", lambda base_model: lambda chat: 100)
     recipe = yaml.safe_load((ROOT / "training" / "configs" / "finance.yaml").read_text(encoding="utf-8"))
-    assert recipe["domain_sources"][0]["source"] == "sujet-finance"
-    recipe["domain_sources"][0] = {"source": "sujet-finance", "max": 20, "max_per_value": 3}  # the real recipe, a small cap
+    # the gold-target recipe of rounds 1-3 (round 4 takes the same rows through self_distill.py)
+    recipe["domain_sources"] = [{"source": "sujet-finance", "max": 20, "max_per_value": 3},  # the real entries, a small cap
+                                *recipe["self_distill"]["sources"][1:]]
+    assert recipe["self_distill"]["sources"][0]["source"] == "sujet-finance"
     config = tmp_path / "recipe.yaml"
     config.write_text(yaml.safe_dump(recipe), encoding="utf-8")
     monkeypatch.setattr(sys, "argv", ["prepare.py", str(config), "--out", str(tmp_path)])
