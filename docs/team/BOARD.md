@@ -6,13 +6,13 @@ Generado desde `docs/team/tasks.json` con `python scripts/team/board.py render`;
 
 | Quién | pendiente | en curso | en revisión | cambios pedidos | hecha | bloqueada | total |
 |---|---:|---:|---:|---:|---:|---:|---:|
-| Claude | 1 | 3 | 0 | 0 | 42 | 0 | 46 |
+| Claude | 1 | 4 | 0 | 0 | 42 | 0 | 47 |
 | Codex | 0 | 0 | 0 | 0 | 16 | 0 | 16 |
 | Gemini | 0 | 0 | 0 | 0 | 17 | 0 | 17 |
 | Opus | 0 | 0 | 0 | 0 | 0 | 0 | 0 |
-| Mac | 3 | 3 | 0 | 0 | 4 | 0 | 10 |
+| Mac | 4 | 3 | 0 | 0 | 4 | 0 | 11 |
 | joan | 3 | 0 | 0 | 0 | 0 | 0 | 3 |
-| **Total** | **7** | **6** | **0** | **0** | **79** | **0** | **92** |
+| **Total** | **8** | **7** | **0** | **0** | **79** | **0** | **94** |
 
 ## Fase: equipo
 
@@ -56,6 +56,7 @@ Generado desde `docs/team/tasks.json` con `python scripts/team/board.py render`;
 | G15 | Gemini | hecha | Fiabilidad de los conectores MCP | - |
 | G16 | Gemini | hecha | Fiabilidad de Workflows, Device Lab, Reverse Studio y Geo | - |
 | G17 | Gemini | hecha | Auditoría de traducciones | - |
+| U0 | Mac | pendiente | Subir a GitHub las ramas de Gemini Ultra (gemini/U1 a gemini/U9) | - |
 | G18 | Gemini | hecha | Accesibilidad en todas las pantallas | - |
 | G19 | Gemini | hecha | Documentación de usuario en español e inglés | - |
 | G20 | Gemini | hecha | Revisar documentos desfasados | - |
@@ -105,6 +106,7 @@ Generado desde `docs/team/tasks.json` con `python scripts/team/board.py render`;
 | M14 | Claude | en curso | Lector de respuestas: '**Final Answer Selection:** E' y el texto de la opción | M3 |
 | M15 | Mac | en curso | Medicina: ficha de Hugging Face del adaptador aceptado (sin publicar) | M11 |
 | M16 | Mac | pendiente | Resultados por pregunta y rondas de finanzas en main (para el benchmark de Mando) | - |
+| M17 | Claude | en curso | Entrenamiento LoRA en GPU (PEFT) para Colab, con las mismas reglas | - |
 
 ## Fase: models
 

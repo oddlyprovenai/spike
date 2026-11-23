@@ -82,7 +82,7 @@ class World:
         return pairwise.main(argv)
 
     def rows(self, name: str) -> list[dict]:
-        return [json.loads(line) for line in (self.out / name).read_text().splitlines()]
+        return [json.loads(line) for line in (self.out / name).read_text(encoding="utf-8").splitlines()]
 
 
 @pytest.fixture
@@ -97,7 +97,7 @@ def test_both_orders_must_agree_for_a_win_or_a_loss():
 
 def test_one_adapter_gives_the_summary_install_reads(world, capsys):
     assert world.go() == 0
-    summary = json.loads((world.out / "summary.json").read_text())
+    summary = json.loads((world.out / "summary.json").read_text(encoding="utf-8"))
     assert summary["adapter"] == "spike-marketing-good" and summary["n"] == 6 and summary["wins"] == 6
     assert summary["win_rate"] == 1.0 and "adapters" not in summary and summary["prompts"] == str(world.prompts)
     pairs = world.rows("pairs.jsonl")
@@ -124,19 +124,19 @@ def test_an_interrupted_generation_keeps_what_finished_and_a_cut_line_is_redone(
         world.go()
     kept = world.rows("answers.jsonl")
     assert len(kept) == 5
-    with (world.out / "answers.jsonl").open("a") as f:
+    with (world.out / "answers.jsonl").open("a", encoding="utf-8") as f:
         f.write('{"variant": "base", "id": "mk-')                       # killed mid-line
     world.fail_after, world.generated = None, []
     assert world.go() == 0
     assert len(world.generated) == 7                                   # 12 - 5
-    lines = (world.out / "answers.jsonl").read_text().splitlines()
+    lines = (world.out / "answers.jsonl").read_text(encoding="utf-8").splitlines()
     assert len(lines) == 12 and [json.loads(line) for line in lines[:5]] == kept   # the cut line is gone
 
 
 def test_several_adapters_share_the_base_answers_and_each_is_judged(world):
     assert world.go("spike-marketing-good", "spike-marketing-same") == 0
     assert sum(1 for v, _ in world.generated if v == "base") == 6       # once, not once per adapter
-    summary = json.loads((world.out / "summary.json").read_text())
+    summary = json.loads((world.out / "summary.json").read_text(encoding="utf-8"))
     assert set(summary["adapters"]) == {"spike-marketing-good", "spike-marketing-same"}
     assert summary["adapters"]["spike-marketing-good"]["win_rate"] == 1.0
     assert summary["adapters"]["spike-marketing-same"] == {**summary["adapters"]["spike-marketing-same"], "ties": 6,
@@ -157,7 +157,7 @@ def test_adapters_can_be_added_to_a_run_but_not_dropped_or_changed_and_other_inp
         world.go("spike-marketing-good", "spike-marketing-same")
     with pytest.raises(SystemExit, match=r"other inputs \(max_tokens\)"):
         world.go("spike-marketing-good", extra=("--max-tokens", "64"))
-    world.prompts.write_text(world.prompts.read_text() + json.dumps({"id": "mk-9", "prompt": "One more"}) + "\n")
+    world.prompts.write_text(world.prompts.read_text(encoding="utf-8") + json.dumps({"id": "mk-9", "prompt": "One more"}) + "\n")
     with pytest.raises(SystemExit, match=r"other inputs \(prompts_sha256\)"):
         world.go("spike-marketing-good")
 
@@ -173,9 +173,9 @@ def test_the_acceptance_verdict_needs_one_adapter_and_the_general_suite(world, t
     (general / "summary.json").write_text(json.dumps({"variants": ["base", "spike-marketing-good"], "suites": {
         "general": {"vs_base": {"spike-marketing-good": {"paired_n": 400, "delta_points": -2.0, "p_value": 0.1}}}}}))
     assert world.go(extra=("--acceptance", str(recipe), "--general-eval", str(general))) == 2   # forgets too much
-    summary = json.loads((world.out / "summary.json").read_text())
+    summary = json.loads((world.out / "summary.json").read_text(encoding="utf-8"))
     assert summary["accepted"] is False and summary["reasons"][-1] == "general: -2.00 pts (max drop 1.5)"
-    assert yaml.safe_load(recipe.read_text())["acceptance"]["primary"]["min_win_rate"] == 0.6
+    assert yaml.safe_load(recipe.read_text(encoding="utf-8"))["acceptance"]["primary"]["min_win_rate"] == 0.6
 
 
 def test_prompts_need_text_and_distinct_ids(tmp_path):

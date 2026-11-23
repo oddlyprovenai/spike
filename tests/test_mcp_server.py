@@ -193,7 +193,7 @@ async def test_stdio_server_starts_the_local_engine_and_answers(tmp_path):
     subprocess.run([sys.executable, "tests/fixtures/make_tiny_gguf.py", str(out)], check=True, capture_output=True)
     home = tmp_path / "home"
     configure_local(home, model=str(out / "spike-tiny.gguf"), context=2048, kv_cache_type="f16", port=free_port())
-    AppState(home=home).update_settings({"max_tokens": 24})  # the tiny model's words mean nothing: keep them few
+    AppState(home=home).update_settings({"max_tokens": 64})  # the fewest the settings allow: the tiny model's words mean nothing
     async with stdio_client(stdio_params(home, "--start-local")) as (read, write), \
             ClientSession(read, write) as session:
         await session.initialize()

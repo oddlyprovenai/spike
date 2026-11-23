@@ -534,7 +534,7 @@ def test_legacy_cached_sweep_without_provenance_is_preserved_and_refused(world):
 
 
 def test_cached_sweep_pins_the_fallback_iteration_configuration(world):
-    record = json.loads((world.runs / "run.json").read_text())
+    record = json.loads((world.runs / "run.json").read_text(encoding="utf-8"))
     record.pop("counts")
     (world.runs / "run.json").write_text(json.dumps(record))
     data = world.root / "training/data/medicine"
@@ -798,7 +798,7 @@ def test_a_pairwise_rule_is_the_recipes_own_with_the_select_suites_and_never_the
 
 
 def test_selection_prompts_are_the_teacher_tasks_of_the_valid_split_never_trained_on(mk, monkeypatch):
-    run_files = json.loads((mk.runs / "run.json").read_text())["data_files_sha256"]
+    run_files = json.loads((mk.runs / "run.json").read_text(encoding="utf-8"))["data_files_sha256"]
     distilled = mk.data / "distilled.jsonl"
     prompts = sweep.selection_prompts(mk.data, distilled, run_files, 0)
     # tasks 1..9 in valid order; task 0 is also in train.jsonl; the general chats are not the teacher's
@@ -812,13 +812,13 @@ def test_selection_prompts_are_the_teacher_tasks_of_the_valid_split_never_traine
 
 
 def test_selection_prompts_refuse_data_that_is_not_the_runs_or_a_teacher_file_prepare_did_not_read(mk):
-    run_files = json.loads((mk.runs / "run.json").read_text())["data_files_sha256"]
+    run_files = json.loads((mk.runs / "run.json").read_text(encoding="utf-8"))["data_files_sha256"]
     distilled = mk.data / "distilled.jsonl"
     with pytest.raises(SystemExit, match="not the file the training run used"):
         sweep.selection_prompts(mk.data, distilled, {**run_files, "valid.jsonl": "0" * 64}, 0)
     with pytest.raises(SystemExit, match="no distilled:other.jsonl"):
         sweep.selection_prompts(mk.data, shutil.copy(distilled, mk.data / "other.jsonl"), run_files, 0)
-    distilled.write_text(distilled.read_text() + "\n")
+    distilled.write_text(distilled.read_text(encoding="utf-8") + "\n")
     with pytest.raises(SystemExit, match="not the file prepare.py read"):
         sweep.selection_prompts(mk.data, distilled, run_files, 0)
     with pytest.raises(SystemExit, match="not found"):
@@ -850,7 +850,7 @@ def test_a_pairwise_sweep_answers_first_waits_for_the_judge_then_chooses_the_bes
     assert flag(pairs, "--out") == str(mk.sweep / "select-pairwise") and "--acceptance" not in pairs
     assert flag(pairs, "--judge-url") == "http://127.0.0.1:8090/v1"
     assert flag(pairs, "--judge-model") == "mlx-community/Qwen3.6-35B-A3B-4bit"
-    selected = [json.loads(line) for line in (mk.sweep / "select-prompts.jsonl").read_text().splitlines()]
+    selected = [json.loads(line) for line in (mk.sweep / "select-prompts.jsonl").read_text(encoding="utf-8").splitlines()]
     assert [p["task_id"] for p in selected] == [f"mk-{i}" for i in range(1, 10)]
     # it400 has the best win rate but forgets: it200 (0.70) beats it1000@0.5 (0.65)
     assert flag(general, "--suites") == "general" and flags(general, "--adapter") == [str(gguf / f"{stems[0]}.gguf")]
@@ -884,7 +884,7 @@ def test_a_pairwise_sweep_answers_first_waits_for_the_judge_then_chooses_the_bes
             ) in capsys.readouterr().out
     mk.fake.calls.clear()
     assert mk.go() == 0                                                  # run again: the same, nothing new
-    assert json.loads((mk.sweep / "summary.json").read_text())["final"]["reused"] is True
+    assert json.loads((mk.sweep / "summary.json").read_text(encoding="utf-8"))["final"]["reused"] is True
     assert mk.fake.scripts() == ["pairwise.py", "pairwise.py"]          # pairwise.py itself finds nothing missing
 
 
@@ -912,13 +912,13 @@ def test_a_pairwise_verdict_runs_once_a_second_choice_does_not_get_another_look(
 
 def test_a_pairwise_sweep_needs_the_acceptance_prompts_and_pins_the_judge_and_the_data(mk):
     recipe = mk.root / "training" / "configs" / "marketing.yaml"
-    text = recipe.read_text()
+    text = recipe.read_text(encoding="utf-8")
     recipe.write_text(text.replace(", prompts: evals/data/marketing_eval.jsonl", ""))
     with pytest.raises(SystemExit, match="acceptance.primary.prompts must name"):
         mk.go()
     recipe.write_text(text)
     assert mk.go("--no-final") == 0
-    inputs = json.loads((mk.sweep / "inputs.json").read_text())["shared"]
+    inputs = json.loads((mk.sweep / "inputs.json").read_text(encoding="utf-8"))["shared"]
     assert inputs["settings"] == {"judge": "mlx-community/Qwen3.6-35B-A3B-4bit", "select_prompts": 48}
     assert {"evals/pairwise.py", "valid", "train", "manifest", "distilled", "acceptance_prompts"} <= set(inputs["files"])
     mk.fake.calls.clear()
@@ -930,6 +930,6 @@ def test_a_pairwise_sweep_needs_the_acceptance_prompts_and_pins_the_judge_and_th
 def test_an_exact_answer_sweep_keeps_the_input_record_it_always_had(world):
     """A sweep interrupted before this change (finance) must resume: nothing pairwise enters its record."""
     assert world.go("--no-final") == 0
-    shared = json.loads((world.sweep / "inputs.json").read_text())["shared"]
+    shared = json.loads((world.sweep / "inputs.json").read_text(encoding="utf-8"))["shared"]
     assert set(shared) == {"files", "export_base"}
     assert set(shared["files"]) == {"model", "recipe", "run", "adapter_config", "suites", "converter"}
