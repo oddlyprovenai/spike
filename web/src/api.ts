@@ -7,22 +7,49 @@ export class ApiError extends Error {
   }
 }
 
+function isAbortError(err: unknown): boolean {
+  return (err instanceof DOMException && err.name === "AbortError")
+    || (typeof err === "object" && err !== null && (err as { name?: string }).name === "AbortError");
+}
+
+async function safeFetch(path: string, init?: RequestInit): Promise<Response> {
+  try {
+    return await fetch(path, init);
+  } catch (err) {
+    if (isAbortError(err)) throw err;
+    throw new ApiError(0, "network_unreachable");
+  }
+}
+
+async function extractDetail(res: Response): Promise<string> {
+  let detail = res.statusText || `HTTP ${res.status}`;
+  try {
+    const data = await res.json();
+    const raw = data?.detail ?? data;
+    if (typeof raw === "string") {
+      detail = raw;
+    } else if (Array.isArray(raw) && raw.length > 0 && typeof raw[0] === "object" && raw[0] !== null) {
+      const loc = Array.isArray((raw[0] as { loc?: unknown }).loc) ? (raw[0] as { loc: unknown[] }).loc : [];
+      const field = [...loc].reverse().find((part) => typeof part === "string" && part !== "body" && part !== "query" && part !== "path");
+      detail = typeof field === "string" && field ? `validation_field:${field}` : "validation_failed";
+    } else if (raw !== undefined) {
+      detail = JSON.stringify(raw);
+    }
+  } catch {
+    /* keep statusText */
+  }
+  return detail;
+}
+
 async function request<T>(method: string, path: string, body?: unknown, extra?: Record<string, string>): Promise<T> {
   const raw = body instanceof Blob;
-  const res = await fetch(path, {
+  const res = await safeFetch(path, {
     method,
     headers: body === undefined ? extra : { "Content-Type": raw ? "application/octet-stream" : "application/json", ...extra },
     body: body === undefined ? undefined : raw ? body : JSON.stringify(body),
   });
   if (!res.ok) {
-    let detail = res.statusText;
-    try {
-      const data = await res.json();
-      detail = typeof data.detail === "string" ? data.detail : JSON.stringify(data.detail ?? data);
-    } catch {
-      /* keep statusText */
-    }
-    throw new ApiError(res.status, detail);
+    throw new ApiError(res.status, await extractDetail(res));
   }
   return res.json() as Promise<T>;
 }
@@ -82,7 +109,7 @@ export async function streamChat(
 
 /** POST a JSON body and call `onEvent` for each Server-Sent Event of the response. */
 export async function streamPost(path: string, body: unknown, onEvent: (ev: ChatEvent) => void, signal?: AbortSignal): Promise<void> {
-  return readEvents(await fetch(path, {
+  return readEvents(await safeFetch(path, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(body),
@@ -92,18 +119,12 @@ export async function streamPost(path: string, body: unknown, onEvent: (ev: Chat
 
 /** GET a Server-Sent Events stream (a run that is already going) and call `onEvent` for each event. */
 export async function streamGet(path: string, onEvent: (ev: ChatEvent) => void, signal?: AbortSignal): Promise<void> {
-  return readEvents(await fetch(path, { signal }), onEvent);
+  return readEvents(await safeFetch(path, { signal }), onEvent);
 }
 
 async function readEvents(res: Response, onEvent: (ev: ChatEvent) => void): Promise<void> {
   if (!res.ok || !res.body) {
-    let detail = res.statusText;
-    try {
-      detail = (await res.json()).detail ?? detail;
-    } catch {
-      /* ignore */
-    }
-    throw new ApiError(res.status, String(detail));
+    throw new ApiError(res.status, await extractDetail(res));
   }
   const reader = res.body.getReader();
   const decoder = new TextDecoder();

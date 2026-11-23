@@ -746,6 +746,34 @@ const es = {
     inherit: "Proveedor predeterminado",
     specInstr: "Instrucciones de este especialista",
   } as Record<string, string>,
+  localTrust: {
+    panelTitle: "Residencia y presupuesto de contexto",
+    pillHint: "Ver dónde se ejecuta esta sesión, qué sale de tu equipo y el presupuesto estimado de contexto",
+    badgeLocalRunning: "127.0.0.1 · Local",
+    badgeLocalStopped: "Local · Parado",
+    badgeRemoteProtected: "API · Archivos locales",
+    badgeRemoteShared: "API · Archivos enviados",
+    badgeRemoteBlocked: "API · Pago bloqueado",
+    badgeCtxShort: "~{pct}% ctx",
+    detailLocalRunning: "Inferencia 100 % local en 127.0.0.1 ({provider}). Tus textos y archivos no salen de este ordenador.",
+    detailLocalStopped: "Proveedor local seleccionado ({provider}), pero llama-server está parado. Inícialo en Ajustes → Motor local.",
+    detailRemoteProtected: "Proveedor externo ({provider}). SPIKE retiene automáticamente el contenido de tus archivos locales antes de enviar.",
+    detailRemoteShared: "Proveedor externo ({provider}) con envío de archivos activado por ti en Ajustes → Proveedores.",
+    detailRemoteBlocked: "Proveedor de pago ({provider}) bloqueado hasta que autorices peticiones de pago en Ajustes → Proveedores.",
+    modeHeading: "Especialista activo",
+    modeAuto: "Enrutador automático (elige entre los especialistas según tu consulta)",
+    modeAdapter: "Adaptador LoRA aceptado cargado en llama-server",
+    modeProfile: "Perfil de instrucciones y herramientas sobre el modelo base",
+    memoryHeading: "Memoria viva del motor",
+    memoryRss: "{gib} GiB RSS en este equipo",
+    meterLabel: "Uso estimado de ventana de contexto",
+    ctxSummary: "~{used} / {limit} tokens ({pct} % estimado a ~4 caracteres/token)",
+    ctxUnknown: "~{used} tokens estimados en esta conversación (ventana remota no declarada)",
+    ctxWarn: "Te acercas al límite de contexto: SPIKE recortará los mensajes más antiguos si se llena la ventana.",
+    ctxHigh: "Ventana casi llena (≥ 90 %): inicia un chat nuevo o amplía el contexto en Ajustes si tu RAM lo permite.",
+    openEngine: "Ajustes → Motor local",
+    openProviders: "Ajustes → Proveedores",
+  },
   ev: { route: "Elige especialistas", plan: "Plan", subtask_start: "Empieza", subtask_end: "Termina", tool_call: "Usa", tool_result: "Resultado de", permission_request: "Pide permiso para", permission_resolved: "Permiso", verify_start: "Verifica", verify: "Veredicto del verificador", forge_report: "Informe de Forge", delta: "Escribe", reasoning: "Razona", synthesis_start: "Une los informes", memory: "Recuerda", skill: "Aplica la skill", design: "Sigue el diseño", privacy: "Protege tus archivos de", memory_saved: "Guarda en memoria", question: "Te pregunta", contract: "Comprueba el formato", answered: "Respondes", correction: "Propone una regla", status: "Planifica", usage: "Tokens", error: "Error", done: "Fin", context_trimmed: "Recorta el contexto", minds_start: "Empiezan las mentes", mind_start: "Empieza una mente", mind_result: "Una mente termina", minds_pick: "Elige la mejor respuesta" } as Record<string, string>,
 };
 
@@ -1499,6 +1527,34 @@ const en: Dict = {
     inherit: "Default provider",
     specInstr: "Instructions for this specialist",
   } as Record<string, string>,
+  localTrust: {
+    panelTitle: "Residency and context budget",
+    pillHint: "See where this session runs, what leaves your computer, and the estimated context budget",
+    badgeLocalRunning: "127.0.0.1 · Local",
+    badgeLocalStopped: "Local · Stopped",
+    badgeRemoteProtected: "API · Files withheld",
+    badgeRemoteShared: "API · Files shared",
+    badgeRemoteBlocked: "API · Paid blocked",
+    badgeCtxShort: "~{pct}% ctx",
+    detailLocalRunning: "100% local inference on 127.0.0.1 ({provider}). Your prompts and files stay on this computer.",
+    detailLocalStopped: "Local provider selected ({provider}), but llama-server is stopped. Start it in Settings → Local engine.",
+    detailRemoteProtected: "External provider ({provider}). SPIKE automatically withholds your local file contents before sending.",
+    detailRemoteShared: "External provider ({provider}) with file sharing enabled by you in Settings → Providers.",
+    detailRemoteBlocked: "Paid provider ({provider}) blocked until you allow paid requests in Settings → Providers.",
+    modeHeading: "Active specialist",
+    modeAuto: "Automatic router (selects among specialists from your prompt)",
+    modeAdapter: "Accepted LoRA adapter loaded in llama-server",
+    modeProfile: "Instruction and tool profile over the base model",
+    memoryHeading: "Live engine memory",
+    memoryRss: "{gib} GiB RSS on this computer",
+    meterLabel: "Estimated context window usage",
+    ctxSummary: "~{used} / {limit} tokens ({pct}% estimated at ~4 chars/token)",
+    ctxUnknown: "~{used} estimated tokens in this conversation (remote window undeclared)",
+    ctxWarn: "Approaching the context limit: SPIKE will trim the oldest messages if the window fills up.",
+    ctxHigh: "Window nearly full (≥ 90%): start a new chat or raise context in Settings if your RAM allows.",
+    openEngine: "Settings → Local engine",
+    openProviders: "Settings → Providers",
+  },
   ev: { route: "Picks specialists", plan: "Plan", subtask_start: "Starts", subtask_end: "Finishes", tool_call: "Uses", tool_result: "Result of", permission_request: "Asks permission for", permission_resolved: "Permission", verify_start: "Checks", verify: "Checker verdict", forge_report: "Forge report", delta: "Writes", reasoning: "Reasons", synthesis_start: "Merges the reports", memory: "Remembers", skill: "Applies the skill", design: "Follows the design", privacy: "Protects your files from", memory_saved: "Saves to memory", question: "Asks you", contract: "Checks the format", answered: "You answer", correction: "Suggests a rule", status: "Plans", usage: "Tokens", error: "Error", done: "Done", context_trimmed: "Trims the context", minds_start: "The minds start", mind_start: "A mind starts", mind_result: "A mind finishes", minds_pick: "Picks the best answer" } as Record<string, string>,
 };
 
@@ -1971,6 +2027,38 @@ export const projectErrors: Record<string, { es: string; en: string }> = {
     es: "La tarea en segundo plano ya terminó o no existe. Actualiza la cola de tareas.",
     en: "The background job already finished or does not exist. Refresh the job queue.",
   },
+  "network_unreachable": {
+    es: "No se pudo conectar con el servidor local de SPIKE (127.0.0.1). Comprueba que `spike serve` sigue en ejecución.",
+    en: "Could not reach the local SPIKE server (127.0.0.1). Check that `spike serve` is still running.",
+  },
+  "validation_failed": {
+    es: "Los datos enviados no cumplen el formato esperado. Revisa los campos del formulario e inténtalo de nuevo.",
+    en: "The submitted data does not match the expected format. Check the form fields and try again.",
+  },
+  "your data can only be exported or deleted on the computer SPIKE runs on": {
+    es: "Tus datos solo se pueden exportar o borrar desde el propio ordenador donde se ejecuta SPIKE.",
+    en: "Your data can only be exported or deleted directly on the computer where SPIKE is running.",
+  },
+  "the backup is too large": {
+    es: "El archivo de copia de seguridad supera el tamaño máximo permitido.",
+    en: "The backup archive exceeds the maximum allowed size.",
+  },
+  "unsupported content type": {
+    es: "El formato del archivo enviado no es compatible con esta operación.",
+    en: "The uploaded file content type is not supported by this action.",
+  },
+  "not a SPIKE pack (format/version)": {
+    es: "El archivo no es un paquete válido de SPIKE (`pack.json` formato o versión incompatible).",
+    en: "The archive is not a valid SPIKE pack (`pack.json` format or version mismatch).",
+  },
+  "the archive has no valid pack.json": {
+    es: "El archivo ZIP no contiene un `pack.json` válido en su raíz.",
+    en: "The ZIP archive does not contain a valid `pack.json` at its root.",
+  },
+  "no skill found in the archive (expected <name>/SKILL.md)": {
+    es: "No se encontró ninguna skill en el archivo ZIP (se esperaba `<nombre>/SKILL.md`).",
+    en: "No skill was found in the ZIP archive (expected `<name>/SKILL.md`).",
+  },
 };
 
 const DYNAMIC_ERROR_PATTERNS: Array<[RegExp, (m: RegExpMatchArray) => { es: string; en: string }]> = [
@@ -2037,6 +2125,18 @@ const DYNAMIC_ERROR_PATTERNS: Array<[RegExp, (m: RegExpMatchArray) => { es: stri
   [/^model file not found: (.+)$/, (m) => ({
     es: `No se encontró el archivo del modelo (${m[1]}). Descárgalo con spike models pull o revisa Ajustes.`,
     en: `Model file not found (${m[1]}). Download it with spike models pull or check Settings.`,
+  })],
+  [/^validation_field:(.+)$/, (m) => ({
+    es: `El campo «${m[1]}» falta o no tiene un formato válido. Revísalo e inténtalo de nuevo.`,
+    en: `The '${m[1]}' field is missing or invalid. Check it and try again.`,
+  })],
+  [/^invalid specialist in pack: (.+)$/, (m) => ({
+    es: `Especialista no válido dentro del paquete (${m[1]}). Revisa pack.json e inténtalo de nuevo.`,
+    en: `Invalid specialist entry inside the pack (${m[1]}). Check pack.json and try again.`,
+  })],
+  [/^unexpected entry '(.+)'$/, (m) => ({
+    es: `El paquete contiene un archivo no permitido («${m[1]}»). Solo se admiten pack.json y skills/.`,
+    en: `The pack contains an unexpected file ('${m[1]}'). Only pack.json and skills/ entries are allowed.`,
   })],
 ];
 

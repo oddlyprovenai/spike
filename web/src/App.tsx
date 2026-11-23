@@ -12,9 +12,11 @@ import "./components/HistoryLaunch.css";
 import { Markdown } from "./components/Markdown";
 import { PL, ProjectDialog, ProjectPanel } from "./components/Projects";
 import { SampleProjects, SPL } from "./components/SampleProjects";
+import { LocalTrustBar } from "./components/LocalTrustBar";
 import { ProofDownload } from "./components/ProofDownload";
 import { SpecMark } from "./components/SpecMark";
 import { lang as LANG, t } from "./i18n";
+import { estimateThreadChars, type RuntimeSnapshot } from "./localTrust";
 import { applyEvent, emptyRun, recordEvent, runFromStored } from "./run";
 import { taskFromEvents } from "./taskSpace";
 import type { Blueprint, ChatEvent, Conversation, DesignSystemInfo, MindsSpec, PermissionState, Project, ProviderInfo, RunState, Specialist, StoredMessage } from "./types";
@@ -148,7 +150,7 @@ export default function App() {
   const [creatorOpen, setCreatorOpen] = useState(false);
   const [desktopOpen, setDesktopOpen] = useState(false);
   const [desktopOn, setDesktopOn] = useState(false); // desktop actions are turned on in Settings
-  const [engine, setEngine] = useState<{ running: boolean } | null>(null);
+  const [engine, setEngine] = useState<RuntimeSnapshot | null>(null);
   const [fatal, setFatal] = useState("");
   const [theme, toggleTheme] = useTheme();
   const abortRef = useRef<AbortController | null>(null);
@@ -190,7 +192,7 @@ export default function App() {
       loadProjects(),
       loadDesigns(),
       loadDesktop(),
-      api.get<{ running: boolean }>("/api/runtime").then(setEngine),
+      api.get<RuntimeSnapshot>("/api/runtime").then(setEngine),
     ]).catch((e) => setFatal(String(e.message || e)));
   }, [loadProjects, loadProviders, loadDesigns, loadDesktop]);
 
@@ -459,6 +461,9 @@ export default function App() {
           {!sidebar && <button className="icon-btn" onClick={newChat} aria-label={t.newChat}><IconPlus /></button>}
           {project && <span className="crumb"><IconFolder size={15} /> {project.name}</span>}
           <div className="spacer" />
+          <LocalTrustBar mode={mode} providerId={providerId} providers={providers} specialists={specialists}
+            engine={engine} charCount={estimateThreadChars(items)}
+            onOpenSettings={(tab) => { setSettingsTab(tab); setSettingsOpen(true); }} />
           <button className="btn small" disabled={busy} onClick={() => { setResearchOpen(true); setLabOpen(false); }}>{t.research.title}</button>
           <button className="btn small" disabled={busy} onClick={() => { setResearchOpen(false); setLabOpen(true); }}>{t.lab.title}</button>
           {(empty || temporary) && (
@@ -572,7 +577,7 @@ export default function App() {
 
       {settingsOpen && (
         <Suspense fallback={null}>
-          <SettingsDialog onClose={() => { setSettingsOpen(false); loadProviders(); loadDesigns(); loadDesktop(); api.get<{ running: boolean }>("/api/runtime").then(setEngine); }}
+          <SettingsDialog onClose={() => { setSettingsOpen(false); loadProviders(); loadDesigns(); loadDesktop(); api.get<RuntimeSnapshot>("/api/runtime").then(setEngine); }}
             onDesktop={() => { setSettingsOpen(false); loadProviders(); loadDesktop(); setDesktopOpen(true); }}
             specialists={specialists} providers={providers} reloadProviders={loadProviders} initialTab={settingsTab} />
         </Suspense>

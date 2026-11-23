@@ -3,6 +3,7 @@
 #   powershell -ExecutionPolicy Bypass -File scripts\install.ps1                  # shows each command and asks first
 #   powershell -ExecutionPolicy Bypass -File scripts\install.ps1 -Yes             # runs every step without asking
 #   powershell -ExecutionPolicy Bypass -File scripts\install.ps1 -Yes -NoModel    # the same, without the model download
+#   powershell -ExecutionPolicy Bypass -File scripts\install.ps1 -DryRun          # prints planned commands without running them
 #
 # It installs only what it names: pipx (if missing, for this user), the SPIKE app (pipx, isolated) and
 # llama.cpp through winget (official package). It never asks for administrator rights and never downloads
@@ -12,7 +13,7 @@
 # Keep it ASCII and 5.1-compatible (no ??, ?:, && / ||, -AsHashtable, $IsWindows): Windows PowerShell reads a file without
 # a BOM as ANSI, and tests/test_installers.py checks both.
 [CmdletBinding()]
-param([switch]$Yes, [switch]$NoModel)
+param([switch]$Yes, [switch]$NoModel, [switch]$DryRun)
 $ErrorActionPreference = 'Stop'
 Set-Location (Join-Path $PSScriptRoot '..')
 
@@ -35,6 +36,10 @@ function Step([string]$What, [scriptblock]$Command) {
     Write-Host "`n== $What"
     $shown = $Command.ToString().Trim().Replace('@pyArgs', '$($pyArgs -join '' '')')
     Write-Host "   > $($ExecutionContext.InvokeCommand.ExpandString($shown) -replace '\s+', ' ')"
+    if ($DryRun) {
+        Write-Host '   [dry-run] not executed'
+        return $true
+    }
     if (-not $Yes) {
         $answer = Read-Host '   Run it? [y/N]'
         if ($answer -notmatch '^[yY]') { Write-Host '   skipped'; return $null }

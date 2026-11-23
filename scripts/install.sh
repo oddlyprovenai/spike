@@ -4,6 +4,7 @@
 #   scripts/install.sh              # shows each command and asks before running it
 #   scripts/install.sh --yes        # runs every step without asking
 #   scripts/install.sh --no-model   # leaves out the model download (~2.7 GB), also with --yes
+#   scripts/install.sh --dry-run    # prints every planned command and exits 0 without changing anything
 #
 # It installs only what it names: pipx (if missing), the SPIKE app (pipx, isolated) and llama.cpp: through Homebrew when
 # available, else (Linux x86_64 and aarch64) its official prebuilt CPU build from the ggml-org/llama.cpp releases at a
@@ -16,16 +17,23 @@ cd "$(dirname "$0")/.."
 
 yes=0
 no_model=0
+dry_run=0
 for arg in "$@"; do
   case "$arg" in
     --yes|-y) yes=1 ;;
     --no-model) no_model=1 ;;
-    -h|--help) sed -n '2,13p' "$0" | sed 's/^# \{0,1\}//'; exit 0 ;;
+    --dry-run|-n) dry_run=1 ;;
+    -h|--help) sed -n '2,14p' "$0" | sed 's/^# \{0,1\}//'; exit 0 ;;
     *) echo "unknown option: $arg" >&2; exit 64 ;;
   esac
 done
 
 have() { command -v "$1" >/dev/null 2>&1; }
+sha256_file() {
+  if have sha256sum; then sha256sum "$1" | cut -d' ' -f1
+  elif have shasum; then shasum -a 256 "$1" | cut -d' ' -f1
+  else return 1; fi
+}
 die() { printf '\nerror: %s\n' "$*" >&2; exit 1; }
 # step "description" cmd args...  -> prints the command, asks, runs it. Returns $skipped when the user declines,
 # otherwise the command's own status.
@@ -33,6 +41,10 @@ skipped=99
 step() {
   local what="$1"; shift
   printf '\n== %s\n   $ %s\n' "$what" "$*"
+  if (( dry_run )); then
+    echo "   [dry-run] not executed"
+    return 0
+  fi
   if (( ! yes )); then
     local answer
     read -r -p "   Run it? [y/N] " answer </dev/tty || answer=""
@@ -110,7 +122,7 @@ fetch_llama_prebuilt() {
   local url="$llama_releases/download/$llama_tag/$asset"
   echo "   downloading $url"
   curl -fsSL --proto '=https' --tlsv1.2 --retry 3 -o "$work/$asset" "$url" || { echo "   the download failed"; return 1; }
-  got="$(sha256sum "$work/$asset" | cut -d' ' -f1)"
+  got="$(sha256_file "$work/$asset")"
   if [[ "$got" != "$sha" ]]; then
     printf '   SHA-256 mismatch, nothing was installed:\n     expected %s\n     got      %s\n' "$sha" "$got"
     return 1
@@ -165,7 +177,7 @@ else
   rc=$skipped
   if [[ -z "$arch" ]]; then
     :  # no prebuilt CPU build for this system: the instructions below
-  elif have curl && have tar && have sha256sum; then
+  elif have curl && have tar && (have sha256sum || have shasum); then
     rc=0
     step "Download llama.cpp $llama_tag from github.com/ggml-org/llama.cpp (official prebuilt CPU build, $size), check its SHA-256 and unpack it into $llama_root/$llama_tag" \
       install_llama_prebuilt "$arch" "$sha" || rc=$?

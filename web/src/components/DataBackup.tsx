@@ -78,7 +78,7 @@ export function DataBackup() {
         <div className="row">
           <label className="btn small">
             {T.restorePick}
-            <input type="file" accept=".zip,application/zip" hidden data-testid="backup-file"
+            <input className="sr-only" type="file" accept=".zip,application/zip" data-testid="backup-file"
               onChange={(e) => { void pick(e.target.files?.[0]); e.target.value = ""; }} />
           </label>
         </div>
@@ -109,7 +109,7 @@ export function DataBackup() {
           </div>
         )}
         {restored && (
-          <p className="small" data-testid="backup-restored">
+          <p className="small" role="status" data-testid="backup-restored">
             {T.restored} {restored.added} · {T.replaced} {restored.replaced} · {T.skipped} {restored.skipped}{" "}
             <button className="btn small" onClick={() => location.reload()}>{T.reload}</button>
           </p>
@@ -136,7 +136,9 @@ export function DataBackup() {
         {step === 2 && (
           <div data-testid="delete-step2">
             <p className="small">{T.typeWord} <code data-testid="delete-word">{word}</code></p>
-            <input value={typed} onChange={(e) => setTyped(e.target.value)} aria-label={T.typeWord} data-testid="delete-input" autoComplete="off" />
+            <input value={typed} onChange={(e) => setTyped(e.target.value)}
+              onKeyDown={(e) => { if (e.key === "Enter" && typed.trim() === word && busy === "") void deleteAll(); }}
+              aria-label={T.typeWord} data-testid="delete-input" autoComplete="off" />
             <div className="row">
               <button className="btn small danger" disabled={typed.trim() !== word || busy !== ""} onClick={() => void deleteAll()}>
                 {busy === "delete" ? T.deleting : T.deleteNow}
@@ -146,7 +148,7 @@ export function DataBackup() {
           </div>
         )}
         {deleted && (
-          <p className="small" data-testid="delete-done">
+          <p className="small" role="status" data-testid="delete-done">
             {T.deleted} {deleted.deleted}. {deleted.secrets_deleted ? "" : T.keptSecrets} {deleted.models_deleted ? "" : T.keptModels}{" "}
             <button className="btn small" onClick={() => location.reload()}>{T.reload}</button>
           </p>

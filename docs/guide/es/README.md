@@ -9,6 +9,7 @@ Cada página explica qué hace el módulo, cómo se usa paso a paso, sus límite
 | [Instalación y primer arranque](installation.md) | `installation` | [English](../en/installation.md) |
 | [Chat, artefactos y búsqueda en el historial](chat.md) | `chat` | [English](../en/chat.md) |
 | [Especialistas, enrutador y modo Multi-mente](specialists.md) | `specialists` | [English](../en/specialists.md) |
+| [Crea tu primer especialista propio](first-specialist.md) | `first-specialist` | [English](../en/first-specialist.md) |
 | [Proyectos y espacio de trabajo](projects.md) | `projects` | [English](../en/projects.md) |
 | [Memoria neuronal, carpetas indexadas, glosario, tutor y grafo](memory.md) | `memory` | [English](../en/memory.md) |
 | [Spike Forge y Prototipos Paralelos](forge.md) | `forge` | [English](../en/forge.md) |
@@ -22,6 +23,7 @@ Cada página explica qué hace el módulo, cómo se usa paso a paso, sus límite
 | [Spike Finance en modo simulado (Paper Trading y Backtesting)](finance.md) | `finance` | [English](../en/finance.md) |
 | [Conectores MCP, navegador asistido y acciones de escritorio](connectors.md) | `connectors` | [English](../en/connectors.md) |
 | [Privacidad, sandbox, permisos, confianza y control de gasto](privacy-and-spend.md) | `privacy-and-spend` | [English](../en/privacy-and-spend.md) |
+| [Copias de seguridad, borrado total, paleta de comandos, espacio de tarea e inspector de skills](workspace-governance.md) | `workspace-governance` | [English](../en/workspace-governance.md) |
 | [Preguntas frecuentes y solución de problemas](faq.md) | `faq` | [English](../en/faq.md) |
 
 Línea de comandos: todas las órdenes y opciones de `spike` están en [cli.md](cli.md), generadas a partir del código.

@@ -46,11 +46,13 @@ export function SkillImport({ onInstalled }: { onInstalled: () => void }) {
       <p className="small muted">{T.intro}</p>
       <div className="skill-import-row">
         <input type="text" inputMode="url" autoComplete="off" spellCheck={false} aria-label={T.urlLabel} placeholder={T.urlHelp}
-          value={url} onChange={(e) => setUrl(e.target.value)} data-testid="skill-import-url" />
+          value={url} onChange={(e) => setUrl(e.target.value)}
+          onKeyDown={(e) => { if (e.key === "Enter" && url.trim() && busy === "") { e.preventDefault(); void review(); } }}
+          data-testid="skill-import-url" />
         <button className="btn" disabled={!url.trim() || busy !== ""} onClick={review} data-testid="skill-import-review">{busy === "review" ? T.reviewing : T.review}</button>
       </div>
       {error && <div className="error-box" role="alert" data-testid="skill-import-error">{error}</div>}
-      {done && <div className="flash-box" data-testid="skill-import-done">{done}</div>}
+      {done && <div className="flash-box" role="status" data-testid="skill-import-done">{done}</div>}
       {preview && lic && (
         <div data-testid="skill-import-preview">
           <p><code>{preview.name || "—"}</code> · {T.source}: <code>{preview.source.owner}/{preview.source.repo}@{preview.source.ref}{preview.source.path && `/${preview.source.path}`}</code></p>
@@ -58,7 +60,7 @@ export function SkillImport({ onInstalled }: { onInstalled: () => void }) {
             {T.license}: <b>{lic.id || "—"}</b> ({lic.source || "—"}) · {licText}
           </p>
           {preview.issues.length > 0 && (
-            <div className="error-box" data-testid="skill-import-issues">{T.issues}:
+            <div className="error-box" role="alert" data-testid="skill-import-issues">{T.issues}:
               <ul>{preview.issues.map((i, n) => <li key={n}>{T.rules[i.rule] ?? i.rule} (<code>{i.location}</code>)</li>)}</ul>
             </div>
           )}
