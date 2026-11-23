@@ -6,13 +6,13 @@ Generado desde `docs/team/tasks.json` con `python scripts/team/board.py render`;
 
 | Quién | pendiente | en curso | en revisión | cambios pedidos | hecha | bloqueada | total |
 |---|---:|---:|---:|---:|---:|---:|---:|
-| Claude | 1 | 5 | 0 | 0 | 43 | 0 | 49 |
+| Claude | 1 | 4 | 0 | 0 | 44 | 0 | 49 |
 | Codex | 0 | 0 | 0 | 0 | 16 | 0 | 16 |
 | Gemini | 0 | 0 | 0 | 0 | 17 | 0 | 17 |
 | Opus | 0 | 0 | 0 | 0 | 0 | 0 | 0 |
 | Mac | 2 | 2 | 0 | 0 | 7 | 0 | 11 |
 | joan | 3 | 0 | 0 | 0 | 0 | 0 | 3 |
-| **Total** | **6** | **7** | **0** | **0** | **83** | **0** | **96** |
+| **Total** | **6** | **6** | **0** | **0** | **84** | **0** | **96** |
 
 ## Fase: equipo
 
@@ -88,7 +88,7 @@ Generado desde `docs/team/tasks.json` con `python scripts/team/board.py render`;
 | O4 | Claude | hecha | Revisión de seguridad previa al lanzamiento (para L2) | - |
 | O5 | Claude | hecha | Revisar la integración del PR #2 | M13 |
 | U10 | Claude | hecha | Revisar e integrar las ramas de Gemini Ultra (U1 a U9) | U0 |
-| O6 | Claude | en curso | Quitar datos personales de los archivos públicos del repositorio (OPSEC) | - |
+| O6 | Claude | hecha | Quitar datos personales de los archivos públicos del repositorio (OPSEC) | - |
 
 ## Fase: modelos
 
