@@ -1,0 +1,30 @@
+{
+  "specialist": "finance",
+  "started_utc": "2026-11-23T09:12:53Z",
+  "run_started_utc": "2026-11-23T02:30:27Z",
+  "finished_utc": "2026-11-23T12:31:36Z",
+  "exit_code": 0,
+  "spike_resume": "1",
+  "data_files_sha256": {
+    "train.jsonl": "02e17fc95d27d16b10d1d56a214cea9dd513c7776943904c057701b55db51105",
+    "valid.jsonl": "a8b3503968708791c73b7953135ee39a7762fbf3c293e05fb63569ef14c46e28"
+  },
+  "counts": {
+    "domain": 7506,
+    "replay_available": 6142,
+    "train": 13375,
+    "valid": 272,
+    "replay_ratio_target": 0.45,
+    "replay_ratio_actual": 0.45,
+    "domain_before_fit": 22581,
+    "iters": 13375
+  },
+  "git_commit": "7a1559c652b59dd867127a0486945eddac09f44c",
+  "chip": "Apple M4 Max",
+  "memory_bytes": "38654705664",
+  "os": "macOS-27.0-arm64-arm-64bit",
+  "python": "3.12.13",
+  "mlx": "0.32.4",
+  "mlx_lm": "0.32.2",
+  "gated_delta": "spike_train.gated_delta_chunked (chunk 16)"
+}

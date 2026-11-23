@@ -1,0 +1,6 @@
+2026-11-23T02:28:35Z round 3: replay 0.45 (commit 7a1559c); prepare --self-replay --fit-domain
+2026-11-23T02:30:25Z prepare: done {'domain': 7506, 'replay_available': 6142, 'train': 13375, 'valid': 272, 'replay_ratio_target': 0.45, 'replay_ratio_actual': 0.45, 'domain_before_fit': 22581, 'iters': 13375}
+2026-11-23T02:30:25Z train: RAM guard
+2026-11-23T12:31:37Z train: done
+2026-11-23T12:31:37Z sweep: default candidates (incl. final@0.5) on the selection suites, then the acceptance suites once
+2026-11-23T14:23:02Z sweep: exit 2 (0 accepted, 2 rejected); evidence training/runs/finance/sweep/summary.md
