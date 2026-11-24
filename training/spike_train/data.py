@@ -274,7 +274,12 @@ def fmt_tatqa(row: dict[str, Any], system: str) -> Chat | None:
 
 
 def fmt_sujet(row: dict[str, Any], system: str) -> Chat | None:
-    user = (row.get("user_prompt") or row.get("inputs") or "").strip()
+    """Sujet keeps the task instruction ('… Only reply with positive, neutral, or negative.') in `system_prompt` and the
+    text alone in `user_prompt`; both go in the user turn (the specialist's own system prompt stays the system turn).
+    Without the instruction a bare sentence answered by one word teaches 'any text -> a label' (found 2026-11-24)."""
+    instruction = str(row.get("system_prompt") or "").strip()
+    text = str(row.get("user_prompt") or "").strip()
+    user = f"{instruction}\n\n{text}" if instruction and text else (text or str(row.get("inputs") or "").strip())
     answer = str(row.get("answer") or "").strip()
     if not user or not answer:
         return None

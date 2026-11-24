@@ -25,6 +25,7 @@ import asyncio
 import json
 import sys
 from collections import Counter
+from itertools import zip_longest
 from pathlib import Path
 
 import yaml
@@ -44,8 +45,9 @@ BATCH = 32   # questions answered, then appended to OUT.partial, at a time
 
 
 def load_tasks(entries: list[dict], registry: dict) -> list[GoldTask]:
-    """Every question of the entries with a gold answer, once per distinct (source, question)."""
-    tasks: list[GoldTask] = []
+    """Every question of the entries with a gold answer, once per distinct (source, question), the sources taken in
+    turn (one question of each, then the next), so --limit samples every source."""
+    per_source: list[list[GoldTask]] = []
     seen: set[str] = set()
     for entry in entries:
         name = entry["source"]
@@ -55,12 +57,14 @@ def load_tasks(entries: list[dict], registry: dict) -> list[GoldTask]:
                              f"(known: {', '.join(FORMATS)})")
         gate_source(name, src, "train")  # the questions are training data: same gate as prepare.py
         cap = {"per_value": entry["max_per_value"]} if "max_per_value" in entry else {}
+        tasks: list[GoldTask] = []
         for i, row in enumerate(load_rows(src, entry.get("offset", 0), entry.get("max"), **cap)):
             task = gold_task(name, src["format"], i, row)
             if task and task.id not in seen:
                 seen.add(task.id)
                 tasks.append(task)
-    return tasks
+        per_source.append(tasks)
+    return [t for group in zip_longest(*per_source) for t in group if t is not None]
 
 
 async def run(args: argparse.Namespace) -> int:

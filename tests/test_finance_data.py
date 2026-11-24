@@ -579,3 +579,20 @@ def test_prepare_builds_the_finance_mix_from_filtered_hub_rows_and_pinned_files(
     counts = manifest["counts"]
     ratio = recipe["replay"]["ratio"]
     assert counts["domain"] == 22 and counts["train"] + counts["valid"] - 22 == int(22 * ratio / (1 - ratio))
+
+
+def test_sujet_keeps_the_task_instruction_in_the_user_turn():
+    from spike_train.data import fmt_sujet
+
+    row = {"system_prompt": "You are a financial sentiment analysis expert. Only reply with positive, neutral, or negative.",
+           "user_prompt": "Cobalt prices in China fell for a third week.", "answer": "negative",
+           "inputs": "ignored when both parts are present"}
+    chat = fmt_sujet(row, "SPIKE")
+    assert chat["messages"][0] == {"role": "system", "content": "SPIKE"}
+    assert chat["messages"][1]["content"] == (
+        "You are a financial sentiment analysis expert. Only reply with positive, neutral, or negative.\n\n"
+        "Cobalt prices in China fell for a third week.")
+    assert chat["messages"][2]["content"] == "negative"
+    # rows without the split columns fall back to the text there is
+    assert fmt_sujet({"user_prompt": "Classify: x", "answer": "a"}, "S")["messages"][1]["content"] == "Classify: x"
+    assert fmt_sujet({"inputs": "Instruction and text", "answer": "a"}, "S")["messages"][1]["content"] == "Instruction and text"

@@ -139,8 +139,9 @@ def test_a_retry_also_follows_an_answer_spike_would_not_give(tmp_path, monkeypat
     code, out = generate(tmp_path, monkeypatch, server, "--limit", "2")
     assert code == 0
     summary = json.loads(out.with_suffix(".summary.json").read_text())
-    # growth rate: cut off, then right on the retry; november: cut off, then right
-    assert summary["kept"] == 2 and summary["sources"]["finqa-train"]["kept_on_retry"] == 2
+    # --limit takes the sources in turn: one FinQA question (growth rate) and one TAT-QA question (cut off, then right)
+    assert summary["kept"] == 2 and summary["sources"]["finqa-train"]["kept_on_retry"] == 1
+    assert summary["sources"]["tatqa-train"]["kept_on_retry"] == 1
 
 
 def test_a_question_with_no_room_for_an_answer_is_not_sent(tmp_path, monkeypatch):
@@ -199,7 +200,7 @@ def test_resume_continues_an_interrupted_run_without_asking_again(tmp_path, monk
     monkeypatch.setattr(self_distill, "BATCH", 2)
     server = FakeServer()
     server.answer = answers(server)
-    server.fail_from = 4   # the first batch (growth rate twice, november once) is saved; the second fails
+    server.fail_from = 4   # the first batch (growth rate twice, the TAT-QA change once) is saved; the second fails
     with pytest.raises(httpx.HTTPStatusError):
         generate(tmp_path, monkeypatch, server)
     out = tmp_path / "self_distilled.jsonl"
@@ -212,7 +213,7 @@ def test_resume_continues_an_interrupted_run_without_asking_again(tmp_path, monk
     code, out = generate(tmp_path, monkeypatch, server, "--resume")
     assert code == 0 and len(read_rows(out)) == 6
     asked = [c["messages"][-1]["content"] for c in server.chats]
-    assert not any("growth rate" in q or "november" in q for q in asked) and len(asked) == 8   # 6 questions, 2 retries
+    assert not any("growth rate" in q or "percentage change" in q for q in asked) and len(asked) == 8   # 6 questions, 2 retries
     assert json.loads(out.with_suffix(".summary.json").read_text())["kept"] == 6
 
 
