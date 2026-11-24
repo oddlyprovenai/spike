@@ -10,9 +10,9 @@ Generado desde `docs/team/tasks.json` con `python scripts/team/board.py render`;
 | Codex | 0 | 0 | 0 | 0 | 16 | 0 | 16 |
 | Gemini | 0 | 0 | 0 | 0 | 17 | 0 | 17 |
 | Opus | 0 | 0 | 0 | 0 | 0 | 0 | 0 |
-| Mac | 2 | 2 | 0 | 0 | 7 | 0 | 11 |
+| Mac | 1 | 3 | 0 | 0 | 7 | 0 | 11 |
 | joan | 3 | 0 | 0 | 0 | 0 | 0 | 3 |
-| **Total** | **6** | **6** | **0** | **0** | **84** | **0** | **96** |
+| **Total** | **5** | **7** | **0** | **0** | **84** | **0** | **96** |
 
 ## Fase: equipo
 
@@ -101,7 +101,7 @@ Generado desde `docs/team/tasks.json` con `python scripts/team/board.py render`;
 | M5 | Codex | hecha | Recetas de datos: derecho, ciencia, matemáticas, código y datos | - |
 | M6 | Codex | hecha | Recetas de datos: educación, escritura, negocio, seguridad y core | M5 |
 | M7 | Claude | hecha | Verificar licencias y conteos de las recetas nuevas | M5, M6 |
-| M8 | Mac | pendiente | Entrenar los 10 especialistas restantes, de uno en uno | M4, M7 |
+| M8 | Mac | en curso | Entrenar los 10 especialistas restantes, de uno en uno | M4, M7 |
 | M9 | Claude | hecha | Router con los 13 especialistas | M8 |
 | M11 | Mac | hecha | Medicina: registrar el adaptador aceptado e instalarlo | M2 |
 | M13 | Claude | hecha | Integrar la procedencia de evaluaciones (PR #2, rama gemini/G12-2) | - |
