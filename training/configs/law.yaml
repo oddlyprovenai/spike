@@ -24,7 +24,7 @@ train:
   batch_size: 1
   grad_accumulation_steps: 16
   learning_rate: 1.0e-4
-  max_seq_length: 768
+  max_seq_length: 1536                # M8 2026-11-25: at 768 self-replay kept 2-3 of 32 (math, law), as finance round 1; 1536 is finance's window
   grad_checkpoint: true
   mask_prompt: true
   num_layers: -1
